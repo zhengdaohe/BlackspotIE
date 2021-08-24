@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="u-align-center u-clearfix u-custom-color-2 u-section-1" id="sec-bc51">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-text u-text-default u-text-1">
+            What is the postcode<br>where you currently live?
+        </h2>
+        <div class="u-form u-form-1">
+            <form action="#" method="POST" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" style="padding: 10px" source="custom" name="form">
+                <div class="u-form-group u-form-group-1">
+                    <label for="text-7a1b" class="u-form-control-hidden u-label u-label-1"></label>
+                    <input type="text" placeholder="" id="text-7a1b" name="text" class="u-border-4 u-border-white u-input u-input-rectangle u-radius-50 u-white">
+                </div>
+                <div class="u-form-group u-form-select u-form-group-2">
+                    <label for="select-35da" class="u-form-control-hidden u-label u-label-2"></label>
+                    <div class="u-form-select-wrapper">
+                        <select id="select-35da" name="suburb" class="u-border-4 u-border-white u-input u-input-rectangle u-radius-50 u-white">
+                            <option value="select your suburb">select your suburb</option>
+                            <option value="suburb 1">suburb 1</option>
+                            <option value="suburb 2">suburb 2</option>
+                            <option value="suburb 3">suburb 3</option>
+                        </select>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
+                    </div>
+                </div>
+                <div class="u-align-left u-form-group u-form-submit">
+                    <a href="#" class="u-active-grey-90 u-border-4 u-border-active-grey-90 u-border-grey-75 u-border-hover-grey-90 u-btn u-btn-round u-btn-submit u-button-style u-grey-75 u-hover-grey-90 u-radius-50 u-btn-1">Next</a>
+                    <input type="submit" value="submit" class="u-form-control-hidden">
+                </div>
+                <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
+                <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
+                <input type="hidden" value="" name="recaptchaResponse">
+            </form>
+        </div>
+    </div>
+</section>
+@section Styles {
+    <link rel="stylesheet" href="~/Content/nicepage.css" media="screen">
+    <link rel="stylesheet" href="~/Content/Spot-My-Area.css" media="screen">
+
+}
+@section Scripts {
+    <script class="u-script" src="~/Scripts/jquery.js"></script>
+    <script class="u-script" src="~/Scripts/nicepage.js"></script>
+}
