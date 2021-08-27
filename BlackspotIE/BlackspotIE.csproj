@@ -293,6 +293,7 @@
     <Content Include="Views\Home\Map.cshtml" />
     <Content Include="Views\Home\SpotMyArea.cshtml" />
     <Content Include="Views\Home\MoreInfo.cshtml" />
+    <Content Include="Views\Home\Password.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -81,22 +81,49 @@
         mapboxgl.accessToken = 'pk.eyJ1IjoibG9oc2UiLCJhIjoiY2tnbmVtdGM4MDlkdjMxcWg4ODg0MjY0dCJ9.WiZuARwnopVEj478S6oaXg';
         var map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/lohse/ckgop3hd11jdz19ju80smxy0g',
-            minZoom: 7
+            style: 'mapbox://styles/mapbox/light-v10',
+            minZoom: 7,
+            center: [144.946457, -37.840935]
         });
         map.on('load', () => {
             spiderifier = new MapboxglSpiderifier(map, {
                 customPin: true
             });
             SPIDERFY_FROM_ZOOM = 13;
+            var url = "https://opendata.arcgis.com/datasets/74dd92127eea4404b0dad1d7e39bf0e3_1.geojson";
+            var request = new XMLHttpRequest();
+            request.open("get", url);
+            request.send(null);
+            var json = null;
+            $('#result').text("Crash data loading......");
+            request.onload = function () {
+                if (request.status == 200) {
+                    json = JSON.parse(request.responseText);
+                    console.log("Crash data loaded");
+                    const newGeoJSON = { ...json };
+                    newGeoJSON.features = json.features.filter(feature => feature.properties.ROAD_GEOMETRY === "Cross intersection");
+                    map.getSource('crash').setData(newGeoJSON);
+                    $('#result').text("Crash data loaded");
+
+                }
+            };
             map.addSource('crash', {
                 type: 'geojson',
-                data: 'https://opendata.arcgis.com/datasets/74dd92127eea4404b0dad1d7e39bf0e3_1.geojson',
+                data: json,
                 cluster: true,
                 clusterMaxZoom: 14,
                 clusterRadius: 50
             });
 
+            //const pubTypes = geojson.features.map(feature => feature.properties.PubType);
+            //const uniquePubTypes = Array.from(new Set(pubTypes));
+            //const filterElem = document.getElementById('pubTypeFilter');
+            //uniquePubTypes.forEach(pubType => {
+            //    const opt = document.createElement('option');
+            //    opt.value = pubType;
+            //    opt.innerText = pubType;
+            //    filterElem.appendChild(opt);
+            //});
             map.addLayer({
                 id: 'clusters',
                 type: 'circle',
@@ -163,7 +190,7 @@
                 } else {
                     map.getSource('crash').getClusterLeaves(
                         features[0].properties.cluster_id,
-                        200,
+                        300,
                         0,
                         function (error, leafFeatures) {
                             if (error) {
@@ -198,10 +225,10 @@
             map.addLayer({
                 'id': 'poly',
                 'type': 'fill',
-                'source': 'poly', 
+                'source': 'poly',
                 'layout': {},
                 'paint': {
-                    'fill-color': '#0080ff', 
+                    'fill-color': '#0080ff',
                     'fill-opacity': 0.3
                 }
             });
