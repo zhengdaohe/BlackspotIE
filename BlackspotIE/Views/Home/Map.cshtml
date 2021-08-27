@@ -55,7 +55,7 @@
             height: 22px;
             margin-left: -8px;
             margin-top: -18px;
-            background-image: url(https://localhost:44342/images/sprite.png);
+            background-image: url(https://blackspothelper.tk/images/sprite.png);
             background-position: -110px -110px;
         }
 
@@ -83,6 +83,7 @@
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v10',
             minZoom: 7,
+            maxZoom: 14,
             center: [144.946457, -37.840935]
         });
         map.on('load', () => {
@@ -94,13 +95,17 @@
             var request = new XMLHttpRequest();
             request.open("get", url);
             request.send(null);
-            var json = null;
+            var newGeoJSON = null;
             $('#result').text("Crash data loading......");
             request.onload = function () {
                 if (request.status == 200) {
-                    json = JSON.parse(request.responseText);
+                    var json = JSON.parse(request.responseText);
                     console.log("Crash data loaded");
-                    const newGeoJSON = { ...json };
+                    newGeoJSON = {
+                        type: "FeatureCollection",
+                        name: "Road_Crashes_for_five_Years_-_Victoria",
+                        features: []
+                    };
                     newGeoJSON.features = json.features.filter(feature => feature.properties.ROAD_GEOMETRY === "Cross intersection");
                     map.getSource('crash').setData(newGeoJSON);
                     $('#result').text("Crash data loaded");
@@ -109,7 +114,7 @@
             };
             map.addSource('crash', {
                 type: 'geojson',
-                data: json,
+                data: null,
                 cluster: true,
                 clusterMaxZoom: 14,
                 clusterRadius: 50
@@ -163,18 +168,7 @@
                 }
             });
 
-            map.addLayer({
-                id: 'points',
-                type: 'circle',
-                source: 'crash',
-                filter: ['!', ['has', 'point_count']],
-                paint: {
-                    'circle-color': '#de1032',
-                    'circle-radius': 4,
-                    'circle-stroke-width': 1,
-                    'circle-stroke-color': '#fff'
-                }
-            });
+
             map.on('zoomstart', function () {
                 spiderifier.unspiderfy();
             });
