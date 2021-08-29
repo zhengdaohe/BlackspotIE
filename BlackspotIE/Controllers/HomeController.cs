@@ -28,6 +28,7 @@ namespace BlackspotIE.Controllers
         {
             if ((bool)Session["isVerified"])
             {
+                ViewBag.Title = "View The Map - Black Spot Overwatch";
                 return View();
             }
             else

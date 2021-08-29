@@ -222,6 +222,7 @@
     <Content Include="images\Homepagebackground.jpg" />
     <Content Include="images\intersections.jpg" />
     <Content Include="images\logo.jpg" />
+    <Content Include="images\MotherDaughter.jpg" />
     <Content Include="images\navigate.jpg" />
     <Content Include="images\record.png" />
     <Content Include="images\RegionalRoads.jpg" />
@@ -231,6 +232,7 @@
     <Content Include="images\sharp-curve-road.jpg" />
     <Content Include="images\sprite.png" />
     <Content Include="images\Yifei.jpg" />
+    <Content Include="images\YoungRoad.jpg" />
     <Content Include="images\Zhengdao.jpg" />
     <Content Include="Models\BlackSpotDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

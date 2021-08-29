@@ -82,8 +82,8 @@
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v10',
-            minZoom: 7,
             maxZoom: 14,
+            minZoom: 14,
             center: [144.946457, -37.840935]
         });
         map.on('load', () => {
@@ -117,7 +117,7 @@
                 data: null,
                 cluster: true,
                 clusterMaxZoom: 14,
-                clusterRadius: 50
+                clusterRadius: 27.3
             });
 
             //const pubTypes = geojson.features.map(feature => feature.properties.PubType);
@@ -138,20 +138,29 @@
                     'circle-color': [
                         'step',
                         ['get', 'point_count'],
-                        '#51bbd6',
-                        100,
-                        '#f1f075',
-                        750,
-                        '#f28cb1'
+                        '#45d649',
+                        10,
+                        '#ed9b18',
+                        30,
+                        '#ff0000'
                     ],
                     'circle-radius': [
                         'step',
                         ['get', 'point_count'],
                         20,
-                        100,
+                        10,
                         30,
-                        750,
+                        30,
                         40
+                    ],
+                    'circle-blur': [
+                        'step',
+                        ['get', 'point_count'],
+                        0.5,
+                        10,
+                        0.5,
+                        30,
+                        0.5
                     ]
                 }
             });
@@ -233,7 +242,7 @@
                 'layout': {},
                 'paint': {
                     'line-color': '#000',
-                    'line-width': 3
+                    'line-width': 1
                 }
             });
             $(function () {
