@@ -138,13 +138,13 @@
                 if (request.status == 200) {
                     var json = JSON.parse(request.responseText);
                     console.log("Crash data loaded");
-                    newGeoJSON = {
-                        type: "FeatureCollection",
-                        name: "Road_Crashes_for_five_Years_-_Victoria",
-                        features: []
-                    };
-                    newGeoJSON.features = json.features.filter(feature => feature.properties.ROAD_GEOMETRY === "Cross intersection");
-                    map.getSource('crash').setData(newGeoJSON);
+                    //newGeoJSON = {
+                    //    type: "FeatureCollection",
+                    //    name: "Road_Crashes_for_five_Years_-_Victoria",
+                    //    features: []
+                    //};
+                    //newGeoJSON.features = json.features.filter(feature => feature.properties.ROAD_GEOMETRY === "Cross intersection");
+                    map.getSource('crash').setData(json);
                     $('#result').text("Crash data loaded");
 
                 }
@@ -265,75 +265,79 @@
                         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                     }
                     cluster_popup.setLngLat(coordinates).setHTML("Loading...").addTo(map);
-                    var Html = "";
-                    map.getSource('crash').getClusterLeaves(
-                        e.features[0].properties.cluster_id,
-                        100,
-                        0,
-                        function (error, leafFeatures) {
-                            if (error) {
-                                return console.error('POPUP ERROR', error);
-                            }
-                            var total_fatal = 0;
-                            var last_accident_date = "1999-01-01";
-                            var total_injur_fatal = 0;
-                            var average_injur_fatal = 0;
-                            var mostcommon_accident_type = "";
-                            var blackspot_severity = "";
-                            var mostcommon_light_condition = "";
-                            
-                            const accident_types = leafFeatures.map(feature => feature.properties.ACCIDENT_TYPE);
-                            const unique_accident_types = Array.from(new Set(accident_types));
-                            var accident_type_count = new Array();
-                            unique_accident_types.forEach(accident_type => {
-                                accident_type_count[accident_type] = 0;
-                            });
-                            const light_conditions = leafFeatures.map(feature => feature.properties.LIGHT_CONDITION);
-                            const unique_light_condition = Array.from(new Set(light_conditions));
-                            var light_condition_count = new Array();
-                            unique_light_condition.forEach(light_condition => {
-                                light_condition_count[light_condition] = 0;
-                            });
-                            leafFeatures.forEach(leafFeature => {
-                                total_fatal = total_fatal + leafFeature.properties.FATALITY;
-                                if (last_accident_date < leafFeature.properties.ACCIDENT_DATE) {
-                                    last_accident_date = leafFeature.properties.ACCIDENT_DATE;
+
+                    setTimeout(function () {
+                        map.getSource('crash').getClusterLeaves(
+                            e.features[0].properties.cluster_id,
+                            100,
+                            0,
+                            function (error, leafFeatures) {
+                                if (error) {
+                                    return console.error('POPUP ERROR', error);
                                 }
-                                total_injur_fatal = total_injur_fatal + leafFeature.properties.INJ_OR_FATAL;
-                                accident_type_count[leafFeature.properties.ACCIDENT_TYPE] += 1;
-                                light_condition_count[leafFeature.properties.LIGHT_CONDITION] += 1;
-                            });
-                            average_injur_fatal = total_injur_fatal / leafFeatures.length;
-                            mostcommon_accident_type = unique_accident_types[0];
-                            mostcommon_light_condition = unique_light_condition[0];
-                            for (var keyA in accident_type_count) {
-                                if (accident_type_count[keyA] > accident_type_count[mostcommon_accident_type]) {
-                                    mostcommon_accident_type = keyA;
+                                var Html = "";
+                                var total_fatal = 0;
+                                var last_accident_date = "1999-01-01";
+                                var total_injur_fatal = 0;
+                                var average_injur_fatal = 0;
+                                var mostcommon_accident_type = "";
+                                var blackspot_severity = "";
+                                var mostcommon_light_condition = "";
+
+                                const accident_types = leafFeatures.map(feature => feature.properties.ACCIDENT_TYPE);
+                                const unique_accident_types = Array.from(new Set(accident_types));
+                                var accident_type_count = new Array();
+                                unique_accident_types.forEach(accident_type => {
+                                    accident_type_count[accident_type] = 0;
+                                });
+                                const light_conditions = leafFeatures.map(feature => feature.properties.LIGHT_CONDITION);
+                                const unique_light_condition = Array.from(new Set(light_conditions));
+                                var light_condition_count = new Array();
+                                unique_light_condition.forEach(light_condition => {
+                                    light_condition_count[light_condition] = 0;
+                                });
+                                leafFeatures.forEach(leafFeature => {
+                                    total_fatal = total_fatal + leafFeature.properties.FATALITY;
+                                    if (last_accident_date < leafFeature.properties.ACCIDENT_DATE) {
+                                        last_accident_date = leafFeature.properties.ACCIDENT_DATE;
+                                    }
+                                    total_injur_fatal = total_injur_fatal + leafFeature.properties.INJ_OR_FATAL;
+                                    accident_type_count[leafFeature.properties.ACCIDENT_TYPE] += 1;
+                                    light_condition_count[leafFeature.properties.LIGHT_CONDITION] += 1;
+                                });
+                                average_injur_fatal = total_injur_fatal / leafFeatures.length;
+                                mostcommon_accident_type = unique_accident_types[0];
+                                mostcommon_light_condition = unique_light_condition[0];
+                                for (var keyA in accident_type_count) {
+                                    if (accident_type_count[keyA] > accident_type_count[mostcommon_accident_type]) {
+                                        mostcommon_accident_type = keyA;
+                                    }
                                 }
-                            }
-                            for (var keyL in light_condition_count) {
-                                if (light_condition_count[keyL] > light_condition_count[mostcommon_light_condition]) {
-                                    mostcommon_light_condition = keyL;
+                                for (var keyL in light_condition_count) {
+                                    if (light_condition_count[keyL] > light_condition_count[mostcommon_light_condition]) {
+                                        mostcommon_light_condition = keyL;
+                                    }
                                 }
+                                if (leafFeatures.length < 10) {
+                                    blackspot_severity = '<p style="color: green"><strong>blackspot risk: </strong>Low risk</p>';
+                                }
+                                else if (leafFeatures.length >= 30) {
+                                    blackspot_severity = '<p style="color: red"><strong>blackspot risk: </strong>High risk</p>';
+                                }
+                                else {
+                                    blackspot_severity = '<p style="color: #ed9b18"><strong>blackspot risk: </strong>Medium risk</p>';
+                                }
+                                Html = blackspot_severity +
+                                    "<p><strong>Last accident happened in: </strong>" + last_accident_date + "</p>" +
+                                    "<p><strong>Total Injury&Fatality: </strong>" + total_injur_fatal + "</p>" +
+                                    "<p><strong>Average Injury&Fatality: </strong>" + Math.round(average_injur_fatal) + "</p>" +
+                                    "<p><strong>Most accident: </strong>" + mostcommon_accident_type + "</p>" +
+                                    "<p><strong>Most light condition: </strong>" + mostcommon_light_condition + "</p>";
+                                cluster_popup.setHTML(Html);
                             }
-                            if (leafFeatures.length < 10) {
-                                blackspot_severity = '<p style="color: green"><strong>blackspot risk: </strong>Low risk</p>';
-                            }
-                            else if (leafFeatures.length > 30){
-                                blackspot_severity = '<p style="color: red"><strong>blackspot risk: </strong>High risk</p>';
-                            }
-                            else{
-                                blackspot_severity = '<p style="color: #ed9b18"><strong>blackspot risk: </strong>Medium risk</p>';
-                            }
-                            Html = blackspot_severity + 
-                                "<p><strong>Last accident happened in: </strong>" + last_accident_date + "</p>" +
-                                "<p><strong>Total Injury&Fatality: </strong>" + total_injur_fatal + "</p>" +
-                                "<p><strong>Average Injury&Fatality: </strong>" + Math.round(average_injur_fatal) + "</p>" + 
-                                "<p><strong>Most accident: </strong>" + mostcommon_accident_type + "</p>" + 
-                                "<p><strong>Most light condition: </strong>" + mostcommon_light_condition + "</p>";
-                            cluster_popup.setHTML(Html);
-                        }
-                    );
+                        );
+                    }, 1000);
+                    
                     
 
                 }
