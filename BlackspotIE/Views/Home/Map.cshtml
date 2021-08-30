@@ -317,20 +317,20 @@
                                 }
                             }
                             if (leafFeatures.length < 10) {
-                                blackspot_severity = '<p style="color: green"><strong>blackspot risk: Low risk</strong></p>';
+                                blackspot_severity = '<p style="color: green"><strong>blackspot risk: </strong>Low risk</p>';
                             }
-                            else if (30 > leafFeatures.length > 10) {
-                                blackspot_severity = '<p style="color: yellow"><strong>blackspot risk: Medium risk</strong></p>';
+                            else if (leafFeatures.length > 30){
+                                blackspot_severity = '<p style="color: red"><strong>blackspot risk: </strong>High risk</p>';
                             }
-                            else {
-                                blackspot_severity = '<p style="color: red"><strong>blackspot risk: High risk</strong></p>';
+                            else{
+                                blackspot_severity = '<p style="color: #ed9b18"><strong>blackspot risk: </strong>Medium risk</p>';
                             }
                             Html = blackspot_severity + 
-                                "<p><strong>Last accident happened in: " + last_accident_date + "</strong></p>" +
-                                "<p><strong>Total Injury&Fatality: " + total_injur_fatal + "</strong></p>" +
-                                "<p><strong>Average Injury&Fatality: " + Math.round(average_injur_fatal) + "</strong></p>" + 
-                                "<p><strong>Most common accident type: " + mostcommon_accident_type + "</strong></p>" + 
-                                "<p><strong>Most common accident light condition: " + mostcommon_light_condition + "</strong></p>";
+                                "<p><strong>Last accident happened in: </strong>" + last_accident_date + "</p>" +
+                                "<p><strong>Total Injury&Fatality: </strong>" + total_injur_fatal + "</p>" +
+                                "<p><strong>Average Injury&Fatality: </strong>" + Math.round(average_injur_fatal) + "</p>" + 
+                                "<p><strong>Most accident: </strong>" + mostcommon_accident_type + "</p>" + 
+                                "<p><strong>Most light condition: </strong>" + mostcommon_light_condition + "</p>";
                             cluster_popup.setHTML(Html);
                         }
                     );
