@@ -66,20 +66,6 @@ namespace BlackspotIE.Controllers
                 return RedirectToAction("Password");
             }
         }
-        public ActionResult Contact()
-        {
-            
-            if ((bool)Session["isVerified"])
-            {
-                ViewBag.Title = "Contact Us - Black Spot Overwatch";
-                return View();
-            }
-            else
-            {
-                ViewBag.Error = "You need to enter the password first.";
-                return RedirectToAction("Password");
-            }
-        }
         public ActionResult About()
         {
             

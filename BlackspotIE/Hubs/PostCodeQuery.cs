@@ -58,6 +58,13 @@ namespace BlackspotIE.Hubs
             Clients.Caller.displaypolygon(geometry, "[" + result[0].Long + "," + result[0].Lat + "]");
 
         }
+        public void Getinfo(string postcode, string loc)
+        {
+            List<Suburb> matched = DB.Suburbs.Where(s => s.Postcode.Equals(postcode)).ToList();
+            Suburb result = matched.Where(s => s.Name.Equals(loc)).ToList()[0];
+            
+
+        }
     }
 
 

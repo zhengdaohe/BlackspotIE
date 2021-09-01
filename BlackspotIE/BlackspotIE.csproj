@@ -193,9 +193,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\BlackSpotOverwatchDB.mdf" />
-    <Content Include="App_Data\BlackSpotOverwatchDB_log.ldf">
-      <DependentUpon>BlackSpotOverwatchDB.mdf</DependentUpon>
+    <Content Include="App_Data\BlackspotDB.mdf" />
+    <Content Include="App_Data\BlackspotDB_log.ldf">
+      <DependentUpon>BlackspotDB.mdf</DependentUpon>
     </Content>
     <Content Include="Content\About-Us.css" />
     <Content Include="Content\Contact.css" />
@@ -205,31 +205,45 @@
     <Content Include="Content\nicepage.css" />
     <Content Include="Content\Spiderfying.css" />
     <Content Include="Content\Spot-My-Area.css" />
-    <Content Include="favicon1.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\1.jpeg" />
     <Content Include="images\1.svg" />
+    <Content Include="images\1d606e06-d8e2-4e09-aacd-2e32774b7194.jpg" />
     <Content Include="images\2.jpeg" />
     <Content Include="images\3.jpeg" />
     <Content Include="images\4.jpeg" />
+    <Content Include="images\65426edb-8482-497b-9de5-d5e2a309a2d4.jpg" />
+    <Content Include="images\8972ce12-af8b-48c1-bddd-c5a7543890f7.jpg" />
+    <Content Include="images\95f48891-fec3-4e5b-aca0-4911e1fec885.jpg" />
+    <Content Include="images\aa837306-7ce8-4668-8263-26e3c167a921.jpg" />
     <Content Include="images\Brian.jpg" />
     <Content Include="images\construction.jpg" />
+    <Content Include="images\constructionzones.jpg" />
+    <Content Include="images\default-image.jpg" />
     <Content Include="images\default-logo.png" />
     <Content Include="images\Elvis.jpg" />
+    <Content Include="images\ff1e7c7e-6e68-470c-95e5-6cdb29aee81e.jpg" />
+    <Content Include="images\girlsdriving.jpg" />
     <Content Include="images\Hao.jpg" />
     <Content Include="images\Homepagebackground.jpg" />
+    <Content Include="images\intersection.jpg" />
     <Content Include="images\intersections.jpg" />
     <Content Include="images\logo.jpg" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\logo.svg" />
     <Content Include="images\MotherDaughter.jpg" />
     <Content Include="images\navigate.jpg" />
+    <Content Include="images\pexels-leah-kelley-3935702small.jpg" />
+    <Content Include="images\pexels-vlad-bagacian-3163879.jpeg" />
     <Content Include="images\record.png" />
     <Content Include="images\RegionalRoads.jpg" />
     <Content Include="images\road-1303617_960_720.jpg" />
     <Content Include="images\school-zone.jpg" />
     <Content Include="images\sdsd-min.jpg" />
     <Content Include="images\sharp-curve-road.jpg" />
+    <Content Include="images\sharpcurves.jpg" />
     <Content Include="images\sprite.png" />
     <Content Include="images\Yifei.jpg" />
     <Content Include="images\YoungRoad.jpg" />
@@ -273,6 +287,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\nicepage.js" />
     <Content Include="Scripts\Spiderfying.js" />
+    <Content Include="favicon1.ico" />
     <Content Include="SSL\certs\detail.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -286,7 +301,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="SSL\certs\certificate.crt" />
     <Content Include="SSL\certs\certificate.pfx" />

@@ -50,13 +50,14 @@
         .mapboxgl-popup {
             max-width: 500px;
         }
+
         .spider-leg-container .spider-leg-pin {
             position: relative;
             width: 22px;
             height: 22px;
             margin-left: -8px;
             margin-top: -18px;
-            background-image: url(https://blackspothelper.tk/images/sprite.png);
+            background-image: url(https://iter2.blackspothelper.tk/images/sprite.png);
             background-position: -110px -110px;
         }
 
@@ -66,6 +67,55 @@
 
         .spider-leg-container:hover .spider-leg-line {
             background-color: #e60e0e;
+        }
+
+        .loader {
+            position: relative;
+            height: 40px;
+            width: 40px;
+            border-radius: 80px;
+            border: 3px solid rgba(0,0,0, .7);
+            top: 28%;
+            top: -webkit-calc(50% - 21px);
+            top: calc(50% - 421px);
+            left: 35%;
+            left: -webkit-calc(50% - 21px);
+            left: calc(50% - 21px);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-animation: loader 0.75s linear infinite;
+            animation: loader 0.75s linear infinite;
+        }
+
+            .loader:after {
+                content: "";
+                position: absolute;
+                top: -5px;
+                left: 20px;
+                width: 11px;
+                height: 11px;
+                border-radius: 10px;
+                background-color: #000;
+            }
+
+        @@-webkit-keyframes loader {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes loader {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 }
@@ -90,6 +140,7 @@
             minZoom: 14,
             center: [144.946457, -37.840935]
         });
+        var timeOut = null;
         map.on('load', () => {
             spiderifier = new MapboxglSpiderifier(map, {
                 customPin: true,
@@ -259,14 +310,15 @@
                 map.getCanvas().style.cursor = 'pointer';
 
                 if (!isSpiderPopupShown) {
+                    clearTimeout(timeOut);
                     const coordinates = e.features[0].geometry.coordinates.slice();
 
                     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
                         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                     }
-                    cluster_popup.setLngLat(coordinates).setHTML("Loading...").addTo(map);
+                    cluster_popup.setLngLat(coordinates).setHTML('<div class="loader"></div>').addTo(map);
 
-                    setTimeout(function () {
+                    timeOut = setTimeout(function () {
                         map.getSource('crash').getClusterLeaves(
                             e.features[0].properties.cluster_id,
                             100,
@@ -336,16 +388,17 @@
                                 cluster_popup.setHTML(Html);
                             }
                         );
-                    }, 1000);
-                    
-                    
+                    }, 750);
+
+
 
                 }
-                
+
             });
             map.on('mouseleave', 'clusters', () => {
                 map.getCanvas().style.cursor = '';
                 cluster_popup.remove();
+                clearTimeout(timeOut);
             });
             map.on('mousemove', function (e) {
                 var features = map.queryRenderedFeatures(e.point, {
