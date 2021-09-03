@@ -38,6 +38,20 @@ namespace BlackspotIE.Controllers
             }
         }
 
+        public ActionResult Map1()
+        {
+            if ((bool)Session["isVerified"])
+            {
+                ViewBag.Title = "View The Map - Black Spot Overwatch";
+                return View();
+            }
+            else
+            {
+                ViewBag.Error = "You need to enter the password first.";
+                return RedirectToAction("Password");
+            }
+        }
+
         public ActionResult SpotMyArea()
         {
            
@@ -108,6 +122,10 @@ namespace BlackspotIE.Controllers
             {
                 return RedirectToAction("Index");
             }
+        }
+        public ActionResult ErrorPage()
+        {
+                return View();
         }
     }
 }

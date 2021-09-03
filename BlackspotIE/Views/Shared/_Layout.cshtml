@@ -10,7 +10,9 @@
     <link rel="shortcut icon" href="~/favicon1.ico" type="image/x-icon" />
     <link rel="icon" href="~/favicon1.ico" type="image/ico" />
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
-    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">    @RenderSection("styles", required: false)
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+    @RenderSection("styles", required: false)
     @RenderSection("meta", required: false)
     <script type="application/ld+json">
         {
@@ -25,7 +27,7 @@
     <meta property="og:type" content="website">
 
 </head>
-<body data-home-page="Index" data-home-page-title="homepage" class="u-body u-overlap u-overlap-contrast">
+<body class="u-body">
     <header class="u-clearfix u-header u-sticky u-sticky-91c4 u-white u-header" id="sec-b307">
         <div class="u-clearfix u-sheet u-sheet-1">
             <a href="~/Home/Index" data-page-id="63544683" class="u-image u-logo u-image-1" data-image-width="790" data-image-height="221" title="Home">
@@ -89,23 +91,16 @@
             </nav>
         </div>
     </header>
-
     @RenderBody()
 
 
-    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-5f03">
+    <footer class="u-align-center u-clearfix u-footer u-grey-70 u-footer" id="sec-5f03">
         <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-            <p class="u-small-text u-text u-text-variant u-text-1">2021 Ⓒ Black Spot Helper</p>
+            <p class="u-small-text u-text u-text-variant u-text-1" style="margin:10px auto !important">2021 Ⓒ Black Spot Helper</p>
+            <p class="u-small-text u-text u-text-variant u-text-1" style="margin:10px auto !important">Created with <b>Black Spot Helper Project Team</b></p>
         </div>
     </footer>
-    <section class="u-backlink u-clearfix u-grey-80">
-        <p class="u-text">
-            <span>Created with</span>
-        </p>
-        <p class="u-text">
-            <span><b>Black Spot Helper</b> Project Team</span>
-        </p>.
-</section>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

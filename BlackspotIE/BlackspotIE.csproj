@@ -205,6 +205,7 @@
     <Content Include="Content\nicepage.css" />
     <Content Include="Content\Spiderfying.css" />
     <Content Include="Content\Spot-My-Area.css" />
+    <Content Include="Content\style.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -284,6 +285,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Mapscript.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\nicepage.js" />
     <Content Include="Scripts\Spiderfying.js" />
@@ -311,6 +313,7 @@
     <Content Include="Views\Home\SpotMyArea.cshtml" />
     <Content Include="Views\Home\MoreInfo.cshtml" />
     <Content Include="Views\Home\Password.cshtml" />
+    <Content Include="Views\Home\ErrorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

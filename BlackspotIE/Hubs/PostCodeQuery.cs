@@ -23,7 +23,7 @@ namespace BlackspotIE.Hubs
                 DataLoader.Load();
                 Clients.Caller.display("database loaded");
             }
-            //var client = new HttpClient();
+            //var client = new HttpClient();prompt
             //var uri = "http://api.beliefmedia.com/postcodes/" + postcode + ".json";
             //var response = client.GetAsync(uri);
             //response.Wait();

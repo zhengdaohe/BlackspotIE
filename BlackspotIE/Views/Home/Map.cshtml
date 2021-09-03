@@ -2,47 +2,134 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="u-align-center u-clearfix u-image u-section-1" id="sec-9040" data-image-width="6599" data-image-height="4399">
-    <div class="u-clearfix u-sheet u-sheet-1">
-        <h2 class="u-text u-text-default u-text-1">
-            What is the postcode<br>where you currently live?
-        </h2>
-        <div class="u-form u-form-1">
-            <form action="#" method="POST" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" style="padding: 10px" source="custom" name="form">
-                <div class="u-form-group u-form-group-1">
-                    <label for="number-ef64" class="u-form-control-hidden u-label">number</label>
-                    <input type="number" placeholder="postcode" id="number" name="number" class="u-border-4 u-border-white u-input u-input-rectangle u-radius-50 u-white" required="" />
-                </div>
-                <div id="select" class="u-form-group u-form-select u-form-group-2 u-form-control-hidden">
-                    <div class="u-form-select-wrapper">
-                        <select id="locs" name="suburb" class="u-border-4 u-border-white u-input u-input-rectangle u-radius-50 u-white">
-                        </select>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
-                    </div>
-                </div>
-                <div class="u-align-left u-form-group u-form-submit">
-                    <a href="#" id="submit" class="u-active-grey-90 u-border-4 u-border-active-grey-90 u-border-grey-75 u-border-hover-grey-90 u-btn u-btn-round u-btn-submit u-button-style u-grey-75 u-hover-grey-90 u-radius-50 u-btn-1">Submit</a>
-                </div>
-            </form>
+<div class="hihi" id="sec-4f51">
+    <div class="wui-side-menu open pinned">
+        <div class="wui-side-menu-header">
+            <a href="#" class="wui-side-menu-trigger"><i class="fa fa-chevron-left" style="padding-left: 15px;"></i></a>
+            <a href="#" class="wui-side-menu-pin-trigger">
+                <i class="fa fa-thumb-tack"></i>
+            </a>
+        </div>
+        <!-- Map filtering menu items -->
+        <ul class="wui-side-menu-items">
+            <div class="filter-title noselect">Show spots with...</div>
+            <div class="line-2"></div>
+            <li>
+                <a href="#" id="filter-btn" class="wui-side-menu-item">
+                    <i class="box-ico fa fa-car fa-fw"></i>
+                    <span class="box-title">Young drivers only</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="filter-btn" class="wui-side-menu-item">
+                    <i class="fa fa-sun-o fa-fw"></i>
+                    <span class="box-title">Daytime only</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="filter-btn" class="wui-side-menu-item">
+                    <i class="fa fa-moon-o fa-fw"></i>
+                    <span class="box-title">Nighttime only</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="filter-btn" class="wui-side-menu-item">
+                    <i class="box-ico fa fa-road fa-fw"></i>
+                    <span class="box-title">Intersections only</span>
+                </a>
+            </li>
+            <!-- Map Cluster Accident Risk Filter Toggles -->
+            <div class="risk-filter-content">
+                <ui class="wui-risk-menu-items">
+                    <div class="filter-title">Show spots that are...</div>
+                    <div class="line-2"></div>
+                    <li>
+                        <a href="#" id="risk-toggle-btn" class="wui-side-menu-item active riskRedFont easeFadeIn">
+                            <div class="iphToggle" id="risk1">
+                                <label class="switch avoid-clicks" for="checkbox">
+                                    <input type="checkbox" id="checkbox" checked />
+                                    <div class="slider round riskRed"></div>
+                                </label>
+                                <span class="box-title" style="padding-left: 10px;">High risks</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="risk-toggle-btn" class="wui-side-menu-item active riskOrangeFont easeFadeIn">
+                            <div class="iphToggle" id="risk2">
+                                <label class="switch avoid-clicks" for="checkbox">
+                                    <input type="checkbox" id="checkbox" checked />
+                                    <div class="slider round riskOrange"></div>
+                                </label>
+                                <span class="box-title" style="padding-left: 10px;">Mid risks</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="risk-toggle-btn" class="wui-side-menu-item active riskGreenFont easeFadeIn">
+                            <div class="iphToggle" id="risk3">
+                                <label class="switch avoid-clicks" for="checkbox">
+                                    <input type="checkbox" id="checkbox" checked />
+                                    <div class="slider round riskDarkGreen"></div>
+                                </label>
+                                <span class="box-title" style="padding-left: 10px;">Low risks</span>
+                            </div>
+                        </a>
+                    </li>
+                </ui>
+            </div>
+        </ul>
+
+    </div>
+    <div class="wui-content">
+        <div class="wui-content-header">
+            <a href="#" class="wui-side-menu-trigger" style="position: absolute; z-index: 10;">
+                <i class="fa fa-filter" style="padding-left: 10px;"></i>
+                <span id="fil-btn-txt" style="padding-left: 10px;" class="box-title">Filters</span>
+            </a>
+            <!-- SEARCH BAR -->
             <input id="postcode" hidden />
+            <input id="loc" hidden />
+            <div class="search-bar-header" id="searchWrapper">
+                <span class="box-title" id="prompt">Crash Data Loading......</span>
+                <div class="search-bar">
+                    <form id="searchForm" action="search" method="post" style="display: inline-flex;">
+                        <input id="searchText" type="search" placeholder="E.g 3000" maxlength="4" style="display: none;">
+                    </form>
+
+
+                </div>
+            </div>
+            <div class="search-bar-results" style="display: none;">
+                <ul class="result-list" id="result">
+                </ul>
+            </div>
         </div>
-        <h4 id="result" class="u-text u-text-default u-text-1">
-        </h4>
-    </div>
-</section>
-<section class="u-clearfix u-grey-light-2 u-typography-custom-page-typography-12--Map u-section-2" id="sec-9204">
-    <div class="u-absolute-hcenter u-expanded u-grey-light-2 u-map">
-        <div class="embed-responsive">
-            <div id="map" class="embed-responsive-item"></div>
+        <!-- TOOPTIP  -->
+        <div class="con-tooltip bottom" id="help-tooltip-toggle">
+            <a href="#" style="color: #fdfb5f;"><i class="fa fa-question"></i></a>
+            <div class="tooltip ">
+                <p>Getting lost? Click on me.</p>
+            </div>
+        </div>
+        <section class="map_box_container">
+            <!--MAP-->
+            <div id='map'></div>
+        </section>
+        <!-- Map Legends -->
+        <div id="legend" class="legend">
+            <h4>Accident<br>Risks</h4>
+            <div><span style="background-color: #fa1d15"></span>HIGH</div>
+            <div><span style="background-color: #e2aa50"></span>MID</div>
+            <div><span style="background-color: #a6f0a8"></span>LOW</div>
         </div>
     </div>
-</section>
-
-
-
+    <div class="wui-overlay"></div>
+</div>
 @section Styles {
     <link rel="stylesheet" href="~/Content/nicepage.css" media="screen">
     <link rel="stylesheet" href="~/Content/Map.css" media="screen">
+    <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet" />
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
     <link href="~/Content/Spiderfying.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
@@ -120,6 +207,7 @@
     </style>
 }
 @section Scripts {
+    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
     <script class="u-script" src="~/Scripts/jquery.js"></script>
     <script class="u-script" src="~/Scripts/nicepage.js"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
@@ -127,388 +215,5 @@
     <script src="~/signalr/hubs"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.js"></script>
     <script src="~/Scripts/Spiderfying.js"></script>
-    <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoibG9oc2UiLCJhIjoiY2tnbmVtdGM4MDlkdjMxcWg4ODg0MjY0dCJ9.WiZuARwnopVEj478S6oaXg';
-        var cluster_popup = new mapboxgl.Popup({
-            closeButton: false,
-            closeOnClick: false
-        });
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/light-v10',
-            maxZoom: 14,
-            minZoom: 14,
-            center: [144.946457, -37.840935]
-        });
-        var timeOut = null;
-        map.on('load', () => {
-            spiderifier = new MapboxglSpiderifier(map, {
-                customPin: true,
-                animate: true,
-                animationSpeed: 30,
-                initializeLeg: initializePopup
-            });
-            var isSpiderPopupShown = false;
-            function initializePopup(spiderLeg) {
-                cluster_popup.remove();
-                var pinElem = spiderLeg.elements.pin;
-                var feature = spiderLeg.feature;
-                pinElem.className = pinElem.className + ' fa-stack fa-lg';
-                pinElem.innerHTML = '<i class="circle-icon fa fa-circle fa-stack-2x"></i>' +
-                    '<i class="type-icon fa fa-' + feature.ACCIDENT_NO + ' fa-stack-1x"></i>';
-                pinElem.style.color = "transparent";
-                var spi_popup;
-                $(pinElem)
-                    .on('mouseenter', function () {
-                        spi_popup = new mapboxgl.Popup({
-                            closeButton: false,
-                            closeOnClick: false,
-                            offset: MapboxglSpiderifier.popupOffsetForSpiderLeg(spiderLeg)
-                        });
-                        spi_popup.setHTML('Accident No. <b>:' + feature.ACCIDENT_NO + '</b>')
-                            .addTo(map)
-                        cluster_popup.remove();
-                        spiderLeg.mapboxMarker.setPopup(spi_popup);
-                        isSpiderPopupShown = true;
-                    })
-                    .on('mouseleave', function () {
-                        if (spi_popup) {
-                            spi_popup.remove();
-                            isSpiderPopupShown = false;
-                        }
-                    });
-            }
-            SPIDERFY_FROM_ZOOM = 13;
-            var url = "https://opendata.arcgis.com/datasets/74dd92127eea4404b0dad1d7e39bf0e3_1.geojson";
-            var request = new XMLHttpRequest();
-            request.open("get", url);
-            request.send(null);
-            var newGeoJSON = null;
-            $('#result').text("Crash data loading......");
-            request.onload = function () {
-                if (request.status == 200) {
-                    var json = JSON.parse(request.responseText);
-                    console.log("Crash data loaded");
-                    //newGeoJSON = {
-                    //    type: "FeatureCollection",
-                    //    name: "Road_Crashes_for_five_Years_-_Victoria",
-                    //    features: []
-                    //};
-                    //newGeoJSON.features = json.features.filter(feature => feature.properties.ROAD_GEOMETRY === "Cross intersection");
-                    map.getSource('crash').setData(json);
-                    $('#result').text("Crash data loaded");
-
-                }
-            };
-            map.addSource('crash', {
-                type: 'geojson',
-                data: null,
-                cluster: true,
-                clusterMaxZoom: 14,
-                clusterRadius: 27.3
-            });
-
-            //const pubTypes = geojson.features.map(feature => feature.properties.PubType);
-            //const uniquePubTypes = Array.from(new Set(pubTypes));
-            //const filterElem = document.getElementById('pubTypeFilter');
-            //uniquePubTypes.forEach(pubType => {
-            //    const opt = document.createElement('option');
-            //    opt.value = pubType;
-            //    opt.innerText = pubType;
-            //    filterElem.appendChild(opt);
-            //});
-            map.addLayer({
-                id: 'clusters',
-                type: 'circle',
-                source: 'crash',
-                filter: ['has', 'point_count'],
-                paint: {
-                    'circle-color': [
-                        'step',
-                        ['get', 'point_count'],
-                        '#45d649',
-                        10,
-                        '#ed9b18',
-                        30,
-                        '#ff0000'
-                    ],
-                    'circle-radius': [
-                        'step',
-                        ['get', 'point_count'],
-                        20,
-                        10,
-                        30,
-                        30,
-                        40
-                    ],
-                    'circle-blur': [
-                        'step',
-                        ['get', 'point_count'],
-                        0.5,
-                        10,
-                        0.5,
-                        30,
-                        0.5
-                    ],
-                    'circle-opacity': [
-                        'step',
-                        ['get', 'point_count'],
-                        0.5,
-                        10,
-                        0.7,
-                        30,
-                        0.9
-                    ],
-                }
-            });
-
-            map.addLayer({
-                id: 'cluster-count',
-                type: 'symbol',
-                source: 'crash',
-                filter: ['has', 'point_count'],
-                layout: {
-                    'text-field': '{point_count_abbreviated}',
-                    'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-                    'text-size': 12
-                }
-            });
-
-
-            map.on('zoomstart', function () {
-                spiderifier.unspiderfy();
-            });
-            map.on('click', (e) => {
-                var features = map.queryRenderedFeatures(e.point, {
-                    layers: ['clusters']
-                });
-                spiderifier.unspiderfy();
-                if (!features.length) {
-                    return;
-                } else if (map.getZoom() < SPIDERFY_FROM_ZOOM) {
-                    map.easeTo({ center: e.lngLat, zoom: map.getZoom() + 2 });
-                } else {
-                    cluster_popup.remove();
-                    map.getSource('crash').getClusterLeaves(
-                        features[0].properties.cluster_id,
-                        300,
-                        0,
-                        function (error, leafFeatures) {
-                            if (error) {
-                                return console.error('cluster error', error);
-                            }
-                            var markers = _.map(leafFeatures, function (leafFeature) {
-                                return leafFeature.properties;
-                            });
-                            spiderifier.spiderfy(features[0].geometry.coordinates, markers);
-                        }
-                    );
-                }
-            });
-
-            map.on('mouseenter', 'clusters', (e) => {
-                map.getCanvas().style.cursor = 'pointer';
-
-                if (!isSpiderPopupShown) {
-                    clearTimeout(timeOut);
-                    const coordinates = e.features[0].geometry.coordinates.slice();
-
-                    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                    }
-                    cluster_popup.setLngLat(coordinates).setHTML('<div class="loader"></div>').addTo(map);
-
-                    timeOut = setTimeout(function () {
-                        map.getSource('crash').getClusterLeaves(
-                            e.features[0].properties.cluster_id,
-                            100,
-                            0,
-                            function (error, leafFeatures) {
-                                if (error) {
-                                    return console.error('POPUP ERROR', error);
-                                }
-                                var Html = "";
-                                var total_fatal = 0;
-                                var last_accident_date = "1999-01-01";
-                                var total_injur_fatal = 0;
-                                var average_injur_fatal = 0;
-                                var mostcommon_accident_type = "";
-                                var blackspot_severity = "";
-                                var mostcommon_light_condition = "";
-
-                                const accident_types = leafFeatures.map(feature => feature.properties.ACCIDENT_TYPE);
-                                const unique_accident_types = Array.from(new Set(accident_types));
-                                var accident_type_count = new Array();
-                                unique_accident_types.forEach(accident_type => {
-                                    accident_type_count[accident_type] = 0;
-                                });
-                                const light_conditions = leafFeatures.map(feature => feature.properties.LIGHT_CONDITION);
-                                const unique_light_condition = Array.from(new Set(light_conditions));
-                                var light_condition_count = new Array();
-                                unique_light_condition.forEach(light_condition => {
-                                    light_condition_count[light_condition] = 0;
-                                });
-                                leafFeatures.forEach(leafFeature => {
-                                    total_fatal = total_fatal + leafFeature.properties.FATALITY;
-                                    if (last_accident_date < leafFeature.properties.ACCIDENT_DATE) {
-                                        last_accident_date = leafFeature.properties.ACCIDENT_DATE;
-                                    }
-                                    total_injur_fatal = total_injur_fatal + leafFeature.properties.INJ_OR_FATAL;
-                                    accident_type_count[leafFeature.properties.ACCIDENT_TYPE] += 1;
-                                    light_condition_count[leafFeature.properties.LIGHT_CONDITION] += 1;
-                                });
-                                average_injur_fatal = total_injur_fatal / leafFeatures.length;
-                                mostcommon_accident_type = unique_accident_types[0];
-                                mostcommon_light_condition = unique_light_condition[0];
-                                for (var keyA in accident_type_count) {
-                                    if (accident_type_count[keyA] > accident_type_count[mostcommon_accident_type]) {
-                                        mostcommon_accident_type = keyA;
-                                    }
-                                }
-                                for (var keyL in light_condition_count) {
-                                    if (light_condition_count[keyL] > light_condition_count[mostcommon_light_condition]) {
-                                        mostcommon_light_condition = keyL;
-                                    }
-                                }
-                                if (leafFeatures.length < 10) {
-                                    blackspot_severity = '<p style="color: green"><strong>blackspot risk: </strong>Low risk</p>';
-                                }
-                                else if (leafFeatures.length >= 30) {
-                                    blackspot_severity = '<p style="color: red"><strong>blackspot risk: </strong>High risk</p>';
-                                }
-                                else {
-                                    blackspot_severity = '<p style="color: #ed9b18"><strong>blackspot risk: </strong>Medium risk</p>';
-                                }
-                                Html = blackspot_severity +
-                                    "<p><strong>Last accident happened in: </strong>" + last_accident_date + "</p>" +
-                                    "<p><strong>Total Injury&Fatality: </strong>" + total_injur_fatal + "</p>" +
-                                    "<p><strong>Average Injury&Fatality: </strong>" + Math.round(average_injur_fatal) + "</p>" +
-                                    "<p><strong>Most accident: </strong>" + mostcommon_accident_type + "</p>" +
-                                    "<p><strong>Most light condition: </strong>" + mostcommon_light_condition + "</p>";
-                                cluster_popup.setHTML(Html);
-                            }
-                        );
-                    }, 750);
-
-
-
-                }
-
-            });
-            map.on('mouseleave', 'clusters', () => {
-                map.getCanvas().style.cursor = '';
-                cluster_popup.remove();
-                clearTimeout(timeOut);
-            });
-            map.on('mousemove', function (e) {
-                var features = map.queryRenderedFeatures(e.point, {
-                    layers: ['clusters']
-                });
-                map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
-            });
-            map.addSource('poly', {
-                'type': 'geojson',
-                'data': null
-            });
-            map.addLayer({
-                'id': 'poly',
-                'type': 'fill',
-                'source': 'poly',
-                'layout': {},
-                'paint': {
-                    'fill-color': '#0080ff',
-                    'fill-opacity': 0.3
-                }
-            });
-            map.addLayer({
-                'id': 'outline',
-                'type': 'line',
-                'source': 'poly',
-                'layout': {},
-                'paint': {
-                    'line-color': '#000',
-                    'line-width': 1
-                }
-            });
-            $(function () {
-                var postCodeQuery = $.connection.postCodeQuery;
-                postCodeQuery.client.displayResult = function (postcode, locationArray, isFound) {
-                    if (isFound == "true") {
-                        document.getElementById('postcode').value = postcode
-                        document.getElementById('result').innerHTML = "Select a suburb to spot the area<br />" + locationArray;
-                        var selectlist = document.getElementById('locs');
-                        selectlist.innerHTML = "";
-                        var selectcontainer = document.getElementById('select');
-                        selectcontainer.classList.remove("u-form-control-hidden");
-                        var locs = eval(locationArray);
-                        var holder = document.createElement("option");
-                        holder.value = "--";
-                        holder.innerHTML = "Choose Your Suburb";
-                        selectlist.appendChild(holder);
-                        locs.forEach(function (loc) {
-                            var option = document.createElement("option");
-                            option.value = loc;
-                            option.innerHTML = loc;
-                            selectlist.appendChild(option);
-                        })
-
-
-                    }
-                    if (isFound == "false") {
-                        if (postcode == 'ABC') {
-                            $('#result').text("database loading");
-                        }
-                        else {
-                            $('#result').text("Cannot find this area, try other postcodes!");
-                        }
-
-                        var selectlist = document.getElementById('locs');
-                        selectlist.innerHTML = "";
-                        var selectcontainer = document.getElementById('select');
-                        selectcontainer.classList.add("u-form-control-hidden");
-                        map.getSource('poly').setData(null);
-
-                    }
-                };
-                postCodeQuery.client.displaypolygon = function (geometry, center) {
-                    var poly = JSON.parse(geometry);
-                    map.getSource('poly').setData(poly);
-                    map.setCenter(eval(center));
-                    $('#result').text("Loaded successfully!");
-                    map.flyTo({
-                        center: eval(center), zoom: 14, speed: 0.25,
-                        curve: 2,
-                        easing(t) {
-                            return t;
-                        }
-                    });
-                };
-                postCodeQuery.client.display = function (message) {
-                    $('#result').text(message);
-                };
-                $.connection.hub.start().done(function () {
-                    $('#submit').click(function () {
-                        map.getSource('poly').setData(null);
-                        var postcode = $('#number').val();
-                        if (postcode.length != 4) {
-                            $('#result').text("Invalid, should be 4-digits");
-                        }
-                        else {
-                            postCodeQuery.server.send(postcode);
-                            $('#result').text("Loading......");
-                        }
-                    });
-                });
-                $('#locs').change(function () {
-                    if ($(this).val() != '--') {
-                        map.getSource('poly').setData(null);
-                        $('#result').text("Loading......");
-                        postCodeQuery.server.getpoly($('#postcode').val(), $(this).val());
-                    }
-
-                });
-            });
-        });
-
-    </script>
+    <script src="~/Scripts/Mapscript.js"></script>
 }
