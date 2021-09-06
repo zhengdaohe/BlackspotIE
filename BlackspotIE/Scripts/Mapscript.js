@@ -1,3 +1,4 @@
+$(".wui-side-menu-item").attr("disabled", true).css("pointer-events", "none");
 (function (window, undefined) {
     'use strict';
 
@@ -109,7 +110,7 @@ function showTourGuide() {
             intro: '<div class="content" style="width: 250px;display: block;"> <p class="text1">Each number shown on the map is a total of road accidents happened on a same spot between 2014 - 2019.</p> <div class="ndline" style="display:flex;"> <div class="bs" style="display:flex;justify-content: center;align-items: center;padding-left: 5px;"> <div class="dot" style="position: absolute;height: 25px;width: 25px;background-color: #e2aa50;justify-content: center;border-radius: 50%;display: flex;filter: blur(2px);border-radius: 50%;"></div> <span class="text" style="filter: blur(0);z-index:1;">10</span> </div> <span class="text2" style="margin-left: 20px;">For example, this means ten car accidents happened at the same area.</span> </div> </div>'
         },
         {
-            element: document.querySelector('#fil-btn-txt'),
+            element: document.querySelector('.wui-side-menu-items'),
             position: 'bottom',
             intro: 'Is the map too crowded? Map filtering options are hidden here.'
         },
@@ -148,10 +149,18 @@ documentReady(function () {
 
     $(function () {
         //On li click where li has .something class
-        $('.wui-side-menu-items li').on("click", function () {
-
+        $('.wui-side-menu-items li #filter-btn').on("click", function () {
+            var patt = $(this).children('#select').text();
+            console.log(patt);
+            console.log($('#sidefilter').val());
+            console.log($('#sidefilter').val().indexOf(patt));
+            if ($('#sidefilter').val().indexOf(patt) == -1) {
+                $('#sidefilter').val($('#sidefilter').val() + patt + "!");
+            }
+            else {
+                $('#sidefilter').val($('#sidefilter').val().replace(patt + "!", ""));
+            }
             // Example to get this on click element
-            // alert($(this).children("#filter-btn").text());
             /*******
              * 
              * 
@@ -159,13 +168,22 @@ documentReady(function () {
              * 
              */
             // This is the filter option highlight effect, by switching its own css class.
-            $(this).children("#filter-btn").toggleClass("wui-side-menu-item wui-side-menu-item active");
-
+            $(this).toggleClass("wui-side-menu-item wui-side-menu-item active");
+            $('#sidefilter').change();
         })
 
 
-        $('.wui-risk-menu-items li').on("click", function () {
+        $('.wui-risk-menu-items li #risk-toggle-btn').on("click", function () {
 
+            var patt = $(this).children(".iphToggle").children("#select").text();
+
+            console.log(patt)
+            if ($('#riskfilter').val().indexOf(patt) == -1) {
+                $('#riskfilter').val($('#riskfilter').val() + patt + "!");
+            }
+            else {
+                $('#riskfilter').val($('#riskfilter').val().replace(patt + "!", ""));
+            }
             // Example to get this on click element
             // alert($(this).children("#risk-toggle-btn").children(".iphToggle").text());
 
@@ -178,11 +196,11 @@ documentReady(function () {
              */
 
             // This case i can listen to click based on the text written.
-            var selectedRiskTxt = $(this).children("#risk-toggle-btn").children(".iphToggle").text();
+            var selectedRiskTxt = $(this).children(".iphToggle").text();
             selectedRiskTxt = selectedRiskTxt.replace(/\s+/g, '');
             // console.log(selectedRisk.replace(/\s+/g, ''));
             if (selectedRiskTxt === "Lowrisks") {
-                $(this).children("#risk-toggle-btn").toggleClass("wui-side-menu-item wui-side-menu-item active");
+                $(this).toggleClass("wui-side-menu-item wui-side-menu-item active");
 
                 // Get those objects
                 var slider = $('#risk3 .switch .slider');
@@ -191,12 +209,12 @@ documentReady(function () {
                 // Change colours when  clicking. The colour must match with the attached class in html side.
                 slider.toggleClass('riskDarkGreen toggleOff');
                 // Change FONT colour
-                $(this).children("#risk-toggle-btn").toggleClass('riskGreenFont toggleOffFont');
+                $(this).toggleClass('riskGreenFont toggleOffFont');
                 // set checked/unchecked
                 checkBx.prop("checked", !checkBx.prop("checked"));
             }
             else if (selectedRiskTxt === "Midrisks") {
-                $(this).children("#risk-toggle-btn").toggleClass("wui-side-menu-item wui-side-menu-item active");
+                $(this).toggleClass("wui-side-menu-item wui-side-menu-item active");
 
                 // Get those objects
                 var slider = $('#risk2 .switch .slider');
@@ -204,12 +222,12 @@ documentReady(function () {
                 // Change colours when  clicking. The colour must match with the attached class in html side.
                 slider.toggleClass('riskOrange toggleOff');
                 // Change FONT colour
-                $(this).children("#risk-toggle-btn").toggleClass('riskOrangeFont toggleOffFont');
+                $(this).toggleClass('riskOrangeFont toggleOffFont');
                 // set checked/unchecked
                 checkBx.prop("checked", !checkBx.prop("checked"));
             }
             else if (selectedRiskTxt === "Highrisks") {
-                $(this).children("#risk-toggle-btn").toggleClass("wui-side-menu-item wui-side-menu-item active");
+                $(this).toggleClass("wui-side-menu-item wui-side-menu-item active");
                 // $('#risk1').children('.switch').children('#checkbox');
                 // Get those objects
                 var slider = $('#risk1 .switch .slider');
@@ -217,10 +235,11 @@ documentReady(function () {
                 // Change colours when  clicking. The colour must match with the attached class in html side.
                 slider.toggleClass('riskRed toggleOff');
                 // Change FONT colour
-                $(this).children("#risk-toggle-btn").toggleClass('riskRedFont toggleOffFont');
+                $(this).toggleClass('riskRedFont toggleOffFont');
                 // set checked/unchecked
                 checkBx.prop("checked", !checkBx.prop("checked"));
             }
+            $('#riskfilter').change();
         })
 
         // Stopping user from refreshing page by hitting "ENTER" key on search bar.
@@ -246,7 +265,12 @@ documentReady(function () {
     });
     var timeOut = null;
     var searchTimeout = null;
-    var isSelect = false;
+    var json = null;
+    var newGeoJSON = {
+        type: "FeatureCollection",
+        name: "Road_Crashes_for_five_Years_-_Victoria",
+        features: []
+    };
     map.on('load', () => {
         spiderifier = new MapboxglSpiderifier(map, {
             customPin: true,
@@ -296,21 +320,52 @@ documentReady(function () {
         var request = new XMLHttpRequest();
         request.open("get", url);
         request.send(null);
-        var newGeoJSON = null;
+        
         request.onload = function () {
             if (request.status == 200) {
-                var json = JSON.parse(request.responseText);
+                json = JSON.parse(request.responseText);
                 console.log("Crash data loaded");
+                $(".wui-side-menu-item").attr("disabled", false).css("pointer-events", "auto");
                 //newGeoJSON = {
                 //    type: "FeatureCollection",
                 //    name: "Road_Crashes_for_five_Years_-_Victoria",
                 //    features: []
                 //};ee
-                //newGeoJSON.features = json.features.filter(feature => feature.properties.ROAD_GEOMETRY === "Cross intersection");
+                newGeoJSON.features = json.features;
+                //    .filter(feature => feature.properties.ROAD_GEOMETRY === "Cross intersection");
                 map.getSource('crash').setData(json);
                 $('#prompt').html('Highlight a suburb: ');
                 document.getElementById('searchText').style = 'display: normal;';
-
+                $('#sidefilter').on("change", function () {
+                    $(".wui-side-menu-item").attr("disabled", true).css("pointer-events", "none");
+                    $('#prompt').html('Filtering');
+                    document.getElementById('searchText').style = 'display: none;';
+                    if ($(this).val().length == 0) {
+                        map.getSource('crash').setData(json);
+                    }
+                    else {
+                        newGeoJSON.features = json.features;
+                        var selectors = $(this).val().trim("!").split("!");
+                        if (selectors.indexOf("Young drivers") > -1) {
+                            newGeoJSON.features = newGeoJSON.features.filter(feature => feature.properties.YOUNG_DRIVER === 1);
+                        }
+                        if (selectors.indexOf("Daytime") > -1) {
+                            newGeoJSON.features = newGeoJSON.features.filter(feature => feature.properties.LIGHT_CONDITION === "Day");
+                        }
+                        if (selectors.indexOf("Nighttime") > -1) {
+                            newGeoJSON.features = newGeoJSON.features.filter(feature => feature.properties.LIGHT_CONDITION.indexOf('Dark') > -1);
+                        }
+                        if (selectors.indexOf("Intersections") > -1) {
+                            newGeoJSON.features = newGeoJSON.features.filter(feature => feature.properties.ROAD_GEOMETRY.indexOf('T intersection') > -1 || feature.properties.ROAD_GEOMETRY.indexOf('Cross intersection') > -1);
+                        }
+                        map.getSource('crash').setData(newGeoJSON);
+                        
+                    }
+                    $(".wui-side-menu-item").attr("disabled", false).css("pointer-events", "auto");
+                    $('#prompt').html('Highlight a suburb: ');
+                    document.getElementById('searchText').style = 'display: normal;';
+                });
+                
             }
         };
         //const pubTypes = geojson.features.map(feature => feature.properties.PubType);
@@ -378,7 +433,36 @@ documentReady(function () {
                 'text-size': 12
             }
         });
+        $('#riskfilter').on("change", function () {
+            $(".wui-side-menu-item").attr("disabled", true).css("pointer-events", "none");
+            $('#prompt').html('Filtering');
+            document.getElementById('searchText').style = 'display: none;';
+            if ($(this).val().length == 0) {
+                map.getSource('crash').setData(null);
+                map.setFilter("clusters", ['has', 'point_count']);
+                map.setFilter("cluster-count", ['has', 'point_count']);
+            }
+            else {
+                var selectors = $(this).val().trim("!").split("!");
+                var filter = ["any"];
+                if (selectors.indexOf("High risks") > -1) {
+                    filter.push([">=", ['get', 'point_count'], 30]);
+                }
+                if (selectors.indexOf("Mid risks") > -1) {
+                    filter.push(["all",["<", ['get', 'point_count'], 30], [">=", ['get', 'point_count'], 10]]);
+                }
+                if (selectors.indexOf("Low risks") > -1) {
+                    filter.push(["<", ['get', 'point_count'], 10]);
+                }
 
+                map.setFilter("clusters", filter);
+                map.setFilter("cluster-count", filter);
+
+            }
+            $(".wui-side-menu-item").attr("disabled", false).css("pointer-events", "auto");
+            $('#prompt').html('Highlight a suburb: ');
+            document.getElementById('searchText').style = 'display: normal;';
+        });
 
         map.on('zoomstart', function () {
             spiderifier.unspiderfy();
@@ -610,7 +694,7 @@ documentReady(function () {
                         else if ($('#searchText').val().length != 4) {
                             searchTimeout = setTimeout(function () {
                                 $('.search-bar-results').show();
-                                $('#result').html('<li>Not a valid VIC postcode</li>');
+                                $('#result').html('Not a valid VIC postcode');
                             }, 750);
                         }
                         else {
@@ -623,7 +707,18 @@ documentReady(function () {
                         }
                     }
                     else {
-                        $(this).val($(this).val().replace(/[^\d]/g, ''));
+                        $(this).val($(this).val().replace(/[^\d]/g, ""));
+                        if ($(this).val().length == 0) {
+                            $('.search-bar-results').hide();
+                        }
+                        else {
+                            searchTimeout = setTimeout(function () {
+
+                                $('.search-bar-results').show();
+                                $('#result').html('<li>Not a valid VIC postcode</li>');
+                            }, 750);
+                        }
+                        
                     }
 
 

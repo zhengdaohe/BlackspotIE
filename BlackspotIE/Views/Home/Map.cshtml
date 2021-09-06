@@ -17,25 +17,25 @@
             <li>
                 <a href="#" id="filter-btn" class="wui-side-menu-item">
                     <i class="box-ico fa fa-car fa-fw"></i>
-                    <span class="box-title">Young drivers only</span>
+                    <span class="box-title" id="select">Young drivers</span>
                 </a>
             </li>
             <li>
                 <a href="#" id="filter-btn" class="wui-side-menu-item">
                     <i class="fa fa-sun-o fa-fw"></i>
-                    <span class="box-title">Daytime only</span>
+                    <span class="box-title" id="select">Daytime</span>
                 </a>
             </li>
             <li>
                 <a href="#" id="filter-btn" class="wui-side-menu-item">
                     <i class="fa fa-moon-o fa-fw"></i>
-                    <span class="box-title">Nighttime only</span>
+                    <span class="box-title" id="select">Nighttime</span>
                 </a>
             </li>
             <li>
                 <a href="#" id="filter-btn" class="wui-side-menu-item">
                     <i class="box-ico fa fa-road fa-fw"></i>
-                    <span class="box-title">Intersections only</span>
+                    <span class="box-title" id="select">Intersections</span>
                 </a>
             </li>
             <!-- Map Cluster Accident Risk Filter Toggles -->
@@ -50,7 +50,7 @@
                                     <input type="checkbox" id="checkbox" checked />
                                     <div class="slider round riskRed"></div>
                                 </label>
-                                <span class="box-title" style="padding-left: 10px;">High risks</span>
+                                <span class="box-title" id="select" style="padding-left: 10px;">High risks</span>
                             </div>
                         </a>
                     </li>
@@ -61,7 +61,7 @@
                                     <input type="checkbox" id="checkbox" checked />
                                     <div class="slider round riskOrange"></div>
                                 </label>
-                                <span class="box-title" style="padding-left: 10px;">Mid risks</span>
+                                <span class="box-title" id="select" style="padding-left: 10px;">Mid risks</span>
                             </div>
                         </a>
                     </li>
@@ -72,7 +72,7 @@
                                     <input type="checkbox" id="checkbox" checked />
                                     <div class="slider round riskDarkGreen"></div>
                                 </label>
-                                <span class="box-title" style="padding-left: 10px;">Low risks</span>
+                                <span class="box-title" id="select" style="padding-left: 10px;">Low risks</span>
                             </div>
                         </a>
                     </li>
@@ -90,6 +90,8 @@
             <!-- SEARCH BAR -->
             <input id="postcode" hidden />
             <input id="loc" hidden />
+            <input id="sidefilter" value="" hidden />
+            <input id="riskfilter" value="High risks!Mid risks!Low risks!" hidden />
             <div class="search-bar-header" id="searchWrapper">
                 <span class="box-title" id="prompt">Crash Data Loading......</span>
                 <div class="search-bar">
