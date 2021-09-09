@@ -55,7 +55,7 @@ namespace BlackspotIE.Hubs
             List<Suburb> matched = DB.Suburbs.Where(s => s.Postcode.Equals(postcode)).ToList();
             List<Suburb> result = matched.Where(s => s.Name.Equals(loc)).ToList();
             string geometry = "{\"type\":\"Feature\",\"geometry\":{\"type\":\"MultiPolygon\",\"coordinates\":[[[" + result[0].Geometry + "]]]}}";
-            Clients.Caller.displaypolygon(geometry, "[" + result[0].Long + "," + result[0].Lat + "]");
+            Clients.Caller.displaypolygon(geometry, "[" + result[0].Long + "," + result[0].Lat + "]", loc);
 
         }
         public void Getinfo(string postcode, string loc)

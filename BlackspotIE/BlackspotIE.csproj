@@ -269,6 +269,7 @@
     <Content Include="Models\BlackSpotDataModel.edmx.diagram">
       <DependentUpon>BlackSpotDataModel.edmx</DependentUpon>
     </Content>
+    <None Include="OpenData\abc.json" />
     <None Include="Properties\PublishProfiles\5032 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Blackspot-helper - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
@@ -290,6 +291,7 @@
     <Content Include="Scripts\nicepage.js" />
     <Content Include="Scripts\Spiderfying.js" />
     <Content Include="favicon1.ico" />
+    <Content Include="Scripts\Spot-My-Area.js" />
     <Content Include="SSL\certs\detail.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

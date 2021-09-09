@@ -1,46 +1,141 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<section class="u-align-center u-clearfix u-custom-color-2 u-section-1" id="sec-bc51">
-    <div class="u-clearfix u-sheet u-sheet-1">
-        <h2 class="u-text u-text-default u-text-1">
-            What is the postcode<br>where you currently live?
-        </h2>
-        <div class="u-form u-form-1">
-            <form action="#" method="POST" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" style="padding: 10px" source="custom" name="form">
-                <div class="u-form-group u-form-group-1">
-                    <label for="text-7a1b" class="u-form-control-hidden u-label u-label-1"></label>
-                    <input type="text" placeholder="" id="text-7a1b" name="text" class="u-border-4 u-border-white u-input u-input-rectangle u-radius-50 u-white">
+<section class="u-align-center u-clearfix u-custom-color-9 u-section-1" id="sec-bc51">
+
+    <div class="leftnav" style="display: none;">
+        <ul class="leftnav-listing">
+            <li><a href="#One"></a></li>
+            <li><a href="#Two"></a></li>
+            <li><a href="#Three"></a></li>
+            <li><a href="#Four"></a></li>
+            <li><a href="#Five"></a></li>
+        </ul>
+    </div>
+
+    <!-- END Left Rail -->
+    <section class="vh yellow" id="One">
+        <div class="sma-content">
+            <div class="search-bar-header">
+                <!-- <span>Sections</span> -->
+                <p id="section09" class="box-title" style="font-size: 30px;">
+                    Loading......
+                </p>
+                <div id="section10" style="display: none;">
+                    <a href="#thanks">
+                        <span></span>
+                    </a>
+
                 </div>
-                <div class="u-form-group u-form-select u-form-group-2">
-                    <label for="select-35da" class="u-form-control-hidden u-label u-label-2"></label>
-                    <div class="u-form-select-wrapper">
-                        <select id="select-35da" name="suburb" class="u-border-4 u-border-white u-input u-input-rectangle u-radius-50 u-white">
-                            <option value="select your suburb">select your suburb</option>
-                            <option value="suburb 1">suburb 1</option>
-                            <option value="suburb 2">suburb 2</option>
-                            <option value="suburb 3">suburb 3</option>
-                        </select>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
+                <input id="postcode" hidden />
+                <input id="loc" hidden />
+                <div class="search-bar">
+                    <form id="searchForm" action="search" method="post" style="display: inline-flex;">
+                        <input id="searchText" type="search" placeholder="E.g 3000" style="font-size: 16px; display: none;">
+                        <!-- loading animation -->
+                        <!--  TODO add animation -->
+                        <!-- <div id="loadAnim" class="spinner"><i class="fa fa-spinner"></i></div> -->
+                    </form>
+                </div>
+                <div class="search-bar-results" style="display: none;">
+                    <ul class="result-list" id="result">
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+    </section>
+    <section class="vh " id="Two">
+        <div class="sma-content">
+            <span>Did you know?</span>
+            <p class="sma-text">On a monthly average, <span id="avg"></span> road accidents happens at <span id="name"></span>.</p>
+        </div>
+
+
+    </section>
+    <section class="vh aqua" id="Three">
+
+        <div class="sma-content" style="width:100% !important">
+            <div class="sma-sidemap-containter" style="width:100% !important">
+                <div class="sma-side-text">
+                    <span id="tick">Becareful.</span>
+                    <p>
+                        In the last 5 years,
+                        <span id="road"></span><span id="type"></span>
+                        in your area is considered the most severe black spot.
+                    </p>
+                </div>
+                <div class="sma-side-map">
+                    <div id="map"></div>
+                    <!-- <p class="sma-text">In the last 5 years,
+      Princess Highway / Wellington Road Intersection
+      is considered the most severe black spot.</p> -->
+                    <!-- map -->
+                    
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    <section class="vh" id="Four">
+
+        <div class="sma-content">
+            <div class="sma-sidemap-containter">
+                <div class="sma-side-text">
+                    <span>SECTION.</span>
+                    <p>
+                        In the last 5 years,
+                        31% of accidents occured involved young drivers at Princess Highway / Wellington Road Intersection.
+                    </p>
+                </div>
+                <div class="sma-side-map">
+                    <div id="canvas-holder">
+                        <canvas id="chart-area" width="150" height="150">
+                            <!-- <div id="chartjs-tooltip"></div> -->
+                        </canvas>
                     </div>
                 </div>
-                <div class="u-align-left u-form-group u-form-submit">
-                    <a href="#" class="u-active-grey-90 u-border-4 u-border-active-grey-90 u-border-grey-75 u-border-hover-grey-90 u-btn u-btn-round u-btn-submit u-button-style u-grey-75 u-hover-grey-90 u-radius-50 u-btn-1">Next</a>
-                    <input type="submit" value="submit" class="u-form-control-hidden">
-                </div>
-                <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
-                <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
-                <input type="hidden" value="" name="recaptchaResponse">
-            </form>
+            </div>
         </div>
-    </div>
+
+
+
+    </section>
+    <section class="vh pink" id="Five">
+        <!-- <span>There's More</span> -->
+        <div class="sma-content">
+            <span>There's More</span>
+            <p style="font-size: 20px">Want to discover more black spots in Victoria? <br> Check out our map visualiser.</p>
+            <a href="Map.html" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1">Explore</a>
+            <p style="font-size: 20px;" class="sma-side-text">Or learn more about black spots.</p>
+            <a href="More-info.html" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1">Read more</a>
+            <a id="replay" href="#" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1">Ask Again</a>
+        </div>
+
+    </section>
+
+
 </section>
+<span style="height: 64px; width: 64px; margin: -522px auto 60px -357px; background-image: none; right: 20px; bottom: 20px;" class="u-back-to-top u-block-63bf-6 u-custom-color-2 u-icon u-icon-circle u-opacity u-opacity-85 u-spacing-15" data-href="#">
+    <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 551.13 551.13"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-2664"></use></svg>
+    <svg class="u-svg-content" enable-background="new 0 0 551.13 551.13" viewBox="0 0 551.13 551.13" xmlns="http://www.w3.org/2000/svg" id="svg-2664"><path d="m275.565 189.451 223.897 223.897h51.668l-275.565-275.565-275.565 275.565h51.668z"></path></svg>
+</span>
 @section Styles {
     <link rel="stylesheet" href="~/Content/nicepage.css" media="screen">
     <link rel="stylesheet" href="~/Content/Spot-My-Area.css" media="screen">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
 
 }
 @section Scripts {
     <script class="u-script" src="~/Scripts/jquery.js"></script>
     <script class="u-script" src="~/Scripts/nicepage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/Spot-My-Area.js"></script>
+
 }

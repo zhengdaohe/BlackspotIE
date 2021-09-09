@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/BlackspotIE/OpenData/abc.geojson
+/BlackspotIE/OpenData/abc.json

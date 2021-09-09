@@ -139,7 +139,7 @@ documentReady(function () {
     mapboxgl.accessToken = 'pk.eyJ1IjoibG9oc2UiLCJhIjoiY2tnbmVtdGM4MDlkdjMxcWg4ODg0MjY0dCJ9.WiZuARwnopVEj478S6oaXg';
     var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/light-v10',
+        style: 'mapbox://styles/mapbox/streets-v11',
         maxZoom: 14,
         minZoom: 14,
         center: [144.946457, -37.840935]
@@ -265,6 +265,11 @@ documentReady(function () {
     });
     var timeOut = null;
     var searchTimeout = null;
+    var origin = {
+        type: "FeatureCollection",
+        name: "Road_Crashes_for_five_Years_-_Victoria",
+        features: []
+    };
     var json = null;
     var newGeoJSON = {
         type: "FeatureCollection",
@@ -316,7 +321,7 @@ documentReady(function () {
             clusterRadius: 27.3
         });
         SPIDERFY_FROM_ZOOM = 13;
-        var url = "https://opendata.arcgis.com/datasets/74dd92127eea4404b0dad1d7e39bf0e3_1.geojson";
+        var url = "https://iter2.blackspothelper.tk/OpenData/abc.json";
         var request = new XMLHttpRequest();
         request.open("get", url);
         request.send(null);
@@ -332,6 +337,7 @@ documentReady(function () {
                 //    features: []
                 //};ee
                 newGeoJSON.features = json.features;
+                origin.features = json.features;
                 //    .filter(feature => feature.properties.ROAD_GEOMETRY === "Cross intersection");
                 map.getSource('crash').setData(json);
                 $('#prompt').html('Highlight a suburb: ');
@@ -356,7 +362,7 @@ documentReady(function () {
                             newGeoJSON.features = newGeoJSON.features.filter(feature => feature.properties.LIGHT_CONDITION.indexOf('Dark') > -1);
                         }
                         if (selectors.indexOf("Intersections") > -1) {
-                            newGeoJSON.features = newGeoJSON.features.filter(feature => feature.properties.ROAD_GEOMETRY.indexOf('T intersection') > -1 || feature.properties.ROAD_GEOMETRY.indexOf('Cross intersection') > -1);
+                            newGeoJSON.features = newGeoJSON.features.filter(feature => feature.properties.ROAD_GEOMETRY.indexOf('Tintersection') > -1 || feature.properties.ROAD_GEOMETRY.indexOf('Crossintersection') > -1);
                         }
                         map.getSource('crash').setData(newGeoJSON);
                         
@@ -438,7 +444,6 @@ documentReady(function () {
             $('#prompt').html('Filtering');
             document.getElementById('searchText').style = 'display: none;';
             if ($(this).val().length == 0) {
-                map.getSource('crash').setData(null);
                 map.setFilter("clusters", ['has', 'point_count']);
                 map.setFilter("cluster-count", ['has', 'point_count']);
             }
@@ -606,7 +611,7 @@ documentReady(function () {
             'layout': {},
             'paint': {
                 'fill-color': '#0080ff',
-                'fill-opacity': 0.3
+                'fill-opacity': 0.1
             }
         });
         map.addLayer({
@@ -654,7 +659,10 @@ documentReady(function () {
 
                 }
             };
-            postCodeQuery.client.displaypolygon = function (geometry, center) {
+            postCodeQuery.client.displaypolygon = function (geometry, center, suburb) {
+                json.features = origin.features.filter(feature => feature.properties.suburb === suburb);
+                map.getSource('crash').setData(json);
+                $('#sidefilter').change();
                 var poly = JSON.parse(geometry);
                 map.getSource('poly').setData(null);
                 map.getSource('poly').setData(poly);
