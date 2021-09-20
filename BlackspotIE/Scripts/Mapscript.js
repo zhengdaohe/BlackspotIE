@@ -139,7 +139,7 @@ documentReady(function () {
     mapboxgl.accessToken = 'pk.eyJ1IjoibG9oc2UiLCJhIjoiY2tnbmVtdGM4MDlkdjMxcWg4ODg0MjY0dCJ9.WiZuARwnopVEj478S6oaXg';
     var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        style: 'mapbox://styles/mapbox/light-v10',
         maxZoom: 14,
         minZoom: 14,
         center: [144.946457, -37.840935]
@@ -321,7 +321,7 @@ documentReady(function () {
             clusterRadius: 27.3
         });
         SPIDERFY_FROM_ZOOM = 13;
-        var url = "https://iter2.blackspothelper.tk/OpenData/abc.json";
+        var url = "https://crash.b-cdn.net/Edited_Postcode_suburb.json";
         var request = new XMLHttpRequest();
         request.open("get", url);
         request.send(null);
@@ -362,7 +362,7 @@ documentReady(function () {
                             newGeoJSON.features = newGeoJSON.features.filter(feature => feature.properties.LIGHT_CONDITION.indexOf('Dark') > -1);
                         }
                         if (selectors.indexOf("Intersections") > -1) {
-                            newGeoJSON.features = newGeoJSON.features.filter(feature => feature.properties.ROAD_GEOMETRY.indexOf('Tintersection') > -1 || feature.properties.ROAD_GEOMETRY.indexOf('Crossintersection') > -1);
+                            newGeoJSON.features = newGeoJSON.features.filter(feature => feature.properties.ROAD_GEOMETRY.indexOf('T intersection') > -1 || feature.properties.ROAD_GEOMETRY.indexOf('Cross intersection') > -1);
                         }
                         map.getSource('crash').setData(newGeoJSON);
                         
@@ -401,51 +401,34 @@ documentReady(function () {
                 'circle-radius': [
                     'step',
                     ['get', 'point_count'],
-                    20,
                     10,
-                    30,
-                    30,
-                    40
-                ],
-                'circle-blur': [
-                    'step',
-                    ['get', 'point_count'],
-                    0.5,
                     10,
-                    0.5,
+                    11,
                     30,
-                    0.5
+                    12
                 ],
-                'circle-opacity': [
-                    'step',
-                    ['get', 'point_count'],
-                    0.5,
-                    10,
-                    0.7,
-                    30,
-                    0.9
-                ],
+                'circle-opacity': 0.8,
             }
         });
 
-        map.addLayer({
-            id: 'cluster-count',
-            type: 'symbol',
-            source: 'crash',
-            filter: ['has', 'point_count'],
-            layout: {
-                'text-field': '{point_count_abbreviated}',
-                'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-                'text-size': 12
-            }
-        });
+        //map.addLayer({
+        //    id: 'cluster-count',
+        //    type: 'symbol',
+        //    source: 'crash',
+        //    filter: ['has', 'point_count'],
+        //    layout: {
+        //        'text-field': '{point_count_abbreviated}',
+        //        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+        //        'text-size': 12
+        //    }
+        //});
         $('#riskfilter').on("change", function () {
             $(".wui-side-menu-item").attr("disabled", true).css("pointer-events", "none");
             $('#prompt').html('Filtering');
             document.getElementById('searchText').style = 'display: none;';
             if ($(this).val().length == 0) {
                 map.setFilter("clusters", ['has', 'point_count']);
-                map.setFilter("cluster-count", ['has', 'point_count']);
+                //map.setFilter("cluster-count", ['has', 'point_count']);
             }
             else {
                 var selectors = $(this).val().trim("!").split("!");
@@ -461,7 +444,7 @@ documentReady(function () {
                 }
 
                 map.setFilter("clusters", filter);
-                map.setFilter("cluster-count", filter);
+                //map.setFilter("cluster-count", filter);
 
             }
             $(".wui-side-menu-item").attr("disabled", false).css("pointer-events", "auto");
@@ -686,28 +669,28 @@ documentReady(function () {
                 $("#searchText").on("focus", function () {
                     $('#prompt').html('Highlight a suburb: ');
                     if ($(this).val()) {
-                        $('.search-bar-results').show();
+                        $('.search-bar-results').fadeIn(500);
                     }
                 }).on("click", function (event) { event.stopPropagation(); });
-                $(document).click(function () { $('.search-bar-results').hide();});
+                $(document).click(function () { $('.search-bar-results').fadeOut(500);});
 
                 $('#searchText').on('input', function () {
                     clearTimeout(searchTimeout);
-                    $('.search-bar-results').hide();
+                    $('.search-bar-results').fadeOut(500);
                     var patt = /^[\d]*$/;
                     if (patt.test($('#searchText').val())) {
                         if (!$(this).val()) {
-                            $('.search-bar-results').hide();
+                            $('.search-bar-results').fadeOut(500);
                         }
                         else if ($('#searchText').val().length != 4) {
                             searchTimeout = setTimeout(function () {
-                                $('.search-bar-results').show();
+                                $('.search-bar-results').fadeIn(500);
                                 $('#result').html('Not a valid VIC postcode');
                             }, 750);
                         }
                         else {
                             searchTimeout = setTimeout(function () {
-                                $('.search-bar-results').show();
+                                $('.search-bar-results').fadeIn(500);
                                 $('#searchText').attr("readonly", "readonly");
                                 var postcode = $('#searchText').val();
                                 postCodeQuery.server.send(postcode);
@@ -717,12 +700,12 @@ documentReady(function () {
                     else {
                         $(this).val($(this).val().replace(/[^\d]/g, ""));
                         if ($(this).val().length == 0) {
-                            $('.search-bar-results').hide();
+                            $('.search-bar-results').fadeOut(500);
                         }
                         else {
                             searchTimeout = setTimeout(function () {
 
-                                $('.search-bar-results').show();
+                                $('.search-bar-results').fadeIn(500);
                                 $('#result').html('<li>Not a valid VIC postcode</li>');
                             }, 750);
                         }

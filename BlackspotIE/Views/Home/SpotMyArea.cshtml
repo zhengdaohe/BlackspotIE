@@ -18,11 +18,14 @@
         <div class="sma-content">
             <div class="search-bar-header">
                 <!-- <span>Sections</span> -->
-                <p id="section09" class="box-title" style="font-size: 30px;">
-                    Loading......
+                <div id="loader" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <p id="section09" class="box-title" style="font-size: 30px;display: none;">
+
                 </p>
-                <div id="section10" style="display: none;">
-                    <a href="#thanks">
+
+                <div id="section10" style="display:none;font-size:18px">
+
+                    <p style="padding-top:150px !important">Scroll down to continue</p><a href="#">
                         <span></span>
                     </a>
 
@@ -70,10 +73,10 @@
                 <div class="sma-side-map">
                     <div id="map"></div>
                     <!-- <p class="sma-text">In the last 5 years,
-      Princess Highway / Wellington Road Intersection
-      is considered the most severe black spot.</p> -->
+                    Princess Highway / Wellington Road Intersection
+                    is considered the most severe black spot.</p> -->
                     <!-- map -->
-                    
+
                 </div>
             </div>
 
@@ -85,16 +88,15 @@
         <div class="sma-content">
             <div class="sma-sidemap-containter">
                 <div class="sma-side-text">
-                    <span>SECTION.</span>
-                    <p>
-                        In the last 5 years,
-                        31% of accidents occured involved young drivers at Princess Highway / Wellington Road Intersection.
+                    <span id="sub_4"></span>
+                    <p id="desc_4">
+                        During the last 5 years,
+                        <span id="num"></span> accidents happend, and <span id="perc"></span>% of them are <span id="actype"></span>.
                     </p>
                 </div>
                 <div class="sma-side-map">
                     <div id="canvas-holder">
-                        <canvas id="chart-area" width="150" height="150">
-                            <!-- <div id="chartjs-tooltip"></div> -->
+                        <canvas id="chart-area">
                         </canvas>
                     </div>
                 </div>
@@ -109,10 +111,10 @@
         <div class="sma-content">
             <span>There's More</span>
             <p style="font-size: 20px">Want to discover more black spots in Victoria? <br> Check out our map visualiser.</p>
-            <a href="Map.html" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1">Explore</a>
+            <a href="Map" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1">Explore</a>
             <p style="font-size: 20px;" class="sma-side-text">Or learn more about black spots.</p>
-            <a href="More-info.html" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1">Read more</a>
-            <a id="replay" href="#" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1">Ask Again</a>
+            <a href="MoreInfo" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1">Read more</a>
+            <a id="replay" href="#" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1">Spot Another Suburb</a>
         </div>
 
     </section>
@@ -127,6 +129,112 @@
     <link rel="stylesheet" href="~/Content/nicepage.css" media="screen">
     <link rel="stylesheet" href="~/Content/Spot-My-Area.css" media="screen">
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        .lds-roller {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+            .lds-roller div {
+                animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                transform-origin: 40px 40px;
+            }
+
+                .lds-roller div:after {
+                    content: " ";
+                    display: block;
+                    position: absolute;
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    background: #fff;
+                    margin: -4px 0 0 -4px;
+                }
+
+                .lds-roller div:nth-child(1) {
+                    animation-delay: -0.036s;
+                }
+
+                    .lds-roller div:nth-child(1):after {
+                        top: 63px;
+                        left: 63px;
+                    }
+
+                .lds-roller div:nth-child(2) {
+                    animation-delay: -0.072s;
+                }
+
+                    .lds-roller div:nth-child(2):after {
+                        top: 68px;
+                        left: 56px;
+                    }
+
+                .lds-roller div:nth-child(3) {
+                    animation-delay: -0.108s;
+                }
+
+                    .lds-roller div:nth-child(3):after {
+                        top: 71px;
+                        left: 48px;
+                    }
+
+                .lds-roller div:nth-child(4) {
+                    animation-delay: -0.144s;
+                }
+
+                    .lds-roller div:nth-child(4):after {
+                        top: 72px;
+                        left: 40px;
+                    }
+
+                .lds-roller div:nth-child(5) {
+                    animation-delay: -0.18s;
+                }
+
+                    .lds-roller div:nth-child(5):after {
+                        top: 71px;
+                        left: 32px;
+                    }
+
+                .lds-roller div:nth-child(6) {
+                    animation-delay: -0.216s;
+                }
+
+                    .lds-roller div:nth-child(6):after {
+                        top: 68px;
+                        left: 24px;
+                    }
+
+                .lds-roller div:nth-child(7) {
+                    animation-delay: -0.252s;
+                }
+
+                    .lds-roller div:nth-child(7):after {
+                        top: 63px;
+                        left: 17px;
+                    }
+
+                .lds-roller div:nth-child(8) {
+                    animation-delay: -0.288s;
+                }
+
+                    .lds-roller div:nth-child(8):after {
+                        top: 56px;
+                        left: 12px;
+                    }
+
+        @@keyframes lds-roller {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 
 }
 @section Scripts {

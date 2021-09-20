@@ -90,7 +90,16 @@
 
 	/*Demo Extra css*/
 	footer {height: 150px;display: flex;justify-content: center;align-items: center;}
-	.vh{height: 100vh;background: #010a43;display: flex;align-items: center;font-size: 5vw;color: #ffff;justify-content: center;text-transform: uppercase;}
+.vh {
+	height: 100vh;
+	background: #010a43;
+	display: flex;
+	align-items: center;
+	font-size: 5vw;
+	color: #ffff;
+	justify-content: center;
+	text-transform: capitalize;
+}
 	.vh.aqua{background: #9f50dc;}
 	.vh.pink{background: #A80874;}
 	.vh.yellow{background: #ffc400}
@@ -167,7 +176,7 @@
 	display: flex;
 	flex-direction: column;
 	width: 50%;
-	font-size: 20px;
+	font-size: 30px;
 	text-align: center;
 	justify-content: center;
  align-items: center;
@@ -190,7 +199,7 @@
 
 	/* Highcharts css */
 	#canvas-holder {
-  width: 300px;
+  width: 500px;
   margin-top: 50px;
   text-align: center;
 		display: inline-flex;

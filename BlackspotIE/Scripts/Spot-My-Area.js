@@ -67,13 +67,13 @@ function onScrollHighlighted() {
 }
 
 // leftnav on click scroll
-$(document).on('click', '.leftnav-listing li > a', function () {
-    var getattr = ($(this).attr('href')).trim();
-    var headmrg = ($('[id="' + getattr.substr(1) + '"]').css('margin-top')).slice(0, -2);
-    $('html, body').animate({
-        scrollTop: $('[id="' + getattr.substr(1) + '"]').offset().top - $('.header').outerHeight() - headmrg
-    }, 1000);
-});
+//$(document).on('click', '.leftnav-listing li > a', function () {
+//    var getattr = ($(this).attr('href')).trim();
+//    var headmrg = ($('[id="' + getattr.substr(1) + '"]').css('margin-top')).slice(0, -2);
+//    $('html, body').animate({
+//        scrollTop: $('[id="' + getattr.substr(1) + '"]').offset().top - $('.header').outerHeight() - headmrg
+//    }, 1000);
+//});
 
 function lockScroll() {
     // lock scroll position, but retain settings for later
@@ -115,14 +115,15 @@ $(document).ready(function () {
     mapboxgl.accessToken = 'pk.eyJ1IjoibG9oc2UiLCJhIjoiY2tnbmVtdGM4MDlkdjMxcWg4ODg0MjY0dCJ9.WiZuARwnopVEj478S6oaXg';
     var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        style: 'mapbox://styles/mapbox/light-v10',
         maxZoom: 14,
         minZoom: 14,
-        center: [144.946457, -37.840935]
+        center: [144.946457, -37.840935],
+        interactive:false
     });
 
     map.on('load', () => {
-        var url = "https://iter2.blackspothelper.tk/OpenData/abc.json";
+        var url = "https://crash.b-cdn.net/Edited_Postcode_suburb.json";
         var request = new XMLHttpRequest();
         request.open("get", url);
         request.send(null);
@@ -131,7 +132,10 @@ $(document).ready(function () {
                 origin = JSON.parse(request.responseText);
                 console.log("Crash data loaded");
                 $("#section09").html("What is the postcode<br>where you currently live ?");
-                $('#searchText').fadeIn(500);
+                $('#loader').fadeOut(500, "linear", function () {
+                    $("#section09").fadeIn(500);
+                    $('#searchText').fadeIn(500);
+                });
             }
         };
         map.addSource('crash', {
@@ -150,9 +154,9 @@ $(document).ready(function () {
                 'circle-color': [
                     'step',
                     ['get', 'point_count'],
-                    '#45d649',
+                    '#ff0000',
                     10,
-                    '#ed9b18',
+                    '#ff0000',
                     30,
                     '#ff0000'
                 ],
@@ -220,49 +224,64 @@ $(document).ready(function () {
                 'line-width': 1
             }
         });
-        map.on('render', 'clusters', () => {
+        map.on('idle', 'clusters', () => {
 
             if (!isDone) {
-                const features = map.queryRenderedFeatures({
-                    layers: ['clusters']
+                //const features = map.queryRenderedFeatures({
+                //    layers: ['clusters']
+                //});
+                var features = [];
+                const features_ = map.querySourceFeatures('crash', {
+                    sourceLayer: 'clusters'
                 });
+                features_.forEach(function (point) {
+                    if (typeof (point.id) != "undefined") {
+                        features.push(point);
+                    };
+
+                })
                 if (feature_list.length < features.length) {
                     console.log("render")
                     feature_list = features;
                     var max = features[0].properties.point_count_abbreviated;
-                    maxCluster = features[0];
+                    var maxCluster_ = features[0];
                     features.forEach(function (cluster) {
                         if (cluster.properties.point_count_abbreviated > max) {
-                            maxCluster = cluster;
+                            maxCluster_ = cluster;
                             max = cluster.properties.point_count_abbreviated;
                         };
 
                     });
-                    map.setCenter([maxCluster.geometry.coordinates[0], maxCluster.geometry.coordinates[1]]);
-                    map.setFilter("clusters", null);
-                    map.setFilter("cluster-count", null);
-                    map.setFilter("clusters", ["==", ['get', 'cluster_id'], maxCluster.properties.cluster_id]);
-                    map.setFilter("cluster-count", ["==", ['get', 'cluster_id'], maxCluster.properties.cluster_id]);
-                    var api = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + maxCluster.geometry.coordinates[0] + "," + maxCluster.geometry.coordinates[1] + ".json?types=address&access_token=pk.eyJ1IjoibG9oc2UiLCJhIjoiY2tnbmVtdGM4MDlkdjMxcWg4ODg0MjY0dCJ9.WiZuARwnopVEj478S6oaXg";
-                    var geo_request = new XMLHttpRequest();
-                    var response = null;
-                    geo_request.open("get", api);
-                    geo_request.send(null);
-                    geo_request.onload = function () {
-                        if (geo_request.status == 200) {
-                            response = JSON.parse(geo_request.responseText).features[0].text;
-                            $("#road").text(response);
-                        }
-                    };
+                    if (maxCluster == null || max > maxCluster.properties.point_count_abbreviated) {
+                        
+                        maxCluster = maxCluster_;
+                        map.setCenter([maxCluster.geometry.coordinates[0], maxCluster.geometry.coordinates[1]]);
+                        map.setFilter("clusters", ["==", ['get', 'cluster_id'], maxCluster.properties.cluster_id]);
+                        map.setFilter("cluster-count", ["==", ['get', 'cluster_id'], maxCluster.properties.cluster_id]);
+                        var api = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + maxCluster.geometry.coordinates[0] + "," + maxCluster.geometry.coordinates[1] + ".json?types=address&access_token=pk.eyJ1IjoibG9oc2UiLCJhIjoiY2tnbmVtdGM4MDlkdjMxcWg4ODg0MjY0dCJ9.WiZuARwnopVEj478S6oaXg";
+                        var geo_request = new XMLHttpRequest();
+                        var response = null;
+                        geo_request.open("get", api);
+                        geo_request.send(null);
+                        geo_request.onload = function () {
+                            if (geo_request.status == 200) {
+                                response = JSON.parse(geo_request.responseText).features[0].text;
+                                $("#tick").html("Take Care!");
+                                $("#road").text(response);
+                            }
+                            else {
+                                geo_request.send(null);
+                            }
+                        };
+                    }
+
                 }
             }
         });
 
     })
 
-    // load pie chart for page 4
-    var ctx = document.getElementById("chart-area").getContext("2d");
-    window.myPie = new Chart(ctx, config);
+    
 
     // Stopping user from refreshing page by hitting "ENTER" key on search bar.
     document.getElementById('searchForm').addEventListener('submit', function (e) {
@@ -276,6 +295,11 @@ $(document).ready(function () {
         $('.search-bar-results').fadeOut(100);
         $('.leftnav').fadeIn(1500);
 
+        isDone = true;
+        rendered = true;
+        feature_list = [];
+        maxCluster = null;
+
         $('.search-bar-results').hide();
         $('.leftnav').hide();
         $('#section10').hide();
@@ -286,6 +310,7 @@ $(document).ready(function () {
             $("input").val('');
             lockScroll();
         });
+        $("#canvas-holder").html('<canvas id="chart-area"></canvas>');
 
     });
 
@@ -338,22 +363,40 @@ $(document).ready(function () {
         postCodeQuery.client.displaypolygon = function (geometry, center, suburb) {
 
             json.features = origin.features.filter(feature => feature.properties.suburb == suburb);
-
-
-            isDone = true;
-            rendered = true;
-            feature_list = [];
-            maxCluster = null;
-
+            const ac_types = json.features.map(feature => feature.properties.ACCIDENT_TYPE);
+            const unique_ac_types = Array.from(new Set(ac_types));
+            var count = new Array();
+            unique_ac_types.forEach(function (type) {
+                count[type] = 0;
+            });
+            ac_types.forEach(function (type) {
+                count[type] = count[type] + 1;
+            });
+            var sum = 0;
+            var max = 0;
+            var max_type = "";
+            unique_ac_types.forEach(function (type) {
+                sum = sum + count[type];
+                if (count[type] > max) {
+                    max = count[type]
+                    max_type = type
+                }
+            });
+            var percentage = Math.round((max / sum) * 100);
+            $("#sub_4").text("In " + suburb);
+            $("#num").text(sum);
+            $("#perc").text(percentage);
+            $("#actype").text(max_type);
             var avg = Math.ceil(json.features.length / 60);
-            $("#avg").text(avg);
-            map.setCenter([-97.7, 38.93]);
-            map.getSource('crash').setData(json);
-            var poly = JSON.parse(geometry);
-            map.getSource('poly').setData(null);
-            map.getSource('poly').setData(poly);
-            map.setFilter("clusters", ['has', 'point_count']);
-            map.setFilter("cluster-count", ['has', 'point_count']);
+            if (avg == 1 && avg > Math.round(json.features.length / 60)) {
+                $("#avg").text("less than 1");
+            }
+            else {
+                $("#avg").text(avg);
+            }
+            
+            
+
             var loc_api = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + suburb.replace(" ", "%20") + ".json?types=locality&country=AU&limit=1&access_token=pk.eyJ1IjoibG9oc2UiLCJhIjoiY2tnbmVtdGM4MDlkdjMxcWg4ODg0MjY0dCJ9.WiZuARwnopVEj478S6oaXg";
             var loc_request = new XMLHttpRequest();
             var coordinate = null;
@@ -369,11 +412,49 @@ $(document).ready(function () {
                     } else {
                         isDone = false;
                         rendered = false;
+                        map.setFilter("clusters", ['has', 'point_count']);
+                        map.setFilter("cluster-count", ['has', 'point_count']);
                     }
                     map.setCenter(coordinate);
+                    map.getSource('crash').setData(json);
+                    var poly = JSON.parse(geometry);
+                    map.getSource('poly').setData(null);
+                    map.getSource('poly').setData(poly);
+
+                }
+                else {
+                    loc_request.send(null);
+                }
+            };
+            var count_number = [];
+            unique_ac_types.forEach(function (type) {
+                count_number.push(count[type]);
+            });
+            var config = {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: count_number,
+                        backgroundColor: window.chartColors.slice(0, unique_ac_types.length),
+                    }],
+                    labels: unique_ac_types
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        display: true,
+                        labels: {
+                            padding: 20
+                        },
+                    },
+                    tooltips: {
+                        enabled: true,
+                    }
                 }
             };
 
+            var ctx = document.getElementById("chart-area").getContext("2d");
+            window.myPie = new Chart(ctx, config);
 
         };
         postCodeQuery.client.display = function (message) {
@@ -440,51 +521,16 @@ $(window).resize(function () {
 
 
 
-window.chartColors = {
-    red: 'rgb(255, 99, 132)',
-    orange: 'rgb(255, 159, 64)',
-    yellow: 'rgb(255, 205, 86)',
-    green: 'rgb(75, 192, 192)',
-    blue: 'rgb(54, 162, 235)',
-    purple: 'rgb(153, 102, 255)',
-    grey: 'rgb(231,233,237)'
-};
+window.chartColors = [
+    'rgb(255, 99, 132)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 205, 86)',
+    'rgb(75, 192, 192)',
+    'rgb(54, 162, 235)',
+    'rgb(153, 102, 255)',
+    'rgb(231,233,237)'
+];
 
-
-var config = {
-    type: 'doughnut',
-    data: {
-        datasets: [{
-            data: [300, 50, 100, 40, 10],
-            backgroundColor: [
-                window.chartColors.red,
-                window.chartColors.orange,
-                window.chartColors.yellow,
-                window.chartColors.green,
-                window.chartColors.blue,
-            ],
-        }],
-        labels: [
-            "Red",
-            "Orange",
-            "Yellow",
-            "Green",
-            "Blue"
-        ]
-    },
-    options: {
-        responsive: true,
-        legend: {
-            display: true,
-            labels: {
-                padding: 20
-            },
-        },
-        tooltips: {
-            enabled: true,
-        }
-    }
-};
 
 window.onload = function () {
     // var ctx = document.getElementById("chart-area").getContext("2d");
