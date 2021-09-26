@@ -145,6 +145,18 @@ $(document).ready(function () {
             clusterMaxZoom: 14,
             clusterRadius: 27.3
         });
+        //map.addLayer({
+        //    id: 'unclustered-point',
+        //    type: 'circle',
+        //    source: 'crash',
+        //    filter: ['!', ['has', 'point_count']],
+        //    paint: {
+        //        'circle-color': '#11b4da',
+        //        'circle-radius': 4,
+        //        'circle-stroke-width': 1,
+        //        'circle-stroke-color': '#fff'
+        //    }
+        //});
         map.addLayer({
             id: 'clusters',
             type: 'circle',
@@ -224,7 +236,7 @@ $(document).ready(function () {
                 'line-width': 1
             }
         });
-        map.on('idle', 'clusters', () => {
+        map.on('idle', () => {
 
             if (!isDone) {
                 //const features = map.queryRenderedFeatures({
@@ -240,6 +252,10 @@ $(document).ready(function () {
                     };
 
                 })
+                if (feature_list.length == 0) {
+                    $("#tick").html("You are safe!");
+                    $("#road").text("no spot");
+                }
                 if (feature_list.length < features.length) {
                     console.log("render")
                     feature_list = features;
@@ -407,14 +423,15 @@ $(document).ready(function () {
                     coordinate = JSON.parse(loc_request.responseText).features[0].geometry.coordinates;
                     if (json.features.length == 0) {
                         $("#tick").html("You are safe!");
-                        $("#road").text("No spot");
+                        $("#road").text("no spot");
                         $("#type").text(" ");
                     } else {
                         isDone = false;
                         rendered = false;
-                        map.setFilter("clusters", ['has', 'point_count']);
-                        map.setFilter("cluster-count", ['has', 'point_count']);
+                        
                     }
+                    map.setFilter("clusters", ['has', 'point_count']);
+                    map.setFilter("cluster-count", ['has', 'point_count']);
                     map.setCenter(coordinate);
                     map.getSource('crash').setData(json);
                     var poly = JSON.parse(geometry);

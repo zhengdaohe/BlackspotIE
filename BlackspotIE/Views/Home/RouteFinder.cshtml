@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="search-bar">
+    <form id="searchForm" action="search" method="post" style="display: inline-flex;">
+        <input id="startInput" class="addr" type="search" placeholder="address" style="font-size: 16px;">
+        <input id="endInput" class="addr" type="search" placeholder="address" style="font-size: 16px;">
+    </form>
+</div>
+<div class="search-bar-results" style="display: none;">
+    <ul class="result-list" id="result" style="color:#7f7f7f;">
+    </ul>
+</div>
+<br />
+<br />
+<input id="start" class="locs" hidden />
+<input id="end" class="locs" hidden />
+<section class="map_box_container">
+    <!--MAP-->
+    <div id='map' style="width:900px; height:900px"></div>
+</section>
+<h1 id="prompt" style="color:#2d5f99"></h1>
+
+
+
+@section Styles {
+    <link rel="stylesheet" href="~/Content/nicepage.css" media="screen">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="~/Content/Spot-My-Area.css" media="screen">
+
+}
+@section Scripts {
+    <script class="u-script" src="~/Scripts/jquery.js"></script>
+    <script class="u-script" src="~/Scripts/nicepage.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    <script src="https://npmcdn.com/@Html.Raw("@")turf/turf/turf.min.js"></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/mapbox-polyline/1.1.1/polyline.js></script>
+    <script src="~/Scripts/RouteFinder.js"></script>
+}

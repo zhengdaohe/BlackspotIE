@@ -288,6 +288,7 @@
     <Content Include="Scripts\Mapscript.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\nicepage.js" />
+    <Content Include="Scripts\RouteFinder.js" />
     <Content Include="Scripts\Spiderfying.js" />
     <Content Include="favicon1.ico" />
     <Content Include="Scripts\Spot-My-Area.js" />
@@ -315,6 +316,7 @@
     <Content Include="Views\Home\MoreInfo.cshtml" />
     <Content Include="Views\Home\Password.cshtml" />
     <Content Include="Views\Home\ErrorPage.cshtml" />
+    <Content Include="Views\Home\RouteFinder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
