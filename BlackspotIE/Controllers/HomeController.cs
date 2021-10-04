@@ -24,12 +24,20 @@ namespace BlackspotIE.Controllers
                 return RedirectToAction("Password");
             }
         }
-        public ActionResult Map()
+        public ActionResult Map(int id)
         {
             if ((bool)Session["isVerified"])
             {
                 ViewBag.Title = "View The Map - Black Spot Overwatch";
-                return View();
+                if (id == 1)
+                {
+                    return View();
+                }
+                else
+                {
+                    return View("RouteFinder");
+                }
+                
             }
             else
             {

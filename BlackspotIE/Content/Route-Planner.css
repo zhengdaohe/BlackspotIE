@@ -1,0 +1,996 @@
+.u-section-1 {
+	min-height: 500px;
+}
+
+.u-footer {
+	z-index: 3;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Arapey|Cantarell|Comfortaa|Khand|Russo+One|Ubuntu");
+
+html,
+body {
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+}
+
+/* overlay */
+.wui-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+
+/* content */
+.wui-content-header {
+	z-index: 30;
+	position: absolute;
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	padding-bottom: 10px;
+	padding-right: 10px;
+}
+
+.wui-retry-trigger {
+	position: absolute;
+	color: #e2e3e9 !important;
+	background-color: rgba(24, 24, 31, 0.8);
+	box-shadow: 2px 2px 2px grey;
+	font-family: sans-serif;
+	font-size: 1em;
+	text-align: center;
+	-webkit-backdrop-filter: blur(5px);
+	backdrop-filter: blur(5px);
+	max-width: 50%;
+	max-height: 50%;
+	padding: 50px 60px;
+	border-radius: 10em;
+	margin-top: 10px;
+	padding: 10px 20px 10px 20px;
+	display: inline-flex;
+	left: 50%;
+	transform: translateX(-50%);
+	align-items: center;
+	vertical-align: middle;
+	z-index: 1;
+}
+
+.route-btn {
+	width: 140px;
+	height: 45px;
+	font-family: 'Open Sans',sans-serif;
+	font-size: 16px;
+	color: #000;
+	background-color: #fff;
+	border: none;
+	border-radius: 45px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+}
+
+	.route-btn:hover {
+		background-color: #ff5722;
+		box-shadow: 0px 15px 20px rgba(119, 29, 0, 0.73);
+		color: #000;
+		transform: translateY(7px);
+	}
+
+
+/* display the anchor link side by side  */
+.route-tab {
+	z-index: 20;
+	background: #fff;
+	/* considerable whitespace surrounding the navigation's items */
+	height: 75px;
+	border-radius: 0 0 30px 30px;
+	box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
+	justify-content: center;
+	display: flex;
+	padding: 10px;
+	filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.171));
+}
+
+	/* remove default style and slightly separate the anchor links from one another */
+	.route-tab a {
+		color: inherit;
+		text-decoration: none;
+		margin: 0 0.2rem;
+		/* display the svg icon and span elements side by side, vertically aligned */
+		display: flex;
+		align-items: center;
+		/* include padding for the background applied on the active item */
+		padding: 0.75rem 1.0rem;
+		border-radius: 30px;
+		/* position relative for the pseudo element */
+		position: relative;
+		color: #8a8a8a;
+		/* custom properties for the colors picked up by the elements when clicked (and updated for each link in the script) */
+		--hover-bg: #5b37b720;
+		--hover-c: #5b37b7;
+	}
+
+		/* include considerable negative margin to have the svg icon overlapping with the span element */
+		.route-tab a svg {
+			margin-right: -2.5rem;
+			width: 28px;
+			height: 28px;
+			pointer-events: none;
+			/* transition for the change in margin */
+			transition: margin 0.2s ease-out;
+		}
+		/* by default hide the span element */
+		.route-tab a span {
+			/* opacity: 0;
+  visibility: hidden; */
+			font-size: 0.9rem;
+			margin-left: 0.9rem;
+		}
+		/* include with a pseudo element relative to the anchor link a circle, with a fixed with and height */
+		.route-tab a:before {
+			position: absolute;
+			content: "";
+			top: 50%;
+			left: 0;
+			width: 70px;
+			height: 70px;
+			border-radius: 50%;
+			/* positioned to the left of the anchor link and scaled to 0 */
+			transform: translate(0%, -50%) scale(0);
+			visibility: visible;
+			opacity: 1;
+		}
+		/* when active */
+		/* specify the colors dictated by the custom properties */
+		.route-tab a.active {
+			background: var(--hover-bg);
+			color: var(--hover-c);
+		}
+			/* using the color specified by the then updated custom property show the circle of the pseudo element increasing its size and highlighting it momentarily */
+			.route-tab a.active:before {
+				background: var(--hover-c);
+				opacity: 0;
+				visibility: hidden;
+				transform: translate(0%, -50%) scale(2);
+				/* transition only when the class is applied */
+				transition: all 0.4s ease-out;
+			}
+			/* remove the margin applied to the svg to make it overlay atop the anchor link */
+			.route-tab a.active svg {
+				margin-right: 0;
+			}
+			/* show the span element */
+			.route-tab a.active span {
+				visibility: visible;
+				opacity: 1;
+				transition: all 0.2s ease-out;
+			}
+
+/* on smaller viewports show the navigation bar on the side, attached to the left of the screen */
+@media (max-width: 500px) {
+	.route-tab {
+		flex-direction: column;
+		justify-self: start;
+		border-radius: 0 30px 30px 0;
+		padding: 2rem 1.15rem 2rem 0.75rem;
+	}
+		/* change the margin separating the anchor link elements now dividing the elements vertically */
+		.route-tab a {
+			margin: 0.5rem 0;
+		}
+		/* remove the negative margin from the svg elements, as the width is to be taken in full */
+		.route-tab svg {
+			margin: 0;
+		}
+}
+
+
+/* TOASTT */
+.add-margin {
+	margin-top: 20px;
+}
+
+.toast__svg {
+	fill: #fff;
+}
+
+.toast {
+	text-align: left;
+	padding: 2px;
+	background-color: #fff;
+	border-radius: 4px;
+	max-width: 500px;
+	right: 5%;
+	position: absolute;
+	box-shadow: 1px 7px 14px -5px rgba(0,0,0,0.2);
+	z-index: 20;
+}
+
+
+	.toast:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 4px;
+		height: 100%;
+		border-top-left-radius: 4px;
+		border-bottom-left-radius: 4px;
+	}
+
+.toast__icon {
+	position: absolute;
+	top: 50%;
+	left: 22px;
+	transform: translateY(-50%);
+	padding: 7px;
+	border-radius: 50%;
+	display: flex;
+	font-size: x-large;
+}
+
+.toast__type {
+	color: #3e3e3e;
+	font-weight: 700;
+	margin-top: 10px;
+	margin-bottom: 8px;
+}
+
+.toast__message {
+	font-size: 14px;
+	margin-top: 0;
+	margin-bottom: 0;
+	color: #414141;
+}
+
+.toast__content {
+	padding-left: 70px;
+	padding-right: 60px;
+}
+
+.toast__close {
+	position: absolute;
+	right: 22px;
+	top: 50%;
+	width: 14px;
+	cursor: pointer;
+	height: 14px;
+	fill: #878787;
+	transform: translateY(-50%);
+}
+
+
+
+/* .wui-content .wui-side-menu-trigger {margin-left:-10px;} */
+@media only screen and (min-width: 768px) {
+	.wui-side-menu.open ~ .wui-content .wui-side-menu-trigger {
+		display: none;
+	}
+
+
+	.wui-side-menu.open.pinned ~ .wui-content {
+		left: 220px;
+	}
+}
+
+
+#risk-toggle-btn {
+	border-left-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.wui-content a {
+	color: rgba(45, 46, 57, 0.9);
+}
+
+.filter-title {
+	/* background-color: red; */
+	display: flex;
+	/* width: 100px; */
+	justify-content: left;
+	padding-left: 20px;
+	padding-bottom: 10px;
+}
+
+.risk-filter-content {
+	position: absolute;
+	padding-top: 10vh;
+	width: 100%;
+}
+
+.line-2 {
+	border-top: 1px solid #478ac9;
+	margin: 0 10px;
+}
+
+/* demo */
+body {
+	margin: 0;
+	font-family: "arial";
+	font-weight: 100;
+}
+
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#events {
+	background-color: #ccc;
+}
+
+/* #map{
+  position: abosolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width:100%;
+} */
+
+#map {
+	position: relative;
+	/* height: calc(100vh - 110px); <-- without footer*/
+	height: calc(100vh - 110px);
+	width: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+input {
+	outline: none;
+}
+
+	input[type="search"] {
+		-webkit-appearance: textfield;
+		-webkit-box-sizing: content-box;
+		font-family: inherit;
+		font-size: 100%;
+	}
+
+	input::-webkit-search-decoration,
+	input::-webkit-search-cancel-button {
+		display: none;
+	}
+
+.search-box {
+	background-color: rgba(41, 50, 57, 0.9);
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 10px;
+	width: 400px;
+	/* height: 300px; */
+	border-radius: 5px;
+	display: inline-grid;
+	filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.459));
+	justify-items: center;
+	transition: all .5s linear;
+}
+
+.box-title {
+	font-size: 1.5em;
+}
+
+/* My Search Bar Header css */
+.search-bar-overlay {
+	position: relative;
+	color: #e2e3e9;
+	/* background-color: rgb(24, 24, 31); */
+	font-family: 'Open Sans',sans-serif;
+	font-size: 1em;
+	text-align: center;
+	-webkit-backdrop-filter: blur(3px);
+	backdrop-filter: blur(3px);
+	-moz-backdrop-filter: blur(3px);
+	-ms-backdrop-filter: blur(3px);
+	-o-backdrop-filter: blur(3px);
+	width: 100%;
+	height: 100%;
+	padding: 50px 60px;
+	padding: 10px 20px 10px 20px;
+	display: inline-flex;
+	left: 50%;
+	transform: translateX(-50%);
+	align-items: center;
+	vertical-align: middle;
+	z-index: 10;
+}
+
+.visible {
+	visibility: visible;
+	opacity: 1;
+	transition: opacity 0.5s linear;
+}
+
+.hidden {
+	visibility: hidden;
+	opacity: 0;
+	transition-delay: 1s;
+	transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+
+.search-bar {
+	padding-left: 10px;
+}
+
+@media only screen and (max-width: 948px) {
+
+	/* .search-bar-results {
+    left: 50% !important;
+    transform: translateX(-50%);
+  } */
+	.search-box {
+		top: 30%;
+	}
+}
+
+/* Search Bar CSS */
+input[type="search"] {
+	/* background: #ededed
+    url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat
+    9px center; */
+	border: solid 1px #ccc;
+	border-radius: 20px;
+	padding: 9px 10px 9px 32px;
+	/* width: 100px; */
+	color: black;
+	margin-top: 10px;
+}
+
+input#startInput {
+	background: #ededed url(../images/map-icon.png) no-repeat 9px center;
+	color: black;
+}
+
+
+input#endInput {
+	background: #ededed url(../images/flag-icon.png) no-repeat 9px center;
+	color: black;
+}
+
+input.error {
+	border: 1px dashed red;
+	font-weight: 300;
+	color: red;
+}
+
+#startInput-error, #endInput-error {
+	position: relative;
+	color: red;
+	overflow: hidden;
+}
+
+input[type="search"]:focus {
+	background-color: #fff;
+	border-color: rgba(109, 207, 246, 0.5);
+}
+
+a {
+	color: rgb(4, 97, 190);
+	text-decoration: none;
+}
+
+	a:hover {
+		color: #f60;
+	}
+
+input:-moz-placeholder {
+	color: #999;
+}
+
+input::-webkit-input-placeholder {
+	color: #999;
+}
+
+/* Dropdown css */
+.legend {
+	font-family: "Segoe UI", "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 20px;
+	color: #e2e3e9;
+	/*   background-color: #2d2e39; */
+	background: rgba(45, 46, 57, 0.9);
+	-webkit-backdrop-filter: blur(5px);
+	backdrop-filter: blur(5px);
+	border-radius: 6px;
+	bottom: 30px;
+	/* bottom: 140px; <-- with footer */
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	padding: 10px;
+	position: absolute;
+	right: 10px;
+	/*   height: 25%; */
+	z-index: 3;
+}
+
+	.legend h4 {
+		margin: 0 0 10px 0;
+		text-align: left;
+		font-size: 16px;
+		font-weight: 600;
+	}
+
+	.legend div span {
+		border-radius: 50%;
+		display: inline-block;
+		height: 16px;
+		margin-right: 8px;
+		width: 16px;
+	}
+
+/*tooltip Box*/
+.con-tooltip {
+	position: absolute;
+	color: yellow;
+	background: rgba(24, 24, 31, 0.8);
+	right: 0;
+	border-radius: 9px;
+	padding: 5px 10px;
+	margin: 10px;
+	display: inline-block;
+	transition: all 0.3s ease-in-out;
+	cursor: default;
+	z-index: 3;
+}
+
+/*tooltip */
+.tooltip {
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0.4;
+	width: 100px;
+	/* width: 100%; */
+	/* padding: 0px 20px; */
+	background: #333;
+	color: #fff;
+	position: absolute;
+	font-size: 13px;
+	border-radius: 9px;
+	transform: translateY(9px);
+	transition: all 0.3s ease-in-out;
+	box-shadow: 0 0 3px rgba(56, 54, 54, 0.86);
+}
+
+/* tooltip  after
+.tooltip::after {
+  content: " ";
+  width: 0;
+  height: 0;
+  
+  border-style: solid;
+  border-width: 12px 12.5px 0 12.5px;
+  border-color: #333 transparent transparent transparent;
+  position: absolute;
+  left: 40%;
+} */
+.bottom:hover {
+	transform: translateY(6px);
+}
+
+.bottom .tooltip {
+	top: 115%;
+	right: 50%;
+	padding: 10px;
+}
+
+/* .bottom .tooltip::after{
+  top:-17%;
+  left:40%;
+  transform: rotate(180deg);
+} */
+.con-tooltip:hover .tooltip {
+	visibility: visible;
+	transform: translateY(-10px);
+	opacity: 1;
+	transition: 0.3s linear;
+	animation: brianAnim 1s ease-in-out infinite alternate;
+}
+
+.bottom:hover {
+	transform: translateY(6px);
+}
+
+@keyframes brianAnim {
+	0% {
+		transform: translateY(6px);
+	}
+
+	100% {
+		transform: translateY(1px);
+	}
+}
+
+.myCustomIntroJSTooltip * {
+	color: #4a4a4a;
+	font-size: 18px;
+	max-width: 600px;
+	font-family: sans-serif;
+	font-size: 1em;
+	/* text-align: center; */
+	/* width: max-content; */
+}
+
+.myCustomIntroJSTooltip .introjs-tooltip-title {
+	color: #0a41c9;
+	font-size: 1rem;
+}
+
+.myCustomIntroJSHighlight {
+	box-shadow: rgba(33, 33, 33, 0) 0px 0px 0px 0px, rgba(33, 33, 33, 0.498039) 0px 0px 0px 5000px !important;
+	/* opacity: 0; */
+}
+
+/* iPhone Toggle Checkbox CSS */
+.switch {
+	display: inline-block;
+	height: 17px;
+	position: relative;
+	width: 30px;
+}
+
+	.switch input {
+		display: none;
+	}
+
+.slider {
+	background-color: #ccc;
+	bottom: 0;
+	cursor: pointer;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	transition: 0.4s;
+}
+
+	.slider:before {
+		background-color: #fff;
+		bottom: 2px;
+		content: "";
+		height: 13px;
+		left: 2px;
+		position: absolute;
+		transition: 0.4s;
+		width: 13px;
+	}
+
+input:checked + .slider {
+	background-color: #66bb6a;
+}
+
+	input:checked + .slider:before {
+		transform: translateX(13px);
+	}
+
+.slider.round {
+	border-radius: 17px;
+}
+
+	.slider.round:before {
+		border-radius: 50%;
+	}
+
+/* End  */
+
+/* A css to stop from user highlighting text */
+.noselect {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.easeFadeIn {
+	-moz-transition: all 0.2s ease-in;
+	-o-transition: all 0.2s ease-in;
+	-webkit-transition: all 0.2s ease-in;
+	transition: all 0.2s ease-in;
+}
+
+.avoid-clicks {
+	pointer-events: none;
+}
+
+.toggleOff {
+	background-color: #ccc;
+}
+
+.toggleOffFont {
+	color: #ccc;
+}
+
+.riskGreenFont {
+	color: #5fe464 !important;
+}
+
+.riskOrangeFont {
+	color: #e2aa50 !important;
+}
+
+.riskRedFont {
+	color: #db545a !important;
+}
+
+.riskGreen {
+	background-color: #a6f0a8 !important;
+}
+
+.riskDarkGreen {
+	background-color: #5fe464 !important;
+}
+
+.riskOrange {
+	background-color: #e2aa50 !important;
+}
+
+.riskRed {
+	background-color: #fa1d15 !important;
+}
+
+/* 
+Search bar and animation
+*/
+.search-bar-results {
+	color: black;
+	background-color: white;
+	position: relative;
+	color: #292e34;
+	background-color: white;
+	box-shadow: 2px 2px 2px gray;
+	border-radius: 20px;
+	font-family: sans-serif;
+	padding-right: 15px;
+	font-size: 1em;
+	max-width: 300px;
+	max-height: 150px;
+	z-index: 3;
+	overflow-y: auto;
+	float: left;
+}
+
+	.search-bar-results .result-list li {
+		list-style-type: none;
+		margin-left: -20px;
+		text-align: left;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+	}
+
+		.search-bar-results .result-list li a {
+			display: block;
+			padding: 5px 5px;
+			color: #7f7f7f;
+			text-decoration: none;
+		}
+
+			.search-bar-results .result-list li a:hover {
+				background: #478ac9;
+				color: #fff;
+			}
+
+@keyframes click-wave {
+	0% {
+		height: 40px;
+		width: 40px;
+		opacity: 0.35;
+		position: relative;
+	}
+
+	100% {
+		height: 200px;
+		width: 200px;
+		margin-left: -80px;
+		margin-top: -80px;
+		opacity: 0;
+	}
+}
+
+.option-input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	position: relative;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 20px;
+	width: 20px;
+	transition: all 0.15s ease-out 0s;
+	background: #cbd1d8;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	margin-right: 0.5rem;
+	outline: none;
+	position: relative;
+	z-index: 1000;
+}
+
+	.option-input:hover {
+		background: #9faab7;
+	}
+
+	.option-input:checked {
+		background: #24d85d;
+	}
+
+		.option-input:checked::before {
+			height: 20px;
+			width: 20px;
+			position: absolute;
+			content: "âœ”";
+			display: inline-block;
+			font-size: 20px;
+			text-align: center;
+			line-height: 20px;
+		}
+
+		.option-input:checked::after {
+			-webkit-animation: click-wave 0.65s;
+			-moz-animation: click-wave 0.65s;
+			animation: click-wave 0.65s;
+			background: #24d85d;
+			content: "";
+			display: block;
+			position: relative;
+			z-index: 100;
+		}
+
+	.option-input.radio {
+		border-radius: 50%;
+	}
+
+		.option-input.radio::after {
+			border-radius: 50%;
+		}
+
+
+fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+h4, h5 {
+	line-height: 1.5em;
+	margin: 0;
+}
+
+hr {
+	background: #e9e9e9;
+	border: 0;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	height: 1px;
+	margin: 0;
+	min-height: 1px;
+}
+
+.bs-id {
+	border: 0;
+	display: block;
+	height: auto;
+	max-width: 100%;
+	font-size: medium;
+}
+
+input {
+	border: 0;
+	color: inherit;
+	font-family: inherit;
+	font-size: 100%;
+	line-height: normal;
+	margin: 0;
+}
+
+p {
+	margin: 0;
+}
+
+.clearfix {
+	*zoom: 1;
+}
+	/* For IE 6/7 */
+	.clearfix:before, .clearfix:after {
+		content: "";
+		display: table;
+	}
+
+	.clearfix:after {
+		clear: both;
+	}
+
+/* ---------- LIVE-CHAT ---------- */
+
+#live-chat {
+	bottom: 0;
+	font-size: 12px;
+	position: fixed;
+	width: 50%;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1;
+}
+
+	#live-chat header {
+		background: #293239;
+		border-radius: 5px 5px 0 0;
+		color: #fff;
+		cursor: pointer;
+		padding: 16px 24px;
+	}
+
+
+	#live-chat h4 {
+		font-size: 12px;
+	}
+
+	#live-chat h5 {
+		font-size: 10px;
+	}
+
+
+.chat-message-counter {
+	background: #e62727;
+	border: 1px solid #fff;
+	border-radius: 50%;
+	display: none;
+	font-size: 12px;
+	font-weight: bold;
+	height: 28px;
+	left: 0;
+	line-height: 28px;
+	margin: -15px 0 0 -15px;
+	position: absolute;
+	text-align: center;
+	top: 0;
+	width: 28px;
+}
+.chat-message-content p {
+	font-size: small;
+}
+
+.chat {
+	background: #fff;
+}
+
+.chat-history {
+	height: 252px;
+	padding: 8px 15px;
+	overflow-y: scroll;
+}
+
+.chat-message {
+	margin: 16px 0;
+	transition: 0.3s;
+	pointer-events: auto;
+	cursor: pointer;
+}
+
+	.chat-message:hover {
+		/*   background-color: #3e8e41; */
+		color: orange;
+	}
+
+.chat-time {
+	float: right;
+	font-size: 10px;
+}
+
+.chat-feedback {
+	font-style: italic;
+	margin: 0 0 0 80px;
+}

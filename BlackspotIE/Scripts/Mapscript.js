@@ -2,72 +2,6 @@ $(".wui-side-menu-item").attr("disabled", true).css("pointer-events", "none");
 (function (window, undefined) {
     'use strict';
 
-    // responsive pinnable sidemenu component
-    var sideMenu = function (el) {
-        var htmlSideMenu = el, htmlSideMenuPinTrigger = {}, htmlSideMenuPinTriggerImage = {}, htmlOverlay = {};
-        var init = function () {
-            htmlSideMenuPinTrigger = el.querySelector('.wui-side-menu-pin-trigger');
-            htmlSideMenuPinTriggerImage = htmlSideMenuPinTrigger.querySelector('i.fa');
-            htmlOverlay = document.querySelector('.wui-overlay');
-            Array.prototype.forEach.call(document.querySelectorAll('.wui-side-menu-trigger'), function (elmt, i) {
-                elmt.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    toggleMenuState();
-                }, false);
-
-            });
-            htmlSideMenuPinTrigger.addEventListener('click', function (e) {
-                e.preventDefault();
-                toggleMenuPinState();
-            }, false);
-            htmlOverlay.addEventListener("click", function (e) {
-                htmlSideMenu.classList.remove('open');
-            }, false);
-            window.addEventListener("resize", checkIfNeedToCloseMenu, false);
-            checkIfNeedToCloseMenu();
-        };
-        var toggleMenuState = function () {
-            htmlSideMenu.classList.toggle('open');
-            menuStateChanged(htmlSideMenu, htmlSideMenu.classList.contains('open'));
-        };
-        var toggleMenuPinState = function () {
-            htmlSideMenu.classList.toggle('pinned');
-            htmlSideMenuPinTriggerImage.classList.toggle('fa-rotate-90');
-            if (htmlSideMenu.classList.contains('pinned') !== true) {
-                htmlSideMenu.classList.remove('open');
-            }
-            menuPinStateChanged(htmlSideMenu, htmlSideMenu.classList.contains('pinned'));
-        };
-        var checkIfNeedToCloseMenu = function () {
-            var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-            if (width <= 767 && htmlSideMenu.classList.contains('open') === true) {
-                htmlSideMenu.classList.remove('open');
-                menuStateChanged(htmlSideMenu, htmlSideMenu.classList.contains('open'));
-            }
-            if (width > 767 && htmlSideMenu.classList.contains('pinned') === false) {
-                htmlSideMenu.classList.remove('open');
-                menuStateChanged(htmlSideMenu, htmlSideMenu.classList.contains('open'));
-            }
-
-        };
-        var menuStateChanged = function (element, state) {
-            var evt = new CustomEvent('menuStateChanged', { detail: { open: state } });
-            element.dispatchEvent(evt);
-        };
-        var menuPinStateChanged = function (element, state) {
-            var evt = new CustomEvent('menuPinStateChanged', { detail: { pinned: state } });
-            element.dispatchEvent(evt);
-        };
-        init();
-        return {
-            htmlElement: htmlSideMenu,
-            toggleMenuState: toggleMenuState,
-            toggleMenuPinState: toggleMenuPinState
-        };
-    };
-
-
-    window.SideMenu = sideMenu;
 })(window);
 
 
@@ -125,10 +59,8 @@ function showTourGuide() {
 }
 
 documentReady(function () {
-    var sample = new SideMenu(document.querySelector('.wui-side-menu'))
     // store tooltip showup
     var newVisitOrNot = localStorage.getItem('ifNewVisit');
-    console.log(JSON.parse(newVisitOrNot));
 
     // Set to true to show the tooltips, but will save it as false for the next time.
     if (newVisitOrNot === null) {
@@ -151,24 +83,37 @@ documentReady(function () {
         //On li click where li has .something class
         $('.wui-side-menu-items li #filter-btn').on("click", function () {
             var patt = $(this).children('#select').text();
-            console.log(patt);
-            console.log($('#sidefilter').val());
-            console.log($('#sidefilter').val().indexOf(patt));
+            console.log("Pressed name: " + patt);
+            console.log("add val: " + $('#sidefilter').val());
+            console.log("index : " + $('#sidefilter').val().indexOf(patt));
+
             if ($('#sidefilter').val().indexOf(patt) == -1) {
                 $('#sidefilter').val($('#sidefilter').val() + patt + "!");
             }
             else {
                 $('#sidefilter').val($('#sidefilter').val().replace(patt + "!", ""));
             }
-            // Example to get this on click element
-            /*******
-             * 
-             * 
-             * Do spots filter here..
-             * 
-             */
-            // This is the filter option highlight effect, by switching its own css class.
-            $(this).toggleClass("wui-side-menu-item wui-side-menu-item active");
+
+
+            // group the daytime nighttime checkbox with html name. This will allow checkboxes to react like radio boxes effect.
+
+            $(this).toggleClass("wui-side-menu-item wui-side-menu-item active").promise().done(function () {
+                if ($(this).hasClass("active")) {
+                    $(this).children('.checkbox').prop('checked', true);
+                    if (patt == 'Nighttime' && $('.day').parent().hasClass("active")) {
+                        $('.day').parent().click()
+                    }
+                    if (patt == 'Daytime' && $('.night').parent().hasClass("active")) {
+                        $('.night').parent().click()
+                    }
+                }
+                else {
+                    $(this).children('.checkbox').prop('checked', false);
+                }
+                // $(this).prop("checked",true);
+            });
+
+
             $('#sidefilter').change();
         })
 
@@ -290,7 +235,9 @@ documentReady(function () {
             var feature = spiderLeg.feature;
             pinElem.className = pinElem.className + ' fa-stack fa-lg';
             pinElem.innerHTML = '<i class="circle-icon fa fa-circle fa-stack-2x"></i>' +
-                '<i class="type-icon fa fa-' + feature.ACCIDENT_NO + ' fa-stack-1x"></i>';
+                '<i class="type-icon fa fa-' + feature.ACCIDENT_NO + ' fa-stack-1x"></i>' +  
+                '<i class="type-icon fa fa-' + feature.ACCIDENT_TYPE + ' fa-stack-1x"></i>' +
+                '<i class="type-icon fa fa-' + feature.NODE_TYPE + ' fa-stack-1x"></i>';
             pinElem.style.color = "transparent";
             var spi_popup;
             $(pinElem)
@@ -300,7 +247,9 @@ documentReady(function () {
                         closeOnClick: false,
                         offset: MapboxglSpiderifier.popupOffsetForSpiderLeg(spiderLeg)
                     });
-                    spi_popup.setHTML('Accident No. <b>:' + feature.ACCIDENT_NO + '</b>')
+                    spi_popup.setHTML('Accident No. <b>:' + feature.ACCIDENT_NO + '</b><br />' + 
+                        'Node Type. <b>:' + feature.NODE_TYPE + '</b><br />' + 
+                        'Accident Type. <b>:' + feature.ACCIDENT_TYPE + '</b>')
                         .addTo(map)
                     cluster_popup.remove();
                     spiderLeg.mapboxMarker.setPopup(spi_popup);
@@ -325,11 +274,11 @@ documentReady(function () {
         var request = new XMLHttpRequest();
         request.open("get", url);
         request.send(null);
-        
+
         request.onload = function () {
             if (request.status == 200) {
                 json = JSON.parse(request.responseText);
-                console.log("Crash data loaded");
+
                 $(".wui-side-menu-item").attr("disabled", false).css("pointer-events", "auto");
                 //newGeoJSON = {
                 //    type: "FeatureCollection",
@@ -365,13 +314,13 @@ documentReady(function () {
                             newGeoJSON.features = newGeoJSON.features.filter(feature => feature.properties.ROAD_GEOMETRY.indexOf('T intersection') > -1 || feature.properties.ROAD_GEOMETRY.indexOf('Cross intersection') > -1);
                         }
                         map.getSource('crash').setData(newGeoJSON);
-                        
+
                     }
                     $(".wui-side-menu-item").attr("disabled", false).css("pointer-events", "auto");
                     $('#prompt').html('Highlight a suburb: ');
                     document.getElementById('searchText').style = 'display: normal;';
                 });
-                
+
             }
         };
         //const pubTypes = geojson.features.map(feature => feature.properties.PubType);
@@ -383,6 +332,7 @@ documentReady(function () {
         //    opt.innerText = pubType;
         //    filterElem.appendChild(opt);
         //});
+
         map.addLayer({
             id: 'clusters',
             type: 'circle',
@@ -437,7 +387,7 @@ documentReady(function () {
                     filter.push([">=", ['get', 'point_count'], 30]);
                 }
                 if (selectors.indexOf("Mid risks") > -1) {
-                    filter.push(["all",["<", ['get', 'point_count'], 30], [">=", ['get', 'point_count'], 10]]);
+                    filter.push(["all", ["<", ['get', 'point_count'], 30], [">=", ['get', 'point_count'], 10]]);
                 }
                 if (selectors.indexOf("Low risks") > -1) {
                     filter.push(["<", ['get', 'point_count'], 10]);
@@ -526,7 +476,7 @@ documentReady(function () {
                                 light_condition_count[light_condition] = 0;
                             });
                             leafFeatures.forEach(leafFeature => {
-                                total_fatal = total_fatal + leafFeature.properties.FATALITY;
+
                                 if (last_accident_date < leafFeature.properties.ACCIDENT_DATE) {
                                     last_accident_date = leafFeature.properties.ACCIDENT_DATE;
                                 }
@@ -631,10 +581,10 @@ documentReady(function () {
 
                         })
                         option.appendChild(link);
-                       
+
                         selectlist.appendChild(option);
                     });
-                    
+
 
                 }
                 if (isFound == "false") {
@@ -672,7 +622,7 @@ documentReady(function () {
                         $('.search-bar-results').fadeIn(500);
                     }
                 }).on("click", function (event) { event.stopPropagation(); });
-                $(document).click(function () { $('.search-bar-results').fadeOut(500);});
+                $(document).click(function () { $('.search-bar-results').fadeOut(500); });
 
                 $('#searchText').on('input', function () {
                     clearTimeout(searchTimeout);
@@ -709,14 +659,14 @@ documentReady(function () {
                                 $('#result').html('<li>Not a valid VIC postcode</li>');
                             }, 750);
                         }
-                        
+
                     }
 
 
                 }
                 );
             });
-            
+
         });
     });
 

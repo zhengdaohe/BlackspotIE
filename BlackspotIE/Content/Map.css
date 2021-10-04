@@ -1,4 +1,4 @@
-.u-section-1 {
+﻿.u-section-1 {
     min-height: 500px;
 }
 
@@ -6,12 +6,13 @@
     z-index: 3;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Arapey|Cantarell|Comfortaa|Khand|Russo+One|Ubuntu');
+@import url("https://fonts.googleapis.com/css?family=Arapey|Cantarell|Comfortaa|Khand|Russo+One|Ubuntu");
 
-html, body {
+html,
+body {
     margin: 0;
     height: 100%;
-    overflow: hidden
+    overflow: hidden;
 }
 /* side menu */
 .wui-side-menu {
@@ -26,6 +27,8 @@ html, body {
     transform: translateX(-100%);
     -webkit-transition: webkit-transform 220ms ease-in-out;
     transition: transform 220ms ease-in-out;
+    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.3);
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
 }
 
     .wui-side-menu.open {
@@ -38,7 +41,7 @@ html, body {
         }
 
     .wui-side-menu.open {
-        box-shadow: 2px 0 16px 0 rgba(0,0,0,0.3);
+        box-shadow: 2px 0 16px 0 rgba(0, 0, 0, 0.3);
     }
 
     .wui-side-menu .header,
@@ -83,7 +86,9 @@ html, body {
 }
 
 .wui-side-menu .wui-side-menu-item {
-    height: 50px
+    height: 50px;
+    align-items: center;
+    display: flex;
 }
 
     .wui-side-menu .wui-side-menu-item i.box-ico {
@@ -103,7 +108,8 @@ html, body {
     display: none;
 }
 
-    .wui-side-menu.open ~ .wui-overlay, .wui-overlay.active {
+    .wui-side-menu.open ~ .wui-overlay,
+    .wui-overlay.active {
         display: block;
     }
 
@@ -116,7 +122,7 @@ html, body {
     padding-bottom: 10px;
 }
 /* .wui-content .wui-side-menu-trigger {margin-left:-10px;} */
-@media only screen and (min-width:768px) {
+@media only screen and (min-width: 768px) {
     .wui-side-menu .wui-side-menu-pin-trigger {
         display: inline-block;
     }
@@ -138,7 +144,7 @@ html, body {
         }
 
         .wui-side-menu.open:not(.pinned) {
-            box-shadow: 2px 0 16px 0 rgba(0,0,0,0.3);
+            box-shadow: 2px 0 16px 0 rgba(0, 0, 0, 0.3);
         }
 
         .wui-side-menu.open.pinned ~ .wui-content {
@@ -148,7 +154,7 @@ html, body {
 
 ul.wui-side-menu-items {
     list-style: none;
-    padding: 0
+    padding: 0;
 }
 
 .wui-side-menu {
@@ -165,11 +171,10 @@ ul.wui-side-menu-items {
 
     .wui-side-menu a {
         color: #ccc;
-        text-decoration: none
+        text-decoration: none;
     }
 
     .wui-side-menu .wui-side-menu-item.active {
-        border-left-color: #24d85d;
         color: #24d85d;
     }
 
@@ -184,6 +189,139 @@ ul.wui-side-menu-items {
 .wui-content a {
     color: rgba(45, 46, 57, 0.9);
 }
+
+.route-btn {
+    width: 140px;
+    height: 45px;
+    font-family: 'Open Sans',sans-serif;
+    font-size: 16px;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+
+    .route-btn:hover {
+        background-color: #ff5722;
+        box-shadow: 0px 15px 20px rgba(119, 29, 0, 0.73);
+        color: #000;
+        transform: translateY(7px);
+    }
+
+
+/* display the anchor link side by side  */
+.route-tab {
+    display: flex;
+    background: #fff;
+    /* considerable whitespace surrounding the navigation's items */
+    /* padding: 2rem 3.15rem; */
+    height: 75px;
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.171));
+}
+
+    /* remove default style and slightly separate the anchor links from one another */
+    .route-tab a {
+        color: inherit;
+        text-decoration: none;
+        margin: 0 0.2rem;
+        /* display the svg icon and span elements side by side, vertically aligned */
+        display: flex;
+        align-items: center;
+        /* include padding for the background applied on the active item */
+        padding: 0.75rem 1.25rem;
+        border-radius: 30px;
+        /* position relative for the pseudo element */
+        position: relative;
+        color: #8a8a8a;
+        /* custom properties for the colors picked up by the elements when clicked (and updated for each link in the script) */
+        --hover-bg: #5b37b720;
+        --hover-c: #5b37b7;
+    }
+
+        /* include considerable negative margin to have the svg icon overlapping with the span element */
+        .route-tab a svg {
+            margin-right: -2.5rem;
+            width: 28px;
+            height: 28px;
+            pointer-events: none;
+            /* transition for the change in margin */
+            transition: margin 0.2s ease-out;
+        }
+        /* by default hide the span element */
+        .route-tab a span {
+            /* opacity: 0;
+  visibility: hidden; */
+            font-size: 0.9rem;
+            margin-left: 0.9rem;
+        }
+        /* include with a pseudo element relative to the anchor link a circle, with a fixed with and height */
+        .route-tab a:before {
+            position: absolute;
+            content: "";
+            top: 50%;
+            left: 0;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            /* positioned to the left of the anchor link and scaled to 0 */
+            transform: translate(0%, -50%) scale(0);
+            visibility: visible;
+            opacity: 1;
+        }
+        /* when active */
+        /* specify the colors dictated by the custom properties */
+        .route-tab a.active {
+            background: var(--hover-bg);
+            color: var(--hover-c);
+        }
+            /* using the color specified by the then updated custom property show the circle of the pseudo element increasing its size and highlighting it momentarily */
+            .route-tab a.active:before {
+                background: var(--hover-c);
+                opacity: 0;
+                visibility: hidden;
+                transform: translate(0%, -50%) scale(2);
+                /* transition only when the class is applied */
+                transition: all 0.4s ease-out;
+            }
+            /* remove the margin applied to the svg to make it overlay atop the anchor link */
+            .route-tab a.active svg {
+                margin-right: 0;
+            }
+            /* show the span element */
+            .route-tab a.active span {
+                visibility: visible;
+                opacity: 1;
+                transition: all 0.2s ease-out;
+            }
+
+/* on smaller viewports show the navigation bar on the side, attached to the left of the screen */
+@media (max-width: 500px) {
+    .route-tab {
+        flex-direction: column;
+        justify-self: start;
+        border-radius: 0 30px 30px 0;
+        padding: 2rem 1.15rem 2rem 0.75rem;
+    }
+        /* change the margin separating the anchor link elements now dividing the elements vertically */
+        .route-tab a {
+            margin: 0.5rem 0;
+        }
+        /* remove the negative margin from the svg elements, as the width is to be taken in full */
+        .route-tab svg {
+            margin: 0;
+        }
+}
+
+
+
 
 .filter-title {
     /* background-color: red; */
@@ -205,15 +343,16 @@ ul.wui-side-menu-items {
     margin: 0 10px;
 }
 
-
 /* demo */
 body {
     margin: 0;
-    font-family: 'arial';
+    font-family: "arial";
     font-weight: 100;
 }
 
-*, *:after, *:before {
+*,
+*:after,
+*:before {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -233,7 +372,6 @@ body {
 
 #map {
     position: relative;
-    /* height: calc(100vh - 110px); <-- without footer*/
     height: calc(100vh - 110px);
     width: 100%;
 }
@@ -242,7 +380,7 @@ input {
     outline: none;
 }
 
-    input[type=search] {
+    input[type="search"] {
         -webkit-appearance: textfield;
         -webkit-box-sizing: content-box;
         font-family: inherit;
@@ -283,7 +421,7 @@ input {
     padding-left: 10px;
 }
 
-@media only screen and (max-width:948px) {
+@media only screen and (max-width: 948px) {
     .search-bar-header {
         display: compact;
     }
@@ -295,7 +433,7 @@ input {
 }
 
 /* Search Bar CSS */
-input[type=search] {
+input[type="search"] {
     background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
     border: solid 1px #ccc;
     padding: 9px 10px 9px 32px;
@@ -304,27 +442,27 @@ input[type=search] {
     -webkit-border-radius: 10em;
     -moz-border-radius: 10em;
     border-radius: 10em;
-    -webkit-transition: all .5s;
-    -moz-transition: all .5s;
-    transition: all .5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
 }
 
-    input[type=search]:focus {
+    input[type="search"]:focus {
         width: 170px;
         background-color: #fff;
-        border-color: rgba(109,207,246,.5);
-        -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
-        -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
-        box-shadow: 0 0 5px rgba(109,207,246,.5);
+        border-color: rgba(109, 207, 246, 0.5);
+        -webkit-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);
+        -moz-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);
+        box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);
     }
 
 a {
-    color: #69C;
+    color: #69c;
     text-decoration: none;
 }
 
     a:hover {
-        color: #F60;
+        color: #f60;
     }
 
 input:-moz-placeholder {
@@ -390,7 +528,7 @@ input::-webkit-input-placeholder {
 .tooltip {
     visibility: hidden;
     z-index: 1;
-    opacity: .40;
+    opacity: 0.4;
     width: 100px;
     /* width: 100%; */
     /* padding: 0px 20px; */
@@ -403,7 +541,6 @@ input::-webkit-input-placeholder {
     transition: all 0.3s ease-in-out;
     box-shadow: 0 0 3px rgba(56, 54, 54, 0.86);
 }
-
 
 /* tooltip  after
 .tooltip::after {
@@ -436,7 +573,7 @@ input::-webkit-input-placeholder {
     visibility: visible;
     transform: translateY(-10px);
     opacity: 1;
-    transition: .3s linear;
+    transition: 0.3s linear;
     animation: brianAnim 1s ease-in-out infinite alternate;
 }
 
@@ -474,7 +611,6 @@ input::-webkit-input-placeholder {
     /* opacity: 0; */
 }
 
-
 /* iPhone Toggle Checkbox CSS */
 .switch {
     display: inline-block;
@@ -495,7 +631,7 @@ input::-webkit-input-placeholder {
     position: absolute;
     right: 0;
     top: 0;
-    transition: .4s;
+    transition: 0.4s;
 }
 
     .slider:before {
@@ -505,7 +641,7 @@ input::-webkit-input-placeholder {
         height: 13px;
         left: 2px;
         position: absolute;
-        transition: .4s;
+        transition: 0.4s;
         width: 13px;
     }
 
@@ -531,7 +667,6 @@ input:checked + .slider {
 }
 /* End  */
 
-
 /* A css to stop from user highlighting text */
 .noselect {
     -webkit-touch-callout: none;
@@ -543,10 +678,10 @@ input:checked + .slider {
 }
 
 .easeFadeIn {
-    -moz-transition: all .2s ease-in;
-    -o-transition: all .2s ease-in;
-    -webkit-transition: all .2s ease-in;
-    transition: all .2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
 }
 
 .avoid-clicks {
@@ -589,7 +724,6 @@ input:checked + .slider {
     background-color: #fa1d15 !important;
 }
 
-
 /* 
 Search bar and animation
 */
@@ -630,7 +764,7 @@ Search bar and animation
         /* float: left; */
         /* width: 500px; */
         text-align: left;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.16)
+        border-bottom: 1px solid rgba(0, 0, 0, 0.16);
     }
 
         .search-bar-results .result-list li a {
@@ -645,40 +779,82 @@ Search bar and animation
                 color: #fff;
             }
 
-
-/* Animate the stuff
------------------------- */
-.spinner {
-    position: absolute;
-    padding-top: 10px;
-    right: 10%;
-    color: goldenrod;
-    -webkit-animation: spinner 1s infinite linear;
-    animation: spinner 1s infinite linear;
-    /* display: none; */
-    /* padding: 0 0.25em; */
-}
-
-@-webkit-keyframes spinner {
+@keyframes click-wave {
     0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
+        height: 40px;
+        width: 40px;
+        opacity: 0.35;
+        position: relative;
     }
 
     100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
+        height: 200px;
+        width: 200px;
+        margin-left: -80px;
+        margin-top: -80px;
+        opacity: 0;
     }
 }
 
-@keyframes spinner {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
+.option-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    transition: all 0.15s ease-out 0s;
+    background: #cbd1d8;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 0.5rem;
+    outline: none;
+    position: relative;
+    z-index: 1000;
+}
+
+    .option-input:hover {
+        background: #9faab7;
     }
 
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
+    .option-input:checked {
+        background: #24d85d;
     }
-}
+
+        .option-input:checked::before {
+            height: 20px;
+            width: 20px;
+            position: absolute;
+            content: "✔";
+            display: inline-block;
+            font-size: 20px;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .option-input:checked::after {
+            -webkit-animation: click-wave 0.65s;
+            -moz-animation: click-wave 0.65s;
+            animation: click-wave 0.65s;
+            background: #24d85d;
+            content: "";
+            display: block;
+            position: relative;
+            z-index: 100;
+        }
+
+    .option-input.radio {
+        border-radius: 50%;
+    }
+
+        .option-input.radio::after {
+            border-radius: 50%;
+        }

@@ -145,18 +145,7 @@ $(document).ready(function () {
             clusterMaxZoom: 14,
             clusterRadius: 27.3
         });
-        //map.addLayer({
-        //    id: 'unclustered-point',
-        //    type: 'circle',
-        //    source: 'crash',
-        //    filter: ['!', ['has', 'point_count']],
-        //    paint: {
-        //        'circle-color': '#11b4da',
-        //        'circle-radius': 4,
-        //        'circle-stroke-width': 1,
-        //        'circle-stroke-color': '#fff'
-        //    }
-        //});
+       
         map.addLayer({
             id: 'clusters',
             type: 'circle',
@@ -284,6 +273,7 @@ $(document).ready(function () {
                                 response = JSON.parse(geo_request.responseText).features[0].text;
                                 $("#tick").html("Take Care!");
                                 $("#road").text(response);
+                                $('#indicator').text(maxCluster.properties.point_count_abbreviated)
                             }
                             else {
                                 geo_request.send(null);
@@ -329,7 +319,60 @@ $(document).ready(function () {
         $("#canvas-holder").html('<canvas id="chart-area"></canvas>');
 
     });
+    $('#scorebtm').on('click', function (e) {
+        e.preventDefault()
+        var light = $('#select-light option:selected').val()
+        var day = $('#select-day option:selected').val()
+        var vehicle = $('#select-vehicle option:selected').val()
+        var driver = $('#select-driver option:selected').val()
+        var hour = $('#select-hour option:selected').val()
+        if (hour.length == 1) {
+            hour = '0' + hour
+        }
+        var link = "https://crash.b-cdn.net/danger_ratings.json";
+        var request = new XMLHttpRequest();
+        request.open("get", link);
+        request.send(null);
+        request.onload = function () {
+            if (request.status == 200) {
+                var dict = JSON.parse(request.responseText);
+                var score = ((dict['feature_importance']["Suburb"] * dict["Suburb"][$('#loc').val()]) +
+                    (dict['feature_importance']["Hour"] * dict["Hour"][hour]) +
+                    (dict['feature_importance']["Day"] * dict["Day"][day]) + 
+                    (dict['feature_importance']["Light_Condition"] * dict["Light_Conditions"][light]) + 
+                    (dict['feature_importance'][driver] * dict["Age"][driver]) + 
+                    (dict['feature_importance'][vehicle] * dict["Vehicle"][vehicle]))
+                Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+                    yAxis: {
+                        min: 0,
+                        max: 100,
+                        title: {
+                            text: 'Risk Level'
+                        }
+                    },
 
+                    credits: {
+                        enabled: false
+                    },
+
+                    series: [{
+                        name: 'Risk',
+                        data: [Math.round(score*100)],
+                        dataLabels: {
+                            format:
+                                '<div style="text-align:center">' +
+                                '<span style="font-size:30px">{y}%</span>' +
+                                '</div>'
+                        },
+                        tooltip: {
+                            valueSuffix: '%'
+                        }
+                    }]
+
+                }))
+            }
+        }
+    })
     $(function () {
         var searchTimeout = null;
         var postCodeQuery = $.connection.postCodeQuery;
@@ -355,7 +398,7 @@ $(document).ready(function () {
                         $('#section09').animate({ 'opacity': 0 }, 500, function () {
                             $(this).html("<span>Got it.</span><br> That means you live in " + current.text() + ".<br> Let's have a look!").animate({ 'opacity': 1 }, 500);
                         });
-                        $("#name").text(current.text());
+                        $(".name").text(current.text());
                         $('#section10').fadeIn(1500);
                         $('.search-bar').fadeOut(300);
                         $('.search-bar-results').fadeOut(100);
@@ -398,11 +441,30 @@ $(document).ready(function () {
                     max_type = type
                 }
             });
+            const nd_types = json.features.map(feature => feature.properties.NODE_TYPE);
+            const unique_nd_types = Array.from(new Set(nd_types));
+            var count_nd = new Array();
+            unique_nd_types.forEach(function (type) {
+                count_nd[type] = 0;
+            });
+            nd_types.forEach(function (type) {
+                count_nd[type] = count_nd[type] + 1;
+            });
+            var max_nd_type = "";
+            var max_nd_count = 0;
+            unique_nd_types.forEach(function (type) {
+                if (count_nd[type] > max_nd_count) {
+                    max_nd_count = count_nd[type]
+                    max_nd_type = type
+                }
+            });
+            $('#node').text(max_nd_type)
             var percentage = Math.round((max / sum) * 100);
             $("#sub_4").text("In " + suburb);
-            $("#num").text(sum);
+            $(".num").text(sum);
             $("#perc").text(percentage);
             $("#actype").text(max_type);
+
             var avg = Math.ceil(json.features.length / 60);
             if (avg == 1 && avg > Math.round(json.features.length / 60)) {
                 $("#avg").text("less than 1");
@@ -411,8 +473,13 @@ $(document).ready(function () {
                 $("#avg").text(avg);
             }
             
-            
 
+            const yd = json.features.filter(feature => feature.properties.YOUNG_DRIVER == 1).length;
+            $("#yd").text(yd);
+            $("#ydp").text(Math.round((yd / sum) * 100));
+            const alc = json.features.filter(feature => feature.properties.ALCOHOLTIME == "Yes").length;
+            $("#alc").text(alc);
+            $("#alcp").text(Math.round((alc / sum) * 100));
             var loc_api = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + suburb.replace(" ", "%20") + ".json?types=locality&country=AU&limit=1&access_token=pk.eyJ1IjoibG9oc2UiLCJhIjoiY2tnbmVtdGM4MDlkdjMxcWg4ODg0MjY0dCJ9.WiZuARwnopVEj478S6oaXg";
             var loc_request = new XMLHttpRequest();
             var coordinate = null;
@@ -529,6 +596,96 @@ $(document).ready(function () {
         });
 
     });
+
+    var gaugeOptions = {
+        chart: {
+          type: 'solidgauge',
+          height: 300,
+          backgroundColor: null,
+        },
+      
+        title: null,
+        pane: {
+          center: ['50%', '85%'],
+          size: '140%',
+          startAngle: -90,
+          endAngle: 90,
+          background: {
+            backgroundColor:
+              Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+            innerRadius: '60%',
+            outerRadius: '100%',
+            shape: 'arc'
+          }
+        },
+      
+        exporting: {
+          enabled: false
+        },
+      
+        tooltip: {
+          enabled: true
+        },
+      
+        // the value axis
+        yAxis: {
+          stops: [
+            [0.1, '#55BF3B'], // green
+            [0.5, '#DDDF0D'], // yellow
+            [0.9, '#DF5353'] // red
+          ],
+          lineWidth: 0,
+          tickWidth: 0,
+          minorTickInterval: null,
+          tickAmount: 2,
+          title: {
+            y: -70
+          },
+          labels: {
+            y: 16
+          }
+        },
+      
+        plotOptions: {
+          solidgauge: {
+            dataLabels: {
+              y: 5,
+              borderWidth: 0,
+              useHTML: true
+            }
+          }
+        }
+      };
+      
+      // The speed gauge
+      var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+        yAxis: {
+          min: 0,
+          max: 100,
+          title: {
+            text: 'Risk Level'
+          }
+        },
+      
+        credits: {
+          enabled: false
+        },
+      
+        series: [{
+          name: 'Risk',
+          data: [0],
+          dataLabels: {
+            format:
+              '<div style="text-align:center">' +
+              '<span style="font-size:30px">{y}%</span>' +
+              '</div>'
+          },
+          tooltip: {
+            valueSuffix: '%'
+          }
+        }]
+      
+      }));
 })
 
 $(window).resize(function () {

@@ -1,40 +1,51 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="hihi" id="sec-4f51">
     <div class="wui-side-menu open pinned">
         <div class="wui-side-menu-header">
-            <a href="#" class="wui-side-menu-trigger"><i class="fa fa-chevron-left" style="padding-left: 15px;"></i></a>
-            <a href="#" class="wui-side-menu-pin-trigger">
-                <i class="fa fa-thumb-tack"></i>
-            </a>
+            <div>
+                <nav class="route-tab">
+                    <a class="active" href="#">
+                        <i class="fa fa-dot-circle-o"></i>
+                        <span>
+                            Black spots
+                        </span>
+                    </a>
+                    <a href="/Home/Map/2">
+                        <i class="fa fa-map-signs"></i>
+                        <span>
+                            Route Planner
+                        </span>
+                    </a>
+                </nav>
+            </div>
         </div>
         <!-- Map filtering menu items -->
         <ul class="wui-side-menu-items">
-            <div class="filter-title noselect">Show spots with...</div>
+            <div class="filter-title noselect">Show spots with only...</div>
             <div class="line-2"></div>
             <li>
                 <a href="#" id="filter-btn" class="wui-side-menu-item">
-                    <i class="box-ico fa fa-car fa-fw"></i>
+                    <input type="checkbox" class="option-input checkbox" />
                     <span class="box-title" id="select">Young drivers</span>
                 </a>
             </li>
             <li>
                 <a href="#" id="filter-btn" class="wui-side-menu-item">
-                    <i class="fa fa-sun-o fa-fw"></i>
-                    <span class="box-title" id="select">Daytime</span>
+                    <input type="checkbox" class="option-input checkbox" />
+                    <span class="box-title day" id="select">Daytime</span>
                 </a>
             </li>
             <li>
                 <a href="#" id="filter-btn" class="wui-side-menu-item">
-                    <i class="fa fa-moon-o fa-fw"></i>
-                    <span class="box-title" id="select">Nighttime</span>
+                    <input type="checkbox" class="option-input checkbox" />
+                    <span class="box-title night" id="select">Nighttime</span>
                 </a>
             </li>
             <li>
                 <a href="#" id="filter-btn" class="wui-side-menu-item">
-                    <i class="box-ico fa fa-road fa-fw"></i>
+                    <input type="checkbox" class="option-input checkbox" />
                     <span class="box-title" id="select">Intersections</span>
                 </a>
             </li>
@@ -123,99 +134,99 @@
             <h4>Accident<br>Risks</h4>
             <div><span style="background-color: #fa1d15"></span>HIGH</div>
             <div><span style="background-color: #e2aa50"></span>MID</div>
-            <div><span style="background-color: #a6f0a8"></span>LOW</div>
+            <div><span style="background-color: #24d85d"></span>LOW</div>
         </div>
     </div>
     <div class="wui-overlay"></div>
-</div>
-@section Styles {
-    <link rel="stylesheet" href="~/Content/nicepage.css" media="screen">
-    <link rel="stylesheet" href="~/Content/Map.css" media="screen">
-    <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet" />
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
-    <link href="~/Content/Spiderfying.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <style type="text/css">
-        .mapboxgl-popup {
-            max-width: 500px;
-        }
-
-        .spider-leg-container .spider-leg-pin {
-            position: relative;
-            width: 22px;
-            height: 22px;
-            margin-left: -8px;
-            margin-top: -18px;
-            background-image: url(https://iter2.blackspothelper.tk/images/sprite.png);
-            background-position: -110px -110px;
-        }
-
-        .spider-leg-container .spider-leg-line {
-            background-color: #e60e0e;
-        }
-
-        .spider-leg-container:hover .spider-leg-line {
-            background-color: #e60e0e;
-        }
-
-        .loader {
-            position: relative;
-            height: 40px;
-            width: 40px;
-            border-radius: 80px;
-            border: 3px solid rgba(0,0,0, .7);
-            top: 28%;
-            top: -webkit-calc(50% - 21px);
-            top: calc(50% - 421px);
-            left: 35%;
-            left: -webkit-calc(50% - 21px);
-            left: calc(50% - 21px);
-            -webkit-transform-origin: 50% 50%;
-            transform-origin: 50% 50%;
-            -webkit-animation: loader 0.75s linear infinite;
-            animation: loader 0.75s linear infinite;
-        }
-
-            .loader:after {
-                content: "";
-                position: absolute;
-                top: -5px;
-                left: 20px;
-                width: 11px;
-                height: 11px;
-                border-radius: 10px;
-                background-color: #000;
+    </div>
+    @section Styles {
+        <link rel="stylesheet" href="~/Content/nicepage.css" media="screen">
+        <link rel="stylesheet" href="~/Content/Map.css" media="screen">
+        <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet" />
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+        <link href="~/Content/Spiderfying.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        <style type="text/css">
+            .mapboxgl-popup {
+                max-width: 500px;
             }
 
-        @@-webkit-keyframes loader {
-            0% {
-                -webkit-transform: rotate(0deg);
+            .spider-leg-container .spider-leg-pin {
+                position: relative;
+                width: 22px;
+                height: 22px;
+                margin-left: -8px;
+                margin-top: -18px;
+                background-image: url(https://iter2.blackspothelper.tk/images/sprite.png);
+                background-position: -110px -110px;
             }
 
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-
-        @@keyframes loader {
-            0% {
-                transform: rotate(0deg);
+            .spider-leg-container .spider-leg-line {
+                background-color: #e60e0e;
             }
 
-            100% {
-                transform: rotate(360deg);
+            .spider-leg-container:hover .spider-leg-line {
+                background-color: #e60e0e;
             }
-        }
-    </style>
-}
-@section Scripts {
-    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
-    <script class="u-script" src="~/Scripts/jquery.js"></script>
-    <script class="u-script" src="~/Scripts/nicepage.js"></script>
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
-    <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
-    <script src="~/signalr/hubs"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.js"></script>
-    <script src="~/Scripts/Spiderfying.js"></script>
-    <script src="~/Scripts/Mapscript.js"></script>
-}
+
+            .loader {
+                position: relative;
+                height: 40px;
+                width: 40px;
+                border-radius: 80px;
+                border: 3px solid rgba(0,0,0, .7);
+                top: 28%;
+                top: -webkit-calc(50% - 21px);
+                top: calc(50% - 421px);
+                left: 35%;
+                left: -webkit-calc(50% - 21px);
+                left: calc(50% - 21px);
+                -webkit-transform-origin: 50% 50%;
+                transform-origin: 50% 50%;
+                -webkit-animation: loader 0.75s linear infinite;
+                animation: loader 0.75s linear infinite;
+            }
+
+                .loader:after {
+                    content: "";
+                    position: absolute;
+                    top: -5px;
+                    left: 20px;
+                    width: 11px;
+                    height: 11px;
+                    border-radius: 10px;
+                    background-color: #000;
+                }
+
+            @@-webkit-keyframes loader {
+                0% {
+                    -webkit-transform: rotate(0deg);
+                }
+
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+            @@keyframes loader {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    }
+    @section Scripts {
+        <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+        <script class="u-script" src="~/Scripts/jquery.js"></script>
+        <script class="u-script" src="~/Scripts/nicepage.js"></script>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+        <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+        <script src="~/signalr/hubs"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.js"></script>
+        <script src="~/Scripts/Spiderfying.js"></script>
+        <script src="~/Scripts/Mapscript.js"></script>
+    }

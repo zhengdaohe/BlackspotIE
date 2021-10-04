@@ -10,6 +10,8 @@
             <li><a href="#Three"></a></li>
             <li><a href="#Four"></a></li>
             <li><a href="#Five"></a></li>
+            <li><a href="#Six"></a></li>
+            <li><a href="#Seven"></a></li>
         </ul>
     </div>
 
@@ -34,7 +36,7 @@
                 <input id="loc" hidden />
                 <div class="search-bar">
                     <form id="searchForm" action="search" method="post" style="display: inline-flex;">
-                        <input id="searchText" type="search" placeholder="E.g 3000" style="font-size: 16px; display: none;">
+                        <input id="searchText" type="search" placeholder="VIC suburb E.g: 3000 - 3996" style="font-size: 16px; display: none;">
                         <!-- loading animation -->
                         <!--  TODO add animation -->
                         <!-- <div id="loadAnim" class="spinner"><i class="fa fa-spinner"></i></div> -->
@@ -52,11 +54,80 @@
     </section>
     <section class="vh " id="Two">
         <div class="sma-content">
-            <span>Did you know?</span>
-            <p class="sma-text">On a monthly average, <span id="avg"></span> road accidents happens at <span id="name"></span>.</p>
-        </div>
+            <span class="sma-header">Did you know?</span>
+            <div class="sma-sidemap-containter">
+                <div class="sma-side-text">
+
+                    <p class="sma-text">On a monthly average, <span id="avg"></span> road accidents happens at <span class="name"></span>.</p>
+                    <p class="sma-text">It is most likely to happen at road <span id="node"></span>.</p>
+                </div>
+                <div class="sma-side-map">
+                    <div id="roadAnimBlock">
+                        <div class='highscraper'>
+                            <div class='wall-one'>
+                                <!-- <div></div> -->
+                            </div>
+                            <div class='wall-two'>
+                                <!-- <div></div> -->
+                            </div>
+                            <div class='roof'>
+                                <div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                                <div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                                <div></div>
+                            </div>
+                        </div>
+
+                        <div class='brickhouse'>
+                            <div class='wall-one'>
+                                <!-- <div></div> -->
+                            </div>
+                            <div class='wall-two'>
+                                <!-- <div></div> -->
+                            </div>
+                            <div class='roof'>
+                                <div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                                <div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='leaves'>
+                            <div></div>
+                        </div>
+                        <div class='wood'></div>
+
+                        <div class='ground-cropped'>
+                            <div class='shadow-brickhouse'></div>
+                            <div class='shadow-highscraper'></div>
+
+                            <div class='car-one red'></div>
+                            <div class='car-one blue'></div>
+                            <div class='car-two black'></div>
+
+                        </div>
 
 
+                        <div class='road'></div>
+                        <div class='ground'>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </section>
     <section class="vh aqua" id="Three">
 
@@ -65,9 +136,12 @@
                 <div class="sma-side-text">
                     <span id="tick">Becareful.</span>
                     <p>
-                        In the last 5 years,
+                        In the last 5 years, the most severe black spot is located at
                         <span id="road"></span><span id="type"></span>
-                        in your area is considered the most severe black spot.
+                        in this suburb.
+                    </p>
+                    <p>
+                        <span id="indicator"></span> car accidents have happend at this spot.
                     </p>
                 </div>
                 <div class="sma-side-map">
@@ -84,14 +158,13 @@
 
     </section>
     <section class="vh" id="Four">
-
         <div class="sma-content">
             <div class="sma-sidemap-containter">
                 <div class="sma-side-text">
                     <span id="sub_4"></span>
                     <p id="desc_4">
                         During the last 5 years,
-                        <span id="num"></span> accidents happend, and <span id="perc"></span>% of them are <span id="actype"></span>.
+                        <span class="num"></span> accidents happend, and <span id="perc">%</span> of them are <span id="actype"></span>.
                     </p>
                 </div>
                 <div class="sma-side-map">
@@ -102,21 +175,149 @@
                 </div>
             </div>
         </div>
-
-
-
     </section>
-    <section class="vh pink" id="Five">
-        <!-- <span>There's More</span> -->
+    <section class="vh midblue" id="Five">
         <div class="sma-content">
-            <span>There's More</span>
-            <p style="font-size: 20px">Want to discover more black spots in Victoria? <br> Check out our map visualiser.</p>
-            <a href="Map" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1">Explore</a>
-            <p style="font-size: 20px;" class="sma-side-text">Or learn more about black spots.</p>
-            <a href="MoreInfo" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1">Read more</a>
-            <a id="replay" href="#" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1">Spot Another Suburb</a>
+            <span class="sma-header">And also...</span>
+            <div class="sma-sidemap-containter">
+                <div class="sma-side-text yellow1">
+                    <img src="/images/driver.svg" style="width: 150px;" />
+                    <p id="desc_4">
+                        <span id="yd"></span> out of the <span class="num"></span> accidents were involved with young drivers.
+                        That is <span id="ydp"></span>% within <span class="name"></span>.
+                    </p>
+                </div>
+                <div class="sma-side-text blue2">
+                    <img src="/images/liqour.svg" style="width: 150px;" />
+                    <p id="desc_4">
+                        <span id="alc"></span> out of the <span class="num"></span> accidents involved with drink-driving.
+                        That is <span id="alcp"></span>% within <span class="name"></span>.
+                    </p>
+                </div>
+            </div>
         </div>
+    </section>
+    <section class="vh yellow" id="Six">
+        <div class="sma-content">
+            <span class="sma-header">Do you know what are the best conditions to drive?</span>
+            <p id="section09" class="box-title" style="font-size: 30px;">
+                Check this out with our risk calculator below for <span class="name"></span>. <br>Feel free to check any combination you want for these conditions!
+            </p>
+            <div class="sma-sidemap-containter">
 
+                <div class="sma-side-text sma-align-end">
+                    <!-- select 1  -->
+                    <div class="sma-choose-box">
+                        <p id="desc_4">Light Condition: </p>
+                        <div class="select">
+                            <select id="select-light">
+                                <option value="Day">Day time</option>
+                                <option value="Dusk/Dawn">Dusk/Dawn</option>
+                                <option value="Dark Street lights on">Dark (street lights on)</option>
+                                <option value="Dark No street lights">Dark (no street lights)</option>
+                                <option value="Dark Street lights off">Dark (street lights off)</option>
+                                <option value="Dark Street lights unknown">Dark (street lights unknown)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- select 4  -->
+                    <div class="sma-choose-box">
+                        <p id="desc_4">Day of week: </p>
+                        <div class="select">
+                            <select id="select-day">
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- select 2 -->
+                    <div class="sma-choose-box">
+                        <p id="desc_4">Vehicle Type:  </p>
+                        <div class="select">
+                            <select id="select-vehicle">
+                                <option value="private_car">Private Vehicle</option>
+                                <option value="Heavy_Vehicle">Heavy Vehicle</option>
+                                <option value="Motor_Vehicle">Motorcycle</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- select 3  -->
+                    <div class="sma-choose-box">
+                        <p id="desc_4">Age of drivers:  </p>
+                        <div class="select">
+                            <select id="select-driver">
+                                <option value="Young_driver">Young Driver (Aged 18 - 25)</option>
+                                <option value="middle_aged_driver">Middle-Aged Driver (Aged 26 - 64)</option>
+                                <option value="Old_driver">Old Driver (Aged 65 & above)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="sma-choose-box">
+                        <p id="desc_4">Hour of the day:  </p>
+                        <div class="select">
+                            <select id="select-hour">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                            </select>
+                        </div>
+                    </div>
+                    <a href="#" id="scorebtm">Calculate</a>
+
+
+                </div>
+                <div class="sma-side-text">
+                    <p id="desc_4">Risk Meter</p>
+                    <figure class="highcharts-figure">
+                        <div id="container-speed" class="chart-container"></div>
+                    </figure>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="vh skyblue" id="Seven">
+        <!-- <span>There's More</span> -->
+        <div class="sma-content" style="padding-bottom: 150px;">
+            <p style="font-size: 20px">Want to discover more black spots in Victoria? <br> Check out our map visualiser.</p>
+            <a href="Map" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1" style="z-index: 10;">View Map</a>
+            <p style="font-size: 20px;" class="sma-side-text">Or learn more about black spots.</p>
+            <a href="MoreInfo" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1" style="z-index: 10;">Read more</a>
+            <a id="replay" href="#" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1" style="z-index: 10;">Try Another Suburb</a>
+        </div>
+        <div class="country-wrap">
+            <div class="street">
+            </div>
+            <div class="street-stripe"></div>
+            <div class="hill">
+            </div>
+        </div>
     </section>
 
 
@@ -245,5 +446,10 @@
     <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
     <script src="~/signalr/hubs"></script>
     <script src="~/Scripts/Spot-My-Area.js"></script>
-
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 }
