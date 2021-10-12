@@ -46,15 +46,15 @@
                             <div class="search-bar-results" id="search-bar1" style="display: none;"><ul class="result-list" id="result1" style="color:#7f7f7f;"></ul></div>
                             <input id="endInput" name="endInput" class="addr" type="search" placeholder="To..." style="font-size: 16px;">
                             <div class="search-bar-results" id="search-bar2" style="display: none;"><ul class="result-list" id="result2" style="color:#7f7f7f;"></ul></div>
-                            <span class="box-prompt" id="errormsg" style="color:red"></span>
+                            <span class="box-prompt" id="errormsg" style="color:#ff7a80"></span>
 
                         </form>
                         <a href="#carousel_d920" id="submitBtn" class="u-text-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-3-base u-radius-45 u-btn-1" style="margin-top: 20px; display: inline-flex;">Search</a>
 
                     </div>
                     <br />
-                    <input id="start" class="locs" hidden />
-                    <input id="end" class="locs" hidden />
+                    <input id="start" value="@ViewBag.start"  class="locs" hidden />
+                    <input id="end" value="@ViewBag.end" class="locs" hidden />
                 </div>
 
             </div>
@@ -64,13 +64,7 @@
             <i class="fa fa-undo"></i>
             <span id="retry-btn-txt" style="padding-left: 10px;">Search Again</span>
         </a>
-        @*<div class="con-tooltip bottom" id="help-tooltip-toggle">
-            <a href="#" style="color: #fdfb5f;"><i class="fa fa-question"></i></a>
-            <div class="tooltip ">
-                <p>Getting lost? Click on me.</p>
-            </div>
-        </div>*@
-        <!-- JS will add toast notification here -->
+
         <section class="map_box_container">
             <!--MAP-->
             <div id='map'></div>
@@ -96,7 +90,12 @@
         </div>
     </div>
 </div>
-
+<footer class="site-footer u-align-center u-clearfix u-footer u-grey-70 u-footer" id="sec-5f03">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <p class="u-small-text u-text u-text-variant u-text-1" style="margin:10px auto !important">2021 Ⓒ Black Spot Helper</p>
+        <p class="u-small-text u-text u-text-variant u-text-1" style="margin:10px auto !important">Created with Black Spot Helper Project Team</p>
+    </div>
+</footer>
 
 @section Styles {
     <link rel="stylesheet" href="~/Content/nicepage.css" media="screen">
@@ -171,4 +170,5 @@
     <script src=https://cdnjs.cloudflare.com/ajax/libs/mapbox-polyline/1.1.1/polyline.js></script>
     <script src="https://unpkg.com/supercluster@7.1.2/dist/supercluster.min.js"></script>
     <script src="~/Scripts/RouteFinder.js"></script>
+
 }

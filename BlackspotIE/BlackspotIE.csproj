@@ -203,6 +203,8 @@
     <Content Include="Content\Map.css" />
     <Content Include="Content\More-info.css" />
     <Content Include="Content\nicepage.css" />
+    <Content Include="Scripts\More-Info.js" />
+    <Content Include="Scripts\nicepage.js" />
     <Content Include="Content\Route-Planner.css" />
     <Content Include="Content\Spiderfying.css" />
     <Content Include="Content\Spot-My-Area.css" />
@@ -222,6 +224,7 @@
     <Content Include="images\95f48891-fec3-4e5b-aca0-4911e1fec885.jpg" />
     <Content Include="images\aa837306-7ce8-4668-8263-26e3c167a921.jpg" />
     <Content Include="images\Brian.jpg" />
+    <Content Include="images\circuit-board.svg" />
     <Content Include="images\construction.jpg" />
     <Content Include="images\constructionzones.jpg" />
     <Content Include="images\default-image.jpg" />
@@ -265,6 +268,7 @@
     <Content Include="images\sig.png" />
     <Content Include="images\Southern-Cross-Drive-and-Ratcliffe-Crescent-in-Florey-intersection_google-maps-screegrab-810x509.png" />
     <Content Include="images\sprite.png" />
+    <Content Include="images\topography.svg" />
     <Content Include="images\Untitled.png" />
     <Content Include="images\Yifei.jpg" />
     <Content Include="images\YoungRoad.jpg" />
@@ -308,7 +312,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Mapscript.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\nicepage.js" />
     <Content Include="Scripts\RouteFinder.js" />
     <Content Include="Scripts\Spiderfying.js" />
     <Content Include="favicon1.ico" />

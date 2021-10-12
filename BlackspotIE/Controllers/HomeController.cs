@@ -35,6 +35,7 @@ namespace BlackspotIE.Controllers
                 }
                 else
                 {
+
                     return View("RouteFinder");
                 }
                 
@@ -45,13 +46,16 @@ namespace BlackspotIE.Controllers
                 return RedirectToAction("Password");
             }
         }
-
-        public ActionResult Map1()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Map(string start, string end)
         {
             if ((bool)Session["isVerified"])
             {
+                ViewBag.start = start;
+                ViewBag.end = end;
                 ViewBag.Title = "View The Map - Black Spot Overwatch";
-                return View();
+                return View("RouteFinder");
             }
             else
             {
@@ -135,11 +139,13 @@ namespace BlackspotIE.Controllers
         {
                 return View();
         }
-        public ActionResult RouteFinder()
+        public ActionResult RouteFinder(string start, string end)
         {
 
             if ((bool)Session["isVerified"])
             {
+                ViewBag.start = start;
+                ViewBag.end = end;
                 ViewBag.Title = "Route Finder - Black Spot Overwatch";
                 return View();
             }

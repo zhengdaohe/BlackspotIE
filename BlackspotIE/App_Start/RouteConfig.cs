@@ -15,8 +15,8 @@ namespace BlackspotIE
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{id}/{start}/{end}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, start = UrlParameter.Optional, end = UrlParameter.Optional }
             );
         }
     }

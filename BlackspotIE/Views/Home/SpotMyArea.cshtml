@@ -1,22 +1,10 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<section class="u-align-center u-clearfix u-custom-color-9 u-section-1" id="sec-bc51">
-
-    <div class="leftnav" style="display: none;">
-        <ul class="leftnav-listing">
-            <li><a href="#One"></a></li>
-            <li><a href="#Two"></a></li>
-            <li><a href="#Three"></a></li>
-            <li><a href="#Four"></a></li>
-            <li><a href="#Five"></a></li>
-            <li><a href="#Six"></a></li>
-            <li><a href="#Seven"></a></li>
-        </ul>
-    </div>
+<section class="u-align-center u-clearfix u-custom-color-9 u-section-1 scroll-container" id="sec-bc51">
 
     <!-- END Left Rail -->
-    <section class="vh yellow" id="One">
+    <section class="vh yellow section1 section" id="One">
         <div class="sma-content">
             <div class="search-bar-header">
                 <!-- <span>Sections</span> -->
@@ -52,7 +40,7 @@
         </div>
 
     </section>
-    <section class="vh " id="Two">
+    <section class="vh section2 section" id="Two">
         <div class="sma-content">
             <span class="sma-header">Did you know?</span>
             <div class="sma-sidemap-containter">
@@ -128,8 +116,9 @@
                     </div>
                 </div>
             </div>
+            </div>
     </section>
-    <section class="vh aqua" id="Three">
+    <section class="vh aqua section3 section" id="Three">
 
         <div class="sma-content" style="width:100% !important">
             <div class="sma-sidemap-containter" style="width:100% !important">
@@ -157,7 +146,7 @@
         </div>
 
     </section>
-    <section class="vh" id="Four">
+    <section class="vh section4 section" id="Four">
         <div class="sma-content">
             <div class="sma-sidemap-containter">
                 <div class="sma-side-text">
@@ -176,19 +165,19 @@
             </div>
         </div>
     </section>
-    <section class="vh midblue" id="Five">
+    <section class="vh midblue section5 section" id="Five">
         <div class="sma-content">
             <span class="sma-header">And also...</span>
             <div class="sma-sidemap-containter">
-                <div class="sma-side-text yellow1">
-                    <img src="/images/driver.svg" style="width: 150px;" />
+                <div class="sma-side-text yellow1" style="padding-left: 90px;">
+                    <img src="~/images/driver.svg" style="width: 150px;" />
                     <p id="desc_4">
                         <span id="yd"></span> out of the <span class="num"></span> accidents were involved with young drivers.
                         That is <span id="ydp"></span>% within <span class="name"></span>.
                     </p>
                 </div>
                 <div class="sma-side-text blue2">
-                    <img src="/images/liqour.svg" style="width: 150px;" />
+                    <img src="~/images/liqour.svg" style="width: 150px;" />
                     <p id="desc_4">
                         <span id="alc"></span> out of the <span class="num"></span> accidents involved with drink-driving.
                         That is <span id="alcp"></span>% within <span class="name"></span>.
@@ -197,15 +186,17 @@
             </div>
         </div>
     </section>
-    <section class="vh yellow" id="Six">
-        <div class="sma-content">
-            <span class="sma-header">Do you know what are the best conditions to drive?</span>
+    <section class="vh pink section6 section" id="Six">
+        <div class="sma-content" style="padding-bottom:30px">
+            <span class="sma-header">
+                Do you know what are the best conditions to drive?
+            </span>
             <p id="section09" class="box-title" style="font-size: 30px;">
-                Check this out with our risk calculator below for <span class="name"></span>. <br>Feel free to check any combination you want for these conditions!
+                How risky is your usual travel times?<br> Let's see if it is safe during those conditions in <span class="name"></span>.
             </p>
             <div class="sma-sidemap-containter">
 
-                <div class="sma-side-text sma-align-end">
+                <div class="sma-side-text sma-align-end" style="padding-bottom: 100px;">
                     <!-- select 1  -->
                     <div class="sma-choose-box">
                         <p id="desc_4">Light Condition: </p>
@@ -261,30 +252,30 @@
                         <p id="desc_4">Hour of the day:  </p>
                         <div class="select">
                             <select id="select-hour">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
+                                <option value="0">0:00 (a.m.)</option>
+                                <option value="1">1:00 (a.m.)</option>
+                                <option value="2">2:00 (a.m.)</option>
+                                <option value="3">3:00 (a.m.)</option>
+                                <option value="4">4:00 (a.m.)</option>
+                                <option value="5">5:00 (a.m.)</option>
+                                <option value="6">6:00 (a.m.)</option>
+                                <option value="7">7:00 (a.m.)</option>
+                                <option value="8">8:00 (a.m.)</option>
+                                <option value="9">9:00 (a.m.)</option>
+                                <option value="10">10:00 (a.m.)</option>
+                                <option value="11">11:00 (a.m.)</option>
+                                <option value="12">12:00 (p.m.)</option>
+                                <option value="13">13:00 (p.m.)</option>
+                                <option value="14">14:00 (p.m.)</option>
+                                <option value="15">15:00 (p.m.)</option>
+                                <option value="16">16:00 (p.m.)</option>
+                                <option value="17">17:00 (p.m.)</option>
+                                <option value="18">18:00 (p.m.)</option>
+                                <option value="19">19:00 (p.m.)</option>
+                                <option value="20">20:00 (p.m.)</option>
+                                <option value="21">21:00 (p.m.)</option>
+                                <option value="22">22:00 (p.m.)</option>
+                                <option value="23">23:00 (p.m.)</option>
                             </select>
                         </div>
                     </div>
@@ -302,11 +293,11 @@
 
         </div>
     </section>
-    <section class="vh skyblue" id="Seven">
+    <section class="vh skyblue section7 section" id="Seven">
         <!-- <span>There's More</span> -->
         <div class="sma-content" style="padding-bottom: 150px;">
-            <p style="font-size: 20px">Want to discover more black spots in Victoria? <br> Check out our map visualiser.</p>
-            <a href="Map" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1" style="z-index: 10;">View Map</a>
+            <p style="font-size: 20px">Plan a safer route for your next trip in Victoria.</p>
+            <a href="Map/2" data-page-id="642891" class="u-palette-3-base u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1" style="z-index: 10;">Plan a route</a>
             <p style="font-size: 20px;" class="sma-side-text">Or learn more about black spots.</p>
             <a href="MoreInfo" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1" style="z-index: 10;">Read more</a>
             <a id="replay" href="#" data-page-id="642891" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1" style="z-index: 10;">Try Another Suburb</a>
@@ -318,19 +309,26 @@
             <div class="hill">
             </div>
         </div>
+        <footer class="site-footer u-align-center u-clearfix u-footer u-grey-70 u-footer" id="sec-5f03">
+            <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+                <p class="u-small-text u-text u-text-variant" style="margin:10px auto !important">2021 Ⓒ Black Spot Helper</p>
+                <p class="u-small-text u-text u-text-variant" style="margin:10px auto !important">Created with Black Spot Helper Project Team</p>
+            </div>
+        </footer>
     </section>
 
 
+
 </section>
-<span style="height: 64px; width: 64px; margin: -522px auto 60px -357px; background-image: none; right: 20px; bottom: 20px;" class="u-back-to-top u-block-63bf-6 u-custom-color-2 u-icon u-icon-circle u-opacity u-opacity-85 u-spacing-15" data-href="#">
-    <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 551.13 551.13"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-2664"></use></svg>
-    <svg class="u-svg-content" enable-background="new 0 0 551.13 551.13" viewBox="0 0 551.13 551.13" xmlns="http://www.w3.org/2000/svg" id="svg-2664"><path d="m275.565 189.451 223.897 223.897h51.668l-275.565-275.565-275.565 275.565h51.668z"></path></svg>
-</span>
 @section Styles {
     <link rel="stylesheet" href="~/Content/nicepage.css" media="screen">
     <link rel="stylesheet" href="~/Content/Spot-My-Area.css" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.css" media="screen">
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
     <style>
+        #fp-nav ul li a span {
+            background: white;
+        }
         .lds-roller {
             display: inline-block;
             position: relative;
@@ -445,11 +443,31 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
     <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
     <script src="~/signalr/hubs"></script>
-    <script src="~/Scripts/Spot-My-Area.js"></script>
+
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.extensions.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#sec-bc51').fullpage({
+                //options here
+                autoScrolling: true,
+                scrollHorizontally: true,
+                navigation: true,
+                navigationPosition: 'left',
+                parallax: true,
+                navigationTooltips: ['Opening', 'Overview', 'Most Severe BS', 'Accident Type Pie Chart', 'Young Driver and Drink Driving', 'Risk Calculator', 'End'],
+                showActiveTooltip: false
+            });
+
+            //methods
+            $.fn.fullpage.setAllowScrolling(false);
+        });</script>
+    <script src="~/Scripts/Spot-My-Area.js"></script>
 }

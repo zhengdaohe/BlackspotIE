@@ -36,7 +36,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
 });
 
-
+if (start.val() != "" && end.val() != "") {
+    $(".wui-overlay").removeClass("visible").addClass("hidden");
+    introJs().hideHints();
+}
 
 function showRedToast() {
     $('.toast').remove();
@@ -244,7 +247,7 @@ documentReady(function () {
             },
         });
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
-        var url = "https://crash.b-cdn.net/Edited_Postcode_suburb.json";
+        var url = "https://crash.b-cdn.net/Edited_Postcode_suburb1.json";
         var request = new XMLHttpRequest();
         request.open("get", url);
         request.send(null);
@@ -274,6 +277,14 @@ documentReady(function () {
                         { units: "kilometers" }
                     )
                 );
+                if (start.val() != "" && end.val() != "") {
+                    current_marker = [new mapboxgl.Marker(), new mapboxgl.Marker({
+                        color: "#ed1581",
+                    })]
+                    current_marker[0].setLngLat([parseFloat(start.val().split(',')[0]), parseFloat(start.val().split(',')[1])])
+                    current_marker[1].setLngLat([parseFloat(end.val().split(',')[0]), parseFloat(end.val().split(',')[1])])
+                    start.change()
+                }
             }
         };
     });
@@ -432,7 +443,7 @@ documentReady(function () {
                 map.getSource("theBox").setData(polygon);
 
                 if (!turf.booleanDisjoint(spots, route_line)) {
-                    if (count != 50) {
+                    if (count != 70) {
                         count = count + 1;
                         polygon = turf.transformScale(polygon, count * 0.01);
                         bbox = turf.bbox(polygon);
@@ -527,13 +538,29 @@ documentReady(function () {
                             var point = index.getClusters(bbox, 14).filter(
                                 (feature) => feature.id == id
                             )[0];
+                            var leaves = index.getLeaves(id, limit = 100, offset = 0);
+                            const node_types = leaves.map(point => point.properties.NODE_TYPE);
+                            const unique_node_types = Array.from(new Set(node_types));
+                            var counting = new Array()
+                            unique_node_types.forEach(function (type) {
+                                counting[type] = 0
+                            });
+                            node_types.forEach(function (type) {
+                                counting[type] = counting[type] + 1
+                            })
+                            var max = unique_node_types[0]
+                            var max_count = 0
+                            unique_node_types.forEach(function (type) {
+                                if (counting[type] > max_count) {
+                                    max = type
+                                }
+                                
+                            });
                             $("#listing").append('<div class="chat-message clearfix" id="' + id + '">\
                         <div class="chat-message-content clearfix">\
-                        <h5>'+ point.geometry.coordinates[0] + ',' + point.geometry.coordinates[1] + '</h5>\
-                        <p>\
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, explicabo quasi ratione odio\
-                            dolorum harum.\
-                            </p>\
+                        <h4>No. '+ (intersect_blackspot.indexOf(id) + 1) + '</h4>\
+                        <h4>Coordinate: '+ point.geometry.coordinates[0].toFixed(6) + ',' + point.geometry.coordinates[1].toFixed(6) + '</h4>\
+                        <h4>Node type: '+ max + '</h4>\
                         </div >\
                     </div ><hr />')
                             $("#" + id).on("click", function () {
@@ -585,6 +612,7 @@ documentReady(function () {
     $(".addr").on("focus", function () {
         $('#errormsg').text('')
     })
+
     $('#submitBtn').on("click", function () {
         var a = start.val();
         var b = end.val();
@@ -615,7 +643,7 @@ documentReady(function () {
         }
     });
     var address_query = function (keyword) { };
-
+    
 
     // Add Tour Guide Click Listener For help button
     //document.getElementById("help-tooltip-toggle").addEventListener(

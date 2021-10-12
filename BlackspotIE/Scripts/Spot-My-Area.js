@@ -14,67 +14,6 @@ function stickyFunction() {
 }
 
 
-
-// LeftNav Sticky
-window.onscroll = function () {
-    var scrollposition = $(window).scrollTop();
-    var headerheight = $('.header').outerHeight();
-    if (scrollposition > 0 && scrollposition < $('.site-footer').offset().top - $('.leftnav-listing').outerHeight() - headerheight) {
-        $('.leftnav-listing').addClass('leftnav-fixed')
-    } else {
-        $('.leftnav-listing').removeClass('leftnav-fixed')
-    }
-    stickyFunction();
-    onScrollHighlighted();
-};
-
-// LeftNav onscroll Highlight
-function onScrollHighlighted() {
-    var leftNavHeight = 0;
-    var scrollHeight = $(document).height();
-    var scrollPosition = $(window).height() + $(window).scrollTop();
-    var contentnavArray = [];
-    var scrollPos = $(document).scrollTop();
-    var header_height = $('.header').outerHeight();
-
-    $('.leftnav-listing li a').each(function () {
-        var currLink = $(this);
-        var refElement = currLink.attr('href').replace('#', '');
-        contentnavArray.push(refElement);
-    });
-
-    $.each(contentnavArray, function (i, val) {
-        var refElement = $('section#' + val);
-        var currLink = $('*[href=\'#' + val + '\']');
-        var nextrefElement;
-        if (contentnavArray.length > i + 1) {
-            nextrefElement = $('section#' + contentnavArray[i + 1]);
-        } else {
-            nextrefElement = $('footer');
-        }
-        if (0 !== refElement.length) {
-            if (refElement.offset().top - header_height <= scrollPos && nextrefElement.offset().top > scrollPos) {
-                $('.leftnav-listing li').removeClass('is_visiable_section');
-                currLink.parents('.leftnav-listing li').addClass('is_visiable_section');
-            } else if (0 === (scrollHeight - scrollPosition) / scrollHeight) {
-                currLink.parents('.leftnav-listing li').removeClass('is_visiable_section');
-                currLink.parents('.leftnav-listing li').addClass('is_visiable_section');
-            } else {
-                currLink.parents('.leftnav-listing li').removeClass('is_visiable_section');
-            }
-        }
-    });
-}
-
-// leftnav on click scroll
-//$(document).on('click', '.leftnav-listing li > a', function () {
-//    var getattr = ($(this).attr('href')).trim();
-//    var headmrg = ($('[id="' + getattr.substr(1) + '"]').css('margin-top')).slice(0, -2);
-//    $('html, body').animate({
-//        scrollTop: $('[id="' + getattr.substr(1) + '"]').offset().top - $('.header').outerHeight() - headmrg
-//    }, 1000);
-//});
-
 function lockScroll() {
     // lock scroll position, but retain settings for later
     var scrollPosition = [
@@ -86,6 +25,8 @@ function lockScroll() {
     html.data('previous-overflow', html.css('overflow'));
     html.css('overflow', 'hidden');
     window.scrollTo(scrollPosition[0], scrollPosition[1]);
+    $('#fp-nav').hide()
+    $.fn.fullpage.setAllowScrolling(false);
 }
 
 function unlockScroll() {
@@ -93,19 +34,17 @@ function unlockScroll() {
     var scrollPosition = html.data('scroll-position');
     html.css('overflow', html.data('previous-overflow'));
     window.scrollTo(scrollPosition[0], scrollPosition[1]);
+    $('#fp-nav').show()
+    $.fn.fullpage.setAllowScrolling(true);
 }
 
 $(document).ready(function () {
     // hide the search dropdown box.
-
-
     lockScroll();
-
 
     var w_width = $(window).width();
 
 
-    onScrollHighlighted();
     var origin = null;
     var json = {
         type: "FeatureCollection",
@@ -123,7 +62,7 @@ $(document).ready(function () {
     });
 
     map.on('load', () => {
-        var url = "https://crash.b-cdn.net/Edited_Postcode_suburb.json";
+        var url = "https://crash.b-cdn.net/Edited_Postcode_suburb1.json";
         var request = new XMLHttpRequest();
         request.open("get", url);
         request.send(null);
@@ -305,7 +244,7 @@ $(document).ready(function () {
         rendered = true;
         feature_list = [];
         maxCluster = null;
-
+        $.fn.fullpage.moveTo(1);
         $('.search-bar-results').hide();
         $('.leftnav').hide();
         $('#section10').hide();
@@ -348,7 +287,9 @@ $(document).ready(function () {
                         max: 100,
                         title: {
                             text: 'Risk Level'
-                        }
+                        },
+                        tickPositions: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+                        minorTickLength: 0,
                     },
 
                     credits: {
@@ -357,11 +298,18 @@ $(document).ready(function () {
 
                     series: [{
                         name: 'Risk',
-                        data: [Math.round(score*100)],
+                        data: [Math.round(score * 100)],
                         dataLabels: {
+                            borderRadius: 5,
+                            backgroundColor: 'rgba(252, 255, 197, 1.0)',
+                            borderWidth: 0,
+                            padding: 15,
+                            borderColor: '#AAA',
+                            y: -500,
+                            shape: 'callout',
                             format:
-                                '<div style="text-align:center">' +
-                                '<span style="font-size:30px">{y}%</span>' +
+                                '<div style="text-align:center;">' +
+                                '<span style="font-size:20px;">It is {y}% risky.</span>' +
                                 '</div>'
                         },
                         tooltip: {
@@ -369,7 +317,7 @@ $(document).ready(function () {
                         }
                     }]
 
-                }))
+                }));
             }
         }
     })
@@ -405,7 +353,7 @@ $(document).ready(function () {
                         $('.leftnav').fadeIn(1500);
                         // un-lock scroll position
                         unlockScroll();
-
+                        
                     })
                     option.appendChild(link);
 
@@ -599,7 +547,7 @@ $(document).ready(function () {
 
     var gaugeOptions = {
         chart: {
-          type: 'solidgauge',
+          type: 'gauge',
           height: 300,
           backgroundColor: null,
         },
@@ -634,6 +582,22 @@ $(document).ready(function () {
             [0.5, '#DDDF0D'], // yellow
             [0.9, '#DF5353'] // red
           ],
+          plotBands: [{
+            from: 0,
+            to: 25,
+            color: 'rgb(155, 187, 89)', // green
+            thickness: '50%'
+          }, {
+            from: 25,
+            to: 75,
+            color: 'rgb(255, 192, 0)', // yellow
+            thickness: '50%'
+          }, {
+            from: 75,
+            to: 100,
+            color: 'rgb(233, 0, 0)', // red
+            thickness: '50%'
+          }],
           lineWidth: 0,
           tickWidth: 0,
           minorTickInterval: null,
@@ -653,6 +617,13 @@ $(document).ready(function () {
               borderWidth: 0,
               useHTML: true
             }
+          },
+          dial: {
+            baseLength: '0%',
+            baseWidth: 10,
+            radius: '100%',
+            rearLength: '0%',
+            topWidth: 1
           }
         }
       };
@@ -664,7 +635,9 @@ $(document).ready(function () {
           max: 100,
           title: {
             text: 'Risk Level'
-          }
+          },
+          tickPositions: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+          minorTickLength: 0,
         },
       
         credits: {
@@ -673,11 +646,18 @@ $(document).ready(function () {
       
         series: [{
           name: 'Risk',
-          data: [0],
+          data: [10],
           dataLabels: {
+            borderRadius: 5,
+            backgroundColor: 'rgba(252, 255, 197, 1.0)',
+            borderWidth: 0,
+            padding: 15,
+            borderColor: '#AAA',
+            y: -500,
+            shape: 'callout',
             format:
-              '<div style="text-align:center">' +
-              '<span style="font-size:30px">{y}%</span>' +
+              '<div style="text-align:center;">' +
+              '<span style="font-size:20px;">It is {y}% risky.</span>' +
               '</div>'
           },
           tooltip: {
@@ -690,7 +670,6 @@ $(document).ready(function () {
 
 $(window).resize(function () {
 
-    onScrollHighlighted();
 });
 
 

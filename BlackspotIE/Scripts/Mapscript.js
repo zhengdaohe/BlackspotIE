@@ -270,7 +270,7 @@ documentReady(function () {
             clusterRadius: 27.3
         });
         SPIDERFY_FROM_ZOOM = 13;
-        var url = "https://crash.b-cdn.net/Edited_Postcode_suburb.json";
+        var url = "https://crash.b-cdn.net/Edited_Postcode_suburb1.json";
         var request = new XMLHttpRequest();
         request.open("get", url);
         request.send(null);

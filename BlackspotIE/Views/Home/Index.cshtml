@@ -1,47 +1,79 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<section class="u-align-center u-clearfix u-image u-shading u-section-1" id="carousel_c016" data-image-width="6000" data-image-height="4000">
-    <div class="u-align-left u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="u-align-center u-container-style u-group u-opacity u-opacity-90 u-shape-rectangle u-white u-group-1">
-            <div class="u-container-layout u-valign-middle u-container-layout-1">
-                <h2 class="u-custom-font u-font-oswald u-text u-text-default u-text-palette-1-base u-text-1">Black Spot Helper</h2>
-                <p class="u-text u-text-2">
-                    There are more dangerous roads in Melbourne than you may think.​​&nbsp;<br> You can drive safer after learning black spots here. Because it is better to arrive home later than never.
-                </p>
-                @Html.ActionLink("Check your suburb", "SpotMyArea", "Home", new { }, new { @class = "u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1" })
-                <a href="#carousel_d920" id="readmore" data-page-id="642891" class="u-text-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-3-base u-radius-45 u-btn-1" style="margin-top: 10px">What is Blackspot?</a>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="u-clearfix u-grey-60 u-section-2" id="sec-03ef" style="background-color:#fff !important">
-    <div class="u-clearfix u-expanded-width-lg u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-gutter-0 u-layout-wrap">
-        <div class="u-layout" style="">
-            <div class="u-layout-row" style="">
-                <div class="u-container-style u-layout-cell u-left-cell u-size-30 u-size-xs-60 u-white u-layout-cell-1" src="">
-                    <div class="u-container-layout u-container-layout-1" style="background-color: #edece4 !important">
-                        <h2 class="u-align-center u-custom-font u-font-arial u-text u-text-body-color u-text-1"> Roads wer​e made for journeys, not​ destinations.</h2>
-                        <div class="u-expanded-width-sm u-expanded-width-xs u-shape u-shape-rectangle u-text-palette-3-light-2 u-shape-1">
-                            <svg class="u-svg-link" preserveAspectRatio="none" viewBox="0 0 160 160" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-3ded"></use></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 0 160 160" x="0px" y="0px" id="svg-3ded" style="enable-background:new 0 0 160 160;"><path d="M151.7,132.5c-3.4,6-7.9,11.7-13.3,16.5c-29.2,26.1-54.1-2.3-88.2-3S0,109.5,0,91.6s14.8-31.3,25.3-45.3S33.4,11,51.8,3
-	c15.3-6.6,33.6-0.4,51.6,0.7c11.2,0.7,28.8-3.8,38.2,0.4s11.8,15.4,9.2,22.8c-1.9,5.4-5.5,11.6-12.8,16.5
-	c-9.3,10.1-4.7,22.9,3.7,33.4c7.8,9.7,17.7,11.7,18.3,23.5C160.4,110.8,157.6,122.2,151.7,132.5L151.7,132.5z"></path></svg>
-                        </div>
-                        <p class="u-align-center u-text u-text-2"> Driving safely is what brings you to your&nbsp;destination. ​Map out&nbsp;your route while discovering accident black spots.&nbsp;Make it worth the trip.</p>
-                        <a href="~/Home/Map" class="u-align-center u-btn u-button-style u-hover-palette-4-base u-palette-3-base u-btn-1" style="margin-left:auto !important">
-                            <span style="font-size: 1.125rem;">Discover Black Spots</span>
-                            <br>
-                        </a>
+<section class="u-align-center u-clearfix u-image u-shading u-section-1" id="carousel_c016" data-image-width="6000"
+         data-image-height="4000">
+    <div class="sma-content">
+        <div class="sma-sidemap-containter">
+            <div class="sma-side-text">
+                <div class="u-clearfix u-sheet u-valign-left u-sheet-1 u-align-center u-container-style u-group u-opacity u-opacity-90 u-shape-rectangle u-white u-group-1">
+                    <div class="u-container-layout u-valign-middle u-container-layout-1">
+                        <h2 class="u-custom-font u-font-oswald u-text u-text-default u-text-palette-1-base u-text-1">
+                            Black Spot
+                            Helper
+                        </h2>
+                        <p class="u-text u-text-2">
+                            There are more dangerous roads in Melbourne than you may think.​​&nbsp;<br> You can drive safer after
+                            learning black spots here. Because it is better to arrive home later than never.
+                        </p>
+                        <a class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-1-base u-radius-45 u-btn-1"
+                           href="/Home/SpotMyArea">Check your suburb</a>
+
                     </div>
                 </div>
-                <div class="u-align-center u-container-style u-image u-layout-cell u-right-cell u-size-30 u-size-xs-60 u-image-1" src="" data-image-width="990" data-image-height="660">
-                    <div class="u-container-layout u-valign-middle u-container-layout-2" src=""></div>
+            </div>
+            <div class="sma-side-text">
+                <div class="u-clearfix u-sheet u-valign-left u-sheet-1 u-align-center u-container-style u-group u-opacity u-opacity-90 u-shape-rectangle u-white u-group-1">
+                    <div class="u-container-layout u-valign-middle u-container-layout-1 pattern-topo">
+                        <p class="u-text u-text-2" style="margin-bottom: 20px;">
+                            Plan a safer route and avoid accident black spots for your trip in
+                            Victoria.<br>
+                        </p>
+                        <input id="postcode" hidden />
+                        <input id="loc" hidden />
+                        <input id="sidefilter" value="" hidden />
+                        <input id="riskfilter" value="High risks!Mid risks!Low risks!" hidden />
+                        <div class="search-box">
+                            <span class="box-prompt">I am going to...</span>
+                            <div class="search-bar">
+                                @using (Html.BeginForm("Map", "Home", FormMethod.Post, new
+                                {
+                                    id = "searchForm",
+                                    name = "searchForm",
+                                    style = "display: flex;flex-direction: column;"
+                                }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input id="startInput" name="startInput" class="addr" type="search" placeholder="From..."
+                                           style="font-size: 16px;">
+                                    <div class="search-bar-results" id="search-bar1" style="display: none;">
+                                        <ul class="result-list" id="result1" style="color:#7f7f7f;"></ul>
+                                    </div>
+                                    <input id="endInput" name="endInput" class="addr" type="search" placeholder="To..."
+                                           style="font-size: 16px;">
+                                    <div class="search-bar-results" id="search-bar2" style="display: none;">
+                                        <ul class="result-list" id="result2" style="color:#7f7f7f;"></ul>
+                                    </div>
+                                    <input id="start" name="start" class="locs" hidden />
+                                    <input id="end" name="end" class="locs" hidden />
+                                    <span class="box-prompt" id="errormsg" style="color:red"></span>
+                                    <input type="submit" id="sub" hidden />
+                                }
+                                <a href="#" id="submitBtn"
+                                   class="u-text-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-2 u-palette-3-base u-radius-45 u-btn-1"
+                                   style="margin-top: 20px; display: inline-flex;">Search</a>
+
+                            </div>
+                            <br />
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 <section class="u-align-center u-clearfix u-section-3" id="carousel_52c8">
     <div class="u-clearfix u-sheet u-sheet-1">
         <h2 class="u-text u-text-1">Did you know?</h2>
@@ -194,78 +226,119 @@
         </div>
     </div>
 </section>
-<section class="u-clearfix u-palette-1-light-2 u-section-4" id="carousel_d920">
+<section class="u-clearfix u-palette-1-light-2 u-section-4 pattern-board" id="carousel_d920">
     <div class="u-clearfix u-sheet u-sheet-1">
-        <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
-            <div class="u-layout">
-                <div class="u-layout-row">
-                    <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-1">
-                        <div class="u-container-layout u-container-layout-1">
-                            <h2 class="u-text u-text-1"></h2>
-                            <h6 class="u-custom-font u-font-arial u-text u-text-2">
-                                In our website, a blackspot is a round area with 100m radius where at least two traffic accidents happend in the past 5 years. It tells us the driving safy and risks in this area.<br /><br />
-                                Blackspots are classified into three risk levels:<br />Low: less than 10 accidents happend
-                                <br />Mid: more than 10 but less than 30 accidents happend<br />High: more than 30 accidents happend
-                            </h6>
-                            <a href="~/Home/MoreInfo" class="u-border-none u-btn u-button-style u-hover-palette-4-base u-palette-2-base u-btn-1" style="align-self: center;">
-                                <span style="font-size: 1.125rem;">Learn More</span>
-                                <br>
-                            </a>
+        <div class="sma-content">
+            <h2 class="u-text u-text-1" id="more">How do we define a black spot?</h2>
+            <div class="sma-sidemap-containter">
+                <div class="sma-side-text">
+                    <div id="radar" class="slow">
+                        <!-- Sweep -->
+                        <s></s>
+                        <!-- Blips -->
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                        <!-- Lines -->
+                        <u></u>
+                        <u></u>
+                        <u></u>
+                        <u></u>
+                        <u></u>
+                        <u></u>
+                        <u></u>
+                        <u></u>
+                    </div>
+
+                    <p class="u-text u-text-2">
+                        In our website, a blackspot is a round area with 100 meter radius where at least two traffic accidents
+                        happend in the past 5 years.
+                    </p>
+                </div>
+                <div class="sma-side-text">
+                    <div class="container-legend" style="margin: 50px;">
+                        <div class="row justify-content-center">
+                            <div class="card align-self-center">
+                                <div class="card-body">
+                                    <div id="legend">
+                                        <h5 class="card-title">Within 100m radius...</h5>
+                                        <div class="scale">
+                                            <div id="gradient-bar"></div>
+                                            <div class="indicator">High (30+ accidents happened.)</div>
+                                            <div class="indicator">Med (11-29 accidents happened.)</div>
+                                            <div class="indicator">Low (less than 10 accidents.)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="u-container-style u-layout-cell u-palette-2-light-1 u-shape-rectangle u-size-30 u-layout-cell-2">
-                        <div class="u-container-layout u-valign-bottom u-container-layout-2" style="display:inline !important">
-                            <h5 class="u-text u-text-body-color u-text-3"> How do I identify a black spot?</h5>
-                            <ol class="u-spacing-20 u-text u-text-4">
-                                <li>Have you witnessed three or more road accidents at the same location in your area?</li>
-                                <li>Do you live near one of Melbourne's busiest highways?</li>
-                                <li>Do you live near a road intersections with limited road visiblity E.g. steep road, sharp curves?</li>
-                                <li>Take care of those spots where car accidents happen frequently.</li>
-                                <li>These are just for starters. There is more you need to know.</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-no-transition u-show-text-on-hover u-gallery-1">
-            <div class="u-gallery-inner u-gallery-inner-1">
-                <div class="u-effect-fade u-gallery-item">
-                    <div class="u-back-slide" data-image-width="1600" data-image-height="1200">
-                        <img class="u-back-image u-expanded" src="~/images/intersection.jpg">
-                    </div>
-                    <div class="u-over-slide u-shading u-over-slide-1">
-                        <h3 class="u-gallery-heading"></h3>
-                        <p class="u-gallery-text"></p>
-                    </div>
-                </div>
-                <div class="u-effect-fade u-gallery-item u-gallery-item-2">
-                    <div class="u-back-slide" data-image-width="2048" data-image-height="2560">
-                        <img class="u-back-image u-expanded" src="~/images/sharpcurves.jpg">
-                    </div>
-                    <div class="u-over-slide u-shading u-over-slide-2">
-                        <h3 class="u-gallery-heading"></h3>
-                        <p class="u-gallery-text"></p>
-                    </div>
-                </div>
-                <div class="u-effect-fade u-gallery-item u-gallery-item-3">
-                    <div class="u-back-slide" data-image-width="5131" data-image-height="3421">
-                        <img class="u-back-image u-expanded" src="~/images/constructionzones.jpg">
-                    </div>
-                    <div class="u-over-slide u-shading u-over-slide-3">
-                        <h3 class="u-gallery-heading"></h3>
-                        <p class="u-gallery-text"></p>
-                    </div>
+                    <p class="u-text u-text-2">
+                        We classify accidents black spots into three risk levels. It provides us the road
+                        safety and risks level in this area.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<section class="u-align-center u-clearfix u-image u-shading u-section-2" id="carousel_c016" data-image-width="6000" data-image-height="4000">
+    <div class="u-align-left u-clearfix u-sheet u-valign-middle">
+
+        <h2 class="u-text u-align-center u-text-1">Our Features</h2>
+        <div class="container">
+            <div class="card">
+                <div class="imgBx">
+                    <img src="/images/sig.png" alt="">
+                </div>
+                <div class="contentBx">
+                    <h2>"Spot My Area" Analyser</h2>
+                    <p>Your current living suburb could be in accident-prone condition.<br>How safe is your suburb?</p>
+                    <a href="/Home/SpotMyArea"><span>Check Suburb Now</span></a>
+                </div>
+
+            </div>
+            <div class="card">
+                <div class="imgBx">
+                    <img src="/images/gps.png" alt="">
+                </div>
+                <div class="contentBx">
+                    <h2>Black Spots Map Visualiser</h2>
+                    <p>Your map visualizer that allows you to discover accident black spots that you may not know.</p>
+                    <a href="/Home/Map/1"><span>View Map Now</span></a>
+                </div>
+
+            </div>
+            <div class="card">
+                <div class="imgBx">
+                    <img src="/images/plan.png" alt="">
+                </div>
+                <div class="contentBx">
+                    <h2>Safe Route Planner<br><br></h2>
+                    <p>Your journey planner that generates a safer route by avoiding as many high-risk black spots as possible.</p>
+                    <a href="/Home/Map/2"><span>Plan Route Now</span></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
 <span style="height: 64px; width: 64px; margin: -522px auto 60px -357px; background-image: none; right: 20px; bottom: 20px;" class="u-back-to-top u-block-63bf-6 u-custom-color-2 u-icon u-icon-circle u-opacity u-opacity-85 u-spacing-15" data-href="#">
     <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 551.13 551.13"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-2664"></use></svg>
     <svg class="u-svg-content" enable-background="new 0 0 551.13 551.13" viewBox="0 0 551.13 551.13" xmlns="http://www.w3.org/2000/svg" id="svg-2664"><path d="m275.565 189.451 223.897 223.897h51.668l-275.565-275.565-275.565 275.565h51.668z"></path></svg>
 </span>
+<footer class="site-footer u-align-center u-clearfix u-footer u-grey-70 u-footer" id="sec-5f03">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <p class="u-small-text u-text u-text-variant u-text-1" style="margin:10px auto !important">2021 Ⓒ Black Spot Helper</p>
+        <p class="u-small-text u-text u-text-variant u-text-1" style="margin:10px auto !important">Created with Black Spot Helper Project Team</p>
+    </div>
+</footer>
 @section Styles {
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/nicepage.css" media="screen">
     <link rel="stylesheet" href="~/Content/Home.css" media="screen">
 
@@ -274,4 +347,129 @@
 @section Scripts {
     <script class="u-script" src="~/Scripts/jquery.js"></script>
     <script class="u-script" src="~/Scripts/nicepage.js"></script>
+    <script>
+        var start = $("#start");
+        var end = $("#end");
+        var gradientBar = document.getElementById("gradient-bar");
+        var barHeight = gradientBar.offsetHeight;
+        var indicators = document.getElementsByClassName("indicator");
+        var numberOfIndicators = 3;
+        var counter = 0;
+        for (var x = 0; x < numberOfIndicators; x++) {
+            indicators[x].style.top = counter + "px";
+            counter += barHeight / 3;
+        }
+        var timer = null;
+        $(document).click(function () {
+            $(".search-bar-results").fadeOut(500);
+        });
+        $('#submitBtn').on("click", function () {
+            var a = start.val();
+            var b = end.val();
+            if (start.val() != "" && end.val() != "") {
+                $('#sub').click()
+            }
+            else {
+                $('#errormsg').text('You have to choose locations from the searching result list.')
+            }
+        })
+        $(".addr").on("input", function () {
+            var input = $(this);
+            clearTimeout(timer);
+            $(".search-bar-results").fadeOut(500);
+            if ($(this).val().length != 0) {
+                var cur = $(this);
+                timer = setTimeout(function () {
+                    keyword = cur.val().replace(" ", "%20").replace("/", "%2F");
+                    var geo_api =
+                        "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+                        keyword +
+                        ".json?bbox=141,-39,150,-34&language=en&access_token=pk.eyJ1IjoibG9oc2UiLCJhIjoiY2tnbmVtdGM4MDlkdjMxcWg4ODg0MjY0dCJ9.WiZuARwnopVEj478S6oaXg";
+                    var loc_request = new XMLHttpRequest();
+                    loc_request.open("get", geo_api);
+                    loc_request.send(null);
+                    console.log("asa");
+                    loc_request.onload = function () {
+                        if (loc_request.status == 200) {
+                            response = JSON.parse(loc_request.responseText);
+                            var selectlist = document.getElementById("result1");
+                            if (input.attr("id") == "endInput") {
+                                selectlist = document.getElementById("result2");
+                            }
+
+                            selectlist.innerHTML = "";
+                            if (response.features.length == 0) {
+                                $("#result").html("Address Not Found!");
+                            }
+                            response.features.forEach(function (loc) {
+                                if (loc.place_name_en.indexOf(" Victoria") != -1) {
+                                    var option = document.createElement("li");
+                                    var link = document.createElement("a");
+                                    if (typeof (loc.address) == "undefined") {
+                                        loc.address = "";
+                                    } else {
+                                        loc.address = loc.address + " ";
+                                    }
+                                    var addr_line =
+                                        loc.address +
+                                        loc.text_en +
+                                        ", " +
+                                        loc.context[1].text_en +
+                                        ", VIC, " +
+                                        loc.context[0].text_en;
+                                    link.innerHTML = addr_line;
+                                    link.id = loc.center[0] + "," + loc.center[1];
+                                    link.href = "#";
+                                    link.addEventListener("click", function (e) {
+                                        input.val(this.innerHTML);
+                                        if (input.attr("id") == "startInput") {
+                                            start.val(this.id);
+                                            var marker = new mapboxgl.Marker();
+                                            marker.setLngLat(loc.center);
+                                            current_marker.push(marker)
+                                            //start.change();
+                                        } else if (input.attr("id") == "endInput") {
+                                            end.val(this.id);
+                                            var marker = new mapboxgl.Marker({
+                                                color: "#ed1581",
+                                            });
+                                            marker.setLngLat(loc.center);
+                                            current_marker.push(marker)
+                                            //end.change();
+                                        }
+                                        return false;
+                                    });
+                                    option.appendChild(link);
+
+                                    selectlist.appendChild(option);
+                                }
+                            });
+                            if (selectlist.childElementCount == 0) {
+
+                                $('.result-list').html("Address Not Found!");
+                            }
+                            if (input.attr("id") == "endInput") {
+                                $("#search-bar2").fadeIn(500);
+                            }
+                            else {
+                                $("#search-bar1").fadeIn(500);
+                            }
+                        } else {
+                            $('.result-list').html("Search Failed!");
+                            if (input.attr("id") == "endInput") {
+                                $("#search-bar2").fadeIn(500);
+                            }
+                            else {
+                                $("#search-bar1").fadeIn(500);
+                            }
+
+                        }
+                    };
+                }, 500);
+            } else {
+                $(".search-bar-results").fadeOut(500);
+            }
+        });
+    </script>
+
 }

@@ -57,7 +57,7 @@
                             @Html.ActionLink("Spot My Area", "SpotMyArea", "Home", new { }, new { @class = "u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-grey-90", style = "padding: 10px 0px;" })
                         </li>
                         <li class="u-nav-item">
-                            @Html.ActionLink("Map Tool", "Map", "Home", new {id = 1 }, new { @class = "u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-grey-90", style = "padding: 10px 0px;" })
+                            @Html.ActionLink("Map Tool", "Map", "Home", new {id = 2 }, new { @class = "u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-grey-90", style = "padding: 10px 0px;" })
                         </li>
                         <li class="u-nav-item">
                             @Html.ActionLink("More info", "MoreInfo", "Home", new { }, new { @class = "u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-grey-90", style = "padding: 10px 0px;" })
@@ -79,7 +79,7 @@
                                     @Html.ActionLink("Spot My Area", "SpotMyArea", "Home", new { }, new { @class = "u-button-style u-nav-link", style = "padding: 20px 0px;" })
                                 </li>
                                 <li class="u-nav-item">
-                                    @Html.ActionLink("Map Tool", "Map", "Home", new {id = 1 }, new { @class = "u-button-style u-nav-link", style = "padding: 20px 0px;" })
+                                    @Html.ActionLink("Map Tool", "Map", "Home", new {id = 2 }, new { @class = "u-button-style u-nav-link", style = "padding: 20px 0px;" })
                                 </li>
                                 <li class="u-nav-item">
                                     @Html.ActionLink("More info", "MoreInfo", "Home", new { }, new { @class = "u-button-style u-nav-link", style = "padding: 20px 0px;" })
@@ -99,12 +99,7 @@
     @RenderBody()
 
 
-    <footer class="site-footer u-align-center u-clearfix u-footer u-grey-70 u-footer" id="sec-5f03">
-        <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-            <p class="u-small-text u-text u-text-variant u-text-1" style="margin:10px auto !important">2021 Ⓒ Black Spot Helper</p>
-            <p class="u-small-text u-text u-text-variant u-text-1" style="margin:10px auto !important">Created with <b>Black Spot Helper Project Team</b></p>
-        </div>
-    </footer>
+    
 
     @RenderSection("scripts", required: false)
 </body>
