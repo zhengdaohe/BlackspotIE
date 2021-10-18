@@ -13,21 +13,12 @@ namespace BlackspotIE.Controllers
         public static BlackSpotDataModelContainer1 DB = new BlackSpotDataModelContainer1();
         public ActionResult Index()
         {
-            if ((bool)Session["isVerified"])
-            {
                 ViewBag.Title = "Black Spot Overwatch";
                 return View();
-            }
-            else
-            {
-                ViewBag.Error = "You need to enter the password first.";
-                return RedirectToAction("Password");
-            }
         }
         public ActionResult Map(int id)
         {
-            if ((bool)Session["isVerified"])
-            {
+
                 ViewBag.Title = "View The Map - Black Spot Overwatch";
                 if (id == 1)
                 {
@@ -38,122 +29,49 @@ namespace BlackspotIE.Controllers
 
                     return View("RouteFinder");
                 }
-                
-            }
-            else
-            {
-                ViewBag.Error = "You need to enter the password first.";
-                return RedirectToAction("Password");
-            }
+
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Map(string start, string end)
         {
-            if ((bool)Session["isVerified"])
-            {
+
                 ViewBag.start = start;
                 ViewBag.end = end;
                 ViewBag.Title = "View The Map - Black Spot Overwatch";
                 return View("RouteFinder");
-            }
-            else
-            {
-                ViewBag.Error = "You need to enter the password first.";
-                return RedirectToAction("Password");
-            }
+           
         }
 
         public ActionResult SpotMyArea()
         {
            
-            if ((bool)Session["isVerified"])
-            {
+            
                 ViewBag.Title = "Spot My Area - Black Spot Overwatch";
                 return View();
-            }
-            else
-            {
-                ViewBag.Error = "You need to enter the password first.";
-                return RedirectToAction("Password");
-            }
+            
         }
         public ActionResult MoreInfo()
         {
             
-            if ((bool)Session["isVerified"])
-            {
+            
                 ViewBag.Title = "MoreInfo - Black Spot Overwatch";
                 return View();
-            }
-            else
-            {
-                ViewBag.Error = "You need to enter the password first.";
-                return RedirectToAction("Password");
-            }
+            
         }
         public ActionResult About()
         {
             
-            if ((bool)Session["isVerified"])
-            {
+            
                 ViewBag.Title = "About Us - Black Spot Overwatch";
                 return View();
-            }
-            else
-            {
-                ViewBag.Error = "You need to enter the password first.";
-                return RedirectToAction("Password");
-            }
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Password(string password)
-        {
-            if (password.Equals("blackspot"))
-            {
-                Session["isVerified"] = true;
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                Session["isVerified"] = false;
-                ViewBag.Error = "Password not correct!!";
-                return View();
-            }
             
         }
-        public ActionResult Password()
-        {
-            if ((bool)Session["isVerified"] == false)
-            {
-                
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
-        }
+
         public ActionResult ErrorPage()
         {
                 return View();
-        }
-        public ActionResult RouteFinder(string start, string end)
-        {
-
-            if ((bool)Session["isVerified"])
-            {
-                ViewBag.start = start;
-                ViewBag.end = end;
-                ViewBag.Title = "Route Finder - Black Spot Overwatch";
-                return View();
-            }
-            else
-            {
-                ViewBag.Error = "You need to enter the password first.";
-                return RedirectToAction("Password");
-            }
         }
     }
 }

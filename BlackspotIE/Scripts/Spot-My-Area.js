@@ -646,7 +646,7 @@ $(document).ready(function () {
       
         series: [{
           name: 'Risk',
-          data: [10],
+          data: [0],
           dataLabels: {
             borderRadius: 5,
             backgroundColor: 'rgba(252, 255, 197, 1.0)',

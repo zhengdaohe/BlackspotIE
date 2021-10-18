@@ -116,7 +116,7 @@
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     </section>
     <section class="vh aqua section3 section" id="Three">
 
@@ -329,6 +329,7 @@
         #fp-nav ul li a span {
             background: white;
         }
+
         .lds-roller {
             display: inline-block;
             position: relative;
@@ -450,7 +451,6 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.extensions.min.js"></script>
     <script>
@@ -463,7 +463,9 @@
                 navigationPosition: 'left',
                 parallax: true,
                 navigationTooltips: ['Opening', 'Overview', 'Most Severe BS', 'Accident Type Pie Chart', 'Young Driver and Drink Driving', 'Risk Calculator', 'End'],
-                showActiveTooltip: false
+                showActiveTooltip: false,
+                fitToSection: false,
+                autoScrolling:false
             });
 
             //methods
